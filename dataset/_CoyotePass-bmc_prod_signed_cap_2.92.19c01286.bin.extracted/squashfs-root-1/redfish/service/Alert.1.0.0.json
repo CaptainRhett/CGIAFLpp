@@ -1,0 +1,725 @@
+{
+    "@Redfish.Copyright": "Copyright © 2015-2019 Insyde Software Corp. All rights reserved.",
+    "@odata.type": "#MessageRegistry.v1_0_0.MessageRegistry",
+    "Id": "Alert.1.0.0",
+    "Name": "Alert Message Registry",
+    "Language": "en",
+    "Description": "This registry defines the alert messages for Redfish",
+    "RegistryPrefix": "Alert",
+    "RegistryVersion":  "1.0.0",
+    "OwningEntity": "Insyde",
+    "Messages": {
+        "DriveInserted": {
+            "Description": "Indicates Redfish has detected a Drive was inserted.",
+            "Message": "Drive %1 has been inserted.",
+            "Severity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": [
+                "string"
+            ],
+            "Resolution": "None."
+        },
+        "DriveRemoved": {
+            "Description": "Indicates Redfish has detected a Drive was removed.",
+            "Message": "Drive %1 has been removed.",
+            "Severity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": [
+                "string"
+            ],
+            "Resolution": "None."
+        },
+        "DriveFaultAssert": {
+            "Description": "Drive Fault asserted.",
+            "Message": "Drive %1 error.",
+            "Severity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": [
+                "string"
+            ],
+            "Resolution": "None."
+        },
+        "DriveFaultDeassert": {
+            "Description": "Drive Fault deasserted.",
+            "Message": "Recovered Drive %1 error.",
+            "Severity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": [
+                "string"
+            ],
+            "Resolution": "None."
+        },
+        "SystemPowerOff": {
+            "Description": "Power has been removed from the system.",
+            "Message": "System Power Turned Off.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SystemPowerOn": {
+            "Description": "Power to the system has been turned on.",
+            "Message": "System Power Turned On.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "240VAPowerOffAssert": {
+            "Description": "240 VA power has been removed.",
+            "Message": "240VA Power is Off.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "240VAPowerOffDeassert": {
+            "Description": "240 VA power is off.",
+            "Message": "240VA Power is restored.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SoftPowerControlFailureAssert": {
+            "Description": "Soft power control failure asserted.",
+            "Message": "Soft Power Control Failed.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SoftPowerControlFailureDeassert": {
+            "Description": "Soft power control failure desasserted.",
+            "Message": "Soft Power Control Recovered from Failure.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "PowerUnitFailureAssert": {
+            "Description": "Power unit failure asserted.",
+            "Message": "Power Unit Failed.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "PowerUnitFailureDeassert": {
+            "Description": "Power unit failure deasserted.",
+            "Message": "Power Unit Recovered from Failure.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "PowerUnitInsufficientResourceAssert": {
+            "Description": "Power unit predictive failure asserted.",
+            "Message": "Power Unit Has Insufficient Resource.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "PowerUnitInsufficientResourceDeassert": {
+            "Description": "Power unit predictive failure deasserted.",
+            "Message": "Power Unit Has Recovered from Insufficient Resource.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "LiqLeakDetectAssert": {
+            "Description": "Liq leak detect asserted.",
+            "Message": "Liq Leak Detect Assert.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "LiqShutdownAssert": {
+            "Description": "Liq shutdown asserted.",
+            "Message": "Liq Shutdown Assert.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SMITimeoutAssert": {
+            "Description": "System Management Interface timeout asserted.",
+            "Message": "SMI Handler Timeout.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SMITimeoutDeassert": {
+            "Description": "System Management Interface timeout deasserted.",
+            "Message": "SMI Handler Recovered from Timeout.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SSBThermTripAssert": {
+            "Description": "Server South Bridge thermal event asserted.",
+            "Message": "SSB Thermal Trip Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SSBThermTripDeassert": {
+            "Description": "Server South Bridge thermal event deasserted.",
+            "Message": "Recovered from SSB Thermal Trip.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "CPUErrorAssert": {
+            "Description": "CPU error asserted.",
+            "Message": "CPU Error: %1.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUErrorDeassert": {
+            "Description": "CPU Error deasserted.",
+            "Message": "Recovered from CPU Error: %1.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUIERRAssert": {
+            "Description": "CPU Internal Error asserted.",
+            "Message": "CPU %1 IERR Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUIERRDeassert": {
+            "Description": "CPU Internal Error deasserted.",
+            "Message": "Recovered CPU %1 IERR.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUThermTripAssert": {
+            "Description": "CPU Thermal error asserted.",
+            "Message": "CPU %1 Thermal Trip Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUThermTripDeassert": {
+            "Description": "CPU Thermal error deasserted.",
+            "Message": "Recovered CPU %1 Thermal Trip.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUConfigErrAssert": {
+            "Description": "CPU Configuration error asserted.",
+            "Message": "CPU %1 Configuration Error Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CPUConfigErrDeassert": {
+            "Description": "CPU Configuration error deasserted.",
+            "Message": "Recovered CPU %1 Configuration Error.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyFailureAssert": {
+            "Description": "Power Supply Failure error asserted.",
+            "Message": "Failure On Power Supply %1 Error Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyFailureDeassert": {
+            "Description": "Power supply failure error deasserted.",
+            "Message": "Recovered Failure from Power Supply %1",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyPredictiveFailureAssert": {
+            "Description": "Power supply predictive failure error asserted.",
+            "Message": "Predictive Failure On Power Supply %1 Error Occurred.",
+            "Severity": "Warning",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyPredictiveFailureDeassert": {
+            "Description": "Power supply failure error deasserted.",
+            "Message": "Recovered Predictive Failure Error from Failure- Power Supply %1.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyACLostAssert": {
+            "Description": "Power supply AC-Lost error asserted.",
+            "Message": "AC Lost On Power Supply %1 Error Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyACLostDeassert": {
+            "Description": "Power supply AC-Lost error deasserted.",
+            "Message": "Recovered AC Lost Error from Power Supply %1.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyConfigurationErrorAssert": {
+            "Description": "Power supply configuration error asserted.",
+            "Message": "Configuration On Power Supply %1 Error Occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "PowerSupplyConfigurationErrorDeassert": {
+            "Description": "Power supply configuration error deasserted.",
+            "Message": "Recovered Configuration Error from Power Supply %1.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CriticalOvertemperatureAssert": {
+            "Description": "Uncorrectable ECC error asserted.",
+            "Message": "There was an uncorrectable ECC error affecting memory at %1.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "Ensure there are no fan failures."
+        },
+        "CriticalOvertemperatureDeassert": {
+            "Description": "Uncorrectable ECC error deasserted.",
+            "Message": "Recovered %1 uncorrectable ECC error.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "CorrectableECCErrorAssert": {
+            "Description": "Correctable ECC error asserted.",
+            "Message": "There was an Correctable ECC error affecting memory at %1.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "1. Verify the DMM is seated properly.\n2. Examine gold fingers on edge of the DIMM to verify contacts are clean.\n3. Inspect the processor socket this DIMM is connected to for bent pins, and if found, replace the board.\n 4. Consider replacing the DIMM as a preventative measure. For multiple occurrences, replace the DIMM."
+        },
+        "CorrectableECCErrorDeassert": {
+            "Description": "Correctable ECC error deasserted.",
+            "Message": "Recovered %1 Correctable ECC error.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "UncorrectableECCErrorAssert": {
+            "Description": "Uncorrectable ECC error asserted.",
+            "Message": "There was an uncorrectable ECC error affecting memory at %1.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "1. Verify the DMM is seated properly.\n2. Examine gold fingers on edge of the DIMM to verify contacts are clean.\n3. Inspect the processor socket this DIMM is connected to for bent pins, and if found, replace the board.\n 4. Consider replacing the DIMM as a preventative measure. For multiple occurrences, replace the DIMM."
+        },
+        "UncorrectableECCErrorDeassert": {
+            "Description": "Uncorrectable ECC error deasserted.",
+            "Message": "Recovered %1 uncorrectable ECC error.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "DIMMRedundancyRegainedAssert": {
+            "Description": "DIMM Redundancy Regained asserted.",
+            "Message": "%1 Redundancy Regained.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "DIMMRedundancyRegainedDeassert": {
+            "Description": "DIMM Redundancy Regained deasserted.",
+            "Message": "%1 Redundancy Regained occurred.",
+            "Severity": "Warning",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "The appropriate Fault LED is lit to indicate which DIMM was the source of the error triggering the Mirroring Failover action, that is the failing DIMM."
+        },
+        "DIMMRedundancyLostAssert": {
+            "Description": "DIMM Redundancy Lost asserted.",
+            "Message": "%1 Redundancy Lost occurred.",
+            "Severity": "Warning",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "The appropriate Fault LED is lit to indicate which DIMM was the source of the error triggering the Mirroring Failover action, that is the failing DIMM."
+        },
+        "DIMMRedundancyLostDeassert": {
+            "Description": "DIMM Redundancy Lost deasserted.",
+            "Message": "%1 has recovered from Redundancy Lost.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "DIMMRedundancyDegradedAssert": {
+            "Description": "DIMM Redundancy Degraded asserted.",
+            "Message": "%1 Redundancy Degraded occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "DIMMRedundancyDegradedDeassert": {
+            "Description": "DIMM Redundancy Degraded deasserted.",
+            "Message": "%1 has recovered from Redundancy Degraded.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "DIMMNonredundantSufficientResourcesFromRedundantAssert": {
+            "Description": "DIMM Non-redundant:Sufficient Resources From Redundant asserted.",
+            "Message": "%1 Non-redundant:Sufficient Resources from Redundant occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "The appropriate Fault LED is lit to indicate which DIMM was the source of the error triggering the Mirroring Failover action, that is the failing DIMM."
+        },
+        "DIMMNonredundantSufficientResourcesFromRedundantDeassert": {
+            "Description": "DIMM Non-redundant:Sufficient Resources From Redundant deasserted.",
+            "Message": "%1 has recovered from Non-redundant:Sufficient Resources from Redundant.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanLowerNonCriticalGoingLowAssert": {
+            "Description": "Fan sensor crossed Non-Critical Going Low.",
+            "Message": "%1 crossed Lower Non-critical.",
+            "Severity": "Warning",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanLowerNonCriticalGoingLowDeassert": {
+            "Description": "Recovered from Fan sensor crossed Non-Critical Going Low.",
+            "Message": "%1 has recovered from crossed Lower Non-critical.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanLowerCriticalGoingLowAssert": {
+            "Description": "Fan sensor crossed Critical Going Low.",
+            "Message": "%1 crossed Lower critical.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanLowerCriticalGoingLowDeassert": {
+            "Description": "Recovered from Fan sensor crossed Critical Going Low.",
+            "Message": "%1 has recovered from crossed Lower Critical.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanRedundancyRegainedAssert": {
+            "Description": "Fan Redundancy Regained asserted.",
+            "Message": "Fan Redundancy Regained.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanRedundancyRegainedDeassert": {
+            "Description": "Fan Redundancy Regained deasserted.",
+            "Message": "Fan Redundancy Regained occurred.",
+            "Severity": "Warning",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanRedundancyLostAssert": {
+            "Description": "Fan Redundancy Lost asserted.",
+            "Message": "Fan Redundancy Lost.",
+            "Severity": "Warning",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanRedundancyLostDeassert": {
+            "Description": "Fan Redundancy Lost deasserted.",
+            "Message": "Fan has recovered from Redundancy Lost.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanRedundancyDegradedAssert": {
+            "Description": "Fan Redundancy Degraded asserted.",
+            "Message": "Fan Redundancy Degraded.",
+            "Severity": "Warning",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanRedundancyDegradedDeassert": {
+            "Description": "Fan Redundancy Degraded deasserted.",
+            "Message": "Fan has recovered from Redundancy Degraded.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanNonredundantSufficientResourcesFromRedundantAssert": {
+            "Description": "Fan Non-redundant:Sufficient Resouces From Redundant asserted.",
+            "Message": "Fan Non-redundant:SufficientResourcesFromRedundant occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanNonredundantSufficientResourcesFromRedundantDeassert": {
+            "Description": "Fan Non-redundant:Sufficient Resouces From Redundant deasserted.",
+            "Message": "Fan has recovered from Non-redundant:SufficientResourcesFromRedundant",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanNonredundantSufficientResourcesFromInsufficientResourcesAssert": {
+            "Description": "Fan Non-redundant:Sufficient Resouces From Insufficient Resources asserted.",
+            "Message": "Fan Non-redundant:SufficientResourcesFromRedundant occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanNonredundantSufficientResoucesFromInsufficientResourcetDeassert": {
+            "Description": "Fan Non-redundant:Sufficient Resouces From Insufficient Resource deasserted.",
+            "Message": "Fan has recovered from Non-redundant:SufficientResourcesFromInsufficientResources.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanNonredundantInsufficientResourcesAssert": {
+            "Description": "Fan Non-redundant:Insufficient Resources asserted.",
+            "Message": "Fan Non-redundant:InsufficientResources occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanNonredundantInsufficientResourcesDeassert": {
+            "Description": "Fan Non-redundant:Insufficient Resources deasserted.",
+            "Message": "Fan has recovered from Non-redundant:InsufficientResources",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanRedundancyDegradedFromFullyRedundantAssert": {
+            "Description": "Fan RedundancyDegradedFromFullyRedundant asserted.",
+            "Message": "Fan RedundancyDegradedFromFullyRedundant occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanRedundancyDegradedFromFullyRedundantDeassert": {
+            "Description": "Fan RedundancyDegradedFromFullyRedundant deasserted.",
+            "Message": "Fan has recovered from RedundancyDegradedFromFullyRedundant",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "FanRedundancyDegradedFromNonredundantAssert": {
+            "Description": "Fan Fan RedundancyDegradedFromNon-redundant occurred. asserted.",
+            "Message": "Fan RedundancyDegradedFromNon-redundant occurred.",
+            "Severity": "Critical",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "FanRedundancyDegradedFromNonredundantDeassert": {
+            "Description": "Fan RedundancyDegradedFromFullyRedundant deasserted.",
+            "Message": "Fan has recovered from RedundancyDegradedFromNon-redundant.",
+            "Severity": "OK",
+            "NumberOfArgs":  0,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureLowerNonCriticalGoingLowAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Lower Non-critical Going Low.",
+            "Severity": "Warning",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureLowerNonCriticalGoingLowDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered %1 crossed Lower Non-critical Going Low.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureLowerNonCriticalGoingHighAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Lower Non-critical Going High.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureLowerNonCriticalGoingHighDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Lower Non-critical Going High.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureLowerCriticalGoingLowAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Lower Critical Going Low.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureLowerCriticalGoingLowDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Lower Critical Going Low.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureLowerCriticalGoingHighAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Lower Critical Going High.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureLowerCriticalGoingHighDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Lower Critical Going High.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureUpperNonCriticalGoingLowAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Upper Non-critical Going Low.",
+            "Severity": "Warning",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureUpperNonCriticalGoingLowDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Upper Non-critical Going Low.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureUpperNonCriticalGoingHighAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Upper Non-critical Going High.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureUpperNonCriticalGoingHighDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Upper Non-critical Going High.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureUpperCriticalGoingLowAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Upper Critical Going Low.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureUpperCriticalGoingLowDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Upper Critical Going Low.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "TemperatureUpperCriticalGoingHighAssert": {
+            "Description": "Temperature sensor threshold breached.",
+            "Message": "%1 crossed Upper Critical Going High.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None"
+        },
+        "TemperatureUpperCriticalGoingHighDeassert": {
+            "Description": "Recoverd from temperature sensor threshold breached.",
+            "Message": "%1 has recovered from crossed Upper Critical Going High.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "SensorFailureAssert": {
+            "Description": "Sensor failure asserted.",
+            "Message": "%1 sensor failure.",
+            "Severity": "Critical",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        },
+        "SensorFailureDeassert": {
+            "Description": "Sensor failure deasserted.",
+            "Message": "Recovered %1 sensor failure.",
+            "Severity": "OK",
+            "NumberOfArgs":  1,
+            "ParamTypes": ["string"],
+            "Resolution": "None."
+        }
+    }
+}

@@ -1,0 +1,13 @@
+case "$1" in
+    renew|bound)
+        mkdir -p /conf/redfish
+        if [ ! -z "$opt248" ]; then
+            rm -f /conf/redfish/ca_url_config
+            echo $opt248 > /conf/redfish/ca_url
+        else
+            rm -f /conf/redfish/ca_etag
+            echo -n > /conf/redfish/ca_url
+            echo -n > /conf/redfish/ca_url_decoded
+        fi
+        ;;
+esac

@@ -1,0 +1,101 @@
+#
+# Functions for use in sysdiag scripts
+#
+#
+
+
+# scripts are executed like this:
+#     sh $i $RESULTSDIR $ZIPDIR
+# scripts are expected to log to each of those directories
+# in subdirs called 'basic' and 'advanced'
+
+RESULTSDIR="$1"
+ZIPDIR="$2"
+TEST_FILE=$(basename "$0")
+
+# Do not change these variables. This is where your output should go.
+HEADER_BASIC="$RESULTSDIR/basic/${TEST_FILE}.hdr"
+HEADER_ADVANCED="$RESULTSDIR/advanced/${TEST_FILE}.hdr"
+ANCHOR_BASIC="$RESULTSDIR/basic/${TEST_FILE}.anc"
+ANCHOR_ADVANCED="$RESULTSDIR/advanced/${TEST_FILE}.anc"
+OUTPUT_BASIC="$RESULTSDIR/basic/${TEST_FILE}.body"
+OUTPUT_ADVANCED="$RESULTSDIR/advanced/${TEST_FILE}.body"
+FOOTER_BASIC="$RESULTSDIR/basic/${TEST_FILE}.ftr"
+FOOTER_ADVANCED="$RESULTSDIR/advanced/${TEST_FILE}.ftr"
+ZIPDIR_BASIC="$ZIPDIR/basic"
+ZIPDIR_ADVANCED="$ZIPDIR/advanced"
+
+# safe method of dumping binary data to the log (html escapes)
+safehexdump() {
+	F="$1"
+	hexdump -C $F | sed 's/[&]/\&amp;/g;s/</\&lt;/g;s/>/\&gt;/g'
+}
+
+# Add functions that make things cleaner here
+DumpSeries()
+{
+    # First, verify that some files exist
+    ls $1 >/dev/null 2>/dev/null
+
+    # Check the return value, if not 0, no matching files were found
+    if [ $? -ne 0 ]
+    then
+        echo "<span class='subtitle'>- $1</span>"
+        echo "No files found"
+        echo
+        return
+    fi       
+
+    # For every file in the series
+    for f in $*
+
+    do
+        # Echo the header
+        echo "<span class='subtitle'>- $f</span>"
+
+        # Verify that the file isn't 0 len
+        if ! [ -s $f ]
+        then
+            echo "File exists, but is 0 length"
+        else
+            # Determine the file type so that we can use the right cat.
+            case $f in 
+                *.gz)   zcat $f;;
+                *.bz2)  bzcat $f;;
+                *)      cat $f;;
+            esac
+        fi
+
+        # Echo the trailing blank line
+        echo
+    done
+}
+
+MakeHtmlHeaders() {
+	cat > $HEADER_BASIC <<-EOF
+	<a href='#$TEST_NAME'>$TEST_NAME</a> - $TEST_COMMENT<br />
+	EOF
+	cp $HEADER_BASIC $HEADER_ADVANCED
+}
+
+MakeHtmlAnchors() {
+	cat > $ANCHOR_BASIC <<-EOF
+	<a name='$TEST_NAME'></a><br />
+	<pre>
+	<span class='title'>$TEST_NAME</span>
+	EOF
+	cp $ANCHOR_BASIC $ANCHOR_ADVANCED
+}
+
+EndHtmlSection() {
+	local out="$1"
+	cat >> $out <<-EOF
+	</pre>
+	<a href='#top'>top</a><br />
+	EOF
+}
+
+EndHtmlSections() {
+	EndHtmlSection $FOOTER_BASIC
+	EndHtmlSection $FOOTER_ADVANCED
+}

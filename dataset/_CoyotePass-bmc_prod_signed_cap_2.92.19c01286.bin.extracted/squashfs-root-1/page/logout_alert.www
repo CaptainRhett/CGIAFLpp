@@ -1,0 +1,11 @@
+<html>
+<head>
+	<META HTTP-EQUIV="refresh" CONTENT="0;URL=../cgi/url_redirect.cgi?url_name=logout_alert">
+	<META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+	<META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+	<script language="JavaScript" src="../js/logout.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body>
+</body>
+</html>

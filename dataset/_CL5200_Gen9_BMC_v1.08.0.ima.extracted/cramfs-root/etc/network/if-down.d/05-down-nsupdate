@@ -1,0 +1,131 @@
+#!/bin/sh
+
+NSUPDATE_BINARY=/usr/local/bin/nsupdate
+NSUPDATE_SCRIPT=/usr/local/bin/nsupdate.sh
+PREV_HOSTFILE=/conf/prev_hostname
+
+METHOD=deregister
+
+INTERFACE=$IFACE
+
+#echo " 05-down-nsupdate : IFACE - $IFACE"
+if [ "$IFACE"  == "lo" ]
+then
+	exit 0
+fi
+
+PID_FILE=/var/run/nsupdate.$IFACE.pid
+if [ -e "$PID_FILE" ]; then
+	PID2KILL=`cat $PID_FILE`
+	kill -9 $PID2KILL
+	rm -f $PID_FILE
+fi
+
+case "$IFACE" in
+#Bond with Vlan
+  bond*.*)
+        BOND_DEV=`echo $IFACE | awk -F. '{ print $1 }'`
+  ;;
+#Normal Bond Device
+  bond*)
+        BOND_DEV=$IFACE
+  ;;
+esac
+
+if [ "$BOND_DEV" != "" ]; then
+[ -f /sys/class/net/$BOND_DEV/bonding/slaves ] || exit 0
+fi
+
+LINK_STATUS=`/sbin/ethtool $IFACE | grep 'Link detected:' | cut -d: -f2 | awk '{ print $1}'`
+
+if [ "$LINK_STATUS" == "no" ]
+then
+	echo "Link status:Down."
+	exit 0
+fi
+
+[ -x $NSUPDATE_BINARY ] || exit 0
+
+[ -f /conf/dns.conf ] || exit 0
+
+. /conf/dns.conf
+
+if [ -z "$DO_DDNS" ]; then
+	exit 0
+fi
+
+IP=`/sbin/ifconfig $IFACE |  grep "inet addr:" | cut -d: -f2 | awk '{ print $1}'`
+
+if [ -z "$IP" ];then
+	exit 0
+fi 
+
+invoke ()
+{
+
+NSUPDATE_SCRIPT=$1
+METHOD=$2
+HOSTNAME=$3
+IP=$4
+DOMAIN_NAME=$5
+TSIG_AUTH=$6
+
+    if [ "$DOMAIN_NAME" == "" ]; then
+        REGISTER_NAME=$HOSTNAME
+    else
+        REGISTER_NAME=$HOSTNAME.$DOMAIN_NAME
+    fi
+	$NSUPDATE_SCRIPT $METHOD $REGISTER_NAME $IP $DOMAIN_NAME $TSIG_AUTH 
+	
+	IPv6=`ifconfig $IFACE | grep inet6 | grep -v Scope:Link | awk '{print $3}' |cut -d'/' -f1`
+    if ! [ -z "$IPv6" ]; then
+
+        for j in $IPv6; do
+            $NSUPDATE_SCRIPT $METHOD $REGISTER_NAME $j $DOMAIN_NAME $TSIG_AUTH 
+        done
+    fi
+
+}
+
+HOST_NAME=`hostname`
+PREV_HOSTNAME=$(cat "$PREV_HOSTFILE")
+DOMAIN_NAME=`grep "domain" /etc/resolv.conf | awk '{ print $2}' | tail -1`
+DNS_IP=`grep "nameserver" /etc/resolv.conf | awk '{ print $2}'`
+if [ "$DNS_IP" == "" ]; then
+	echo "NSUPDATE: Skip update as DNS IP is empty"
+   	exit 0
+fi
+if [ "$TSIG_AUTH" == 'yes' -o "$TSIG_AUTH" == 'y' ]; then
+	TSIG_AUTH=1
+else
+	TSIG_AUTH=0
+fi
+
+if  [ "$HOST_NAME" == "$PREV_HOSTNAME" ]; then
+	if [ "$HOST_NAME" == "" ]; then
+		echo "NSUPDATE: Cannot $METHOD hostname as it is empty"
+		exit 0
+	fi
+	
+	if ! [ "$SET_FQDN" == 'yes' -o "$SET_FQDN" == 'y' -o "$SET_HOSTNAME" == 'yes' -o "$SET_HOSTNAME" == 'y' ]; then
+	invoke $NSUPDATE_SCRIPT $METHOD $HOST_NAME $IP $DOMAIN_NAME $TSIG_AUTH 0 $IFACE
+	fi
+else
+	if [ "$PREV_HOSTNAME" == "" ]; then
+		PREV_HOSTNAME=$HOST_NAME
+	fi
+
+	if ! [ "$SET_FQDN" == 'yes' -o "$SET_FQDN" == 'y' -o "$SET_HOSTNAME" == 'yes' -o "$SET_HOSTNAME" == 'y' ]; then
+    invoke $NSUPDATE_SCRIPT $METHOD $PREV_HOSTNAME $IP $DOMAIN_NAME $TSIG_AUTH 0 $IFACE
+	fi
+
+	if [ "$HOST_NAME" == "$PREV_HOSTNAME" ]; then
+		exit 0
+    fi	
+	if ! [ "$SET_FQDN" == 'yes' -o "$SET_FQDN" == 'y' -o "$SET_HOSTNAME" == 'yes' -o "$SET_HOSTNAME" == 'y' ]; then
+    invoke $NSUPDATE_SCRIPT $METHOD $HOST_NAME $IP $DOMAIN_NAME $TSIG_AUTH 0 $IFACE
+	fi
+fi
+
+exit 0
+	

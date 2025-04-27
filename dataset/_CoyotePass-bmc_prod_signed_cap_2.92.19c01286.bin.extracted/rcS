@@ -1,0 +1,35 @@
+#! /bin/sh
+
+. /etc/init.d/platform-common
+
+PATH=$PATH:/SMASH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
+export PATH
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib:/usr/lib:/usr/local/lib:/lib/sfcb
+export LD_LIBRARY_PATH
+
+# the BMC time will default to the unix epoch unless set
+# ipmid will ultimately set the time by querying the host RTC
+# but until then, at least get us to the right decade
+date -u -s 2016-01-01-00:00 >/dev/null
+
+# Mount devices in /etc/fstab including /proc /sys and /tmp
+mount -a
+
+eval $(get_platform_config)
+
+if [ "$HAS_HOST_IFC" = 1 ]; then
+    # load espi_drv early - needed by PCH boots.
+    /sbin/insmod /bin/module/espi_drv.ko
+fi
+
+# load lpc_drv early - needed by boot_progress.
+/sbin/insmod /bin/module/lpc_drv.ko
+
+/usr/bin/boot_progress.sh MB_RUNTM_INIT_START
+
+if [ "$SAFE_MODE" = "off" ]; then
+    exec /etc/init.d/rcS.normal
+else
+    exec /etc/init.d/rcS.safemode
+fi

@@ -1,0 +1,10 @@
+"use strict";
+
+window.addEventListener("load", function() {
+	"use strict";
+    if (window._noVNC_has_module_support) return;
+    const loader = document.createElement("script");
+    loader.src = "vendor/browser-es-module-loader/dist/" +
+        "browser-es-module-loader.js";
+    document.head.appendChild(loader);
+});

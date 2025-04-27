@@ -1,0 +1,13 @@
+#!/bin/sh 
+# Restart the webserver when the interface comes up
+if [ "$IFACE"  == "lo" ]
+then
+	exit 0
+fi
+
+
+
+rm -rf /var/run/lighttpd.pid
+/etc/init.d/lighttpd.sh restart
+
+exit 0

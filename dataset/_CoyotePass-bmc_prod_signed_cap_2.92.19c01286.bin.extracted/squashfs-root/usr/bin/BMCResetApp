@@ -1,0 +1,173 @@
+#!/bin/sh
+
+# Copyright 2016 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+# The purpose of this utility is to support validation in testing WDT features.
+# It mimics a legacy tool used in the Grantley BMC.
+
+HeartBeat=60
+Interval=5
+
+Usage()
+{
+    printf "Usage: %s -c <command> [value]\n" $0
+    printf "   <command>: WDT_STATUS\n"
+    printf "              WDT_ENABLE\n"
+    printf "              WDT_RESET\n"
+    printf "              WDT_BLOCK_REFRESH\n"
+    printf "              WDT_COUNTER\n"
+    printf "              SW_RESET\n"
+    printf "              BLOCK_SW_RESET\n"
+    printf "\n";
+    exit 1
+}
+
+ResetReason()
+{
+    sed 's/^.*resetreason=\([a-zA-Z]*\).*$/\1/' /proc/cmdline
+}
+
+ResetReasonStr()
+{
+    resetreason=$1
+    case "$resetreason" in
+        "PWR") str="Power ON Reset";;
+        "SWR") str="Software Reset";;
+        "WDT") str="BMC WDT Reset";;
+        "WRM") str="Warm Reset";;
+        "EXP") str="Exception Encountered";;
+        *)     str="Unknown Reset";;
+    esac
+    echo $str
+}
+
+DisplayStatus()
+{
+    eval $(sed 's/: /=/' /proc/wdt)
+    resetReason=$(ResetReason)
+    str=$(ResetReasonStr $resetReason)
+
+    # In Purley, the WDT is always running if enabled.
+    runState=$Status
+    if [ "$runState" = "Enabled" ]; then
+        runState="$runState Running"
+    fi
+
+    # Not sure the intent of this in Grantley-why not just look at reset reason?
+    if [ "$resetReason" = "WDT" ]; then
+        triggerState="WDT expired and restart occurred"
+    else
+        triggerState="WDT not triggered"
+    fi
+
+    printf "BMC WDT Enabled/Disabled: %s\n" "$Status"
+    printf "BMC WDT Run/Stop state  : %s\n" "$runState"
+    printf "BMC WDT Trigger state   : %s\n" "$triggerState"
+    printf "WDT counter value (s)   : 0x%04X\n" $HeartBeat
+    printf "WDT countdown value (s) : 0x%04X\n" $Timeout
+    printf "WDT refresh count (s)   : %d\n" "$Restarts"
+    printf "BMC Reset Reason        : %s\n" "$str"
+}
+
+StartWatchdogDaemon()
+{
+    eval $(sed 's/: /=/' /proc/wdt)
+    if [ $# -ge 1 ]; then
+        HeartBeat=$1
+    fi
+    if [ $# -ge 2 ]; then
+        Interval=$2
+    fi
+    if [ "$Device" = "Closed" ]; then
+        /sbin/start-stop-daemon -S -x /sbin/watchdog \
+            -p /var/run/watchdog.pid -m -- -T $HeartBeat -t $Interval /dev/watchdog
+    fi
+}
+
+StopWatchdogDaemon()
+{
+    PID=""
+    eval $(sed 's/: /=/' /proc/wdt)
+    if [ "$PID" != "" ]; then
+        kill $PID
+    fi
+}
+
+BlockRefresh()
+{
+    value=$1
+    if [ "$value" = "0" ]; then
+        StartWatchdogDaemon
+    elif [ "$value" = "1" ]; then
+        StopWatchdogDaemon
+    else
+        echo "$2: Invalid value $value"
+        Usage
+    fi
+}
+
+SWReset()
+{
+    reboot -n -f -d 0
+}
+
+#########################################################################
+# Main Code
+
+if [ $# -lt 2 ]; then
+    Usage
+fi
+
+if [ $1 != "-c" ]; then
+    echo "ERROR: Invalid command"
+    Usage
+fi
+
+case "$2" in
+    "WDT_STATUS")
+        DisplayStatus
+        ;;
+    "WDT_ENABLE")
+        echo "The WDT is always enabled in Purley. It cannot be disabled"
+        ;;
+    "WDT_RESET")
+        StopWatchdogDaemon
+        StartWatchdogDaemon 1 5
+        ;;
+    "WDT_BLOCK_REFRESH")
+        if [ $# -lt 3 ]; then
+            echo "$2 requires value 0|1"
+            Usage
+        fi
+        BlockRefresh $3
+        ;;
+    "WDT_COUNTER")
+        if [ $# -lt 3 ]; then
+            echo "$2 requires value"
+            Usage
+        fi
+        StopWatchdogDaemon
+        StartWatchdogDaemon $3
+        ;;
+    "SW_RESET")
+        SWReset
+        ;;
+    "BLOCK_SW_RESET")
+        echo "$2 is not supported in Purely"
+        ;;
+    *)
+        Usage
+        ;;
+esac

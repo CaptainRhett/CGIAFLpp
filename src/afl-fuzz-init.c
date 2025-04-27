@@ -1525,7 +1525,7 @@ static void link_or_copy(u8 *old_path, u8 *new_path) {
 }
 
 /* Create hard links for input test cases in the output directory, choosing
-   good names and pivoting accordingly. */
+   good names and pivoting accordingly.在输出目录中为输入测试用例创建硬链接，选择合适的名称并进行相应的调整 */
 
 void pivot_inputs(afl_state_t *afl) {
 
@@ -3259,7 +3259,9 @@ void check_if_tty(afl_state_t *afl) {
 
 /* Set up signal handlers. More complicated that needs to be, because libc on
    Solaris doesn't resume interrupted reads(), sets SA_RESETHAND when you call
-   siginterrupt(), and does other stupid things. */
+   siginterrupt(), and does other stupid things.
+   设置信号处理程序。这实际上需要更复杂，因为 Solaris 上的 libc 
+   不会恢复被中断的 reads()，在调用 siginterrupt() 时会设置 SA_RESETHAND，还会做一些其他愚蠢的事情。 */
 
 void setup_signal_handlers(void) {
 

@@ -1,0 +1,31 @@
+<html>
+  <head>
+        <title>系统诊断 — 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+  </head>
+  <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+        <div class='helpmainhead'>系统诊断 — 帮助</div>
+                <p>使用此页收集有关服务器系统的调试信息.</p>
+
+                <h2>系统调试日志</h2>
+                        <p>分析系统调试日志数据 (系统制造商使用)。</p>
+                <h2>上次日志</h2>
+                        <p>示出的最后一个数据采集的时间跟调试日志下载链接。</p>
+                <h2>加密</h2>
+                        <p>由此产生的存档将包含两个较小的zip文件。这些较小的zip文件将被进行加密，并且只能取得系统制造商的授权才可进行分析。</p>
+                        <ul>
+                            <li>SystemDebugLog.zip - 包含底板管理控制器（BMC）的状态，BMC配置设置，BMC传感器读数电源数据，系统事件日志，传感器读数，SMBIOS表中，CPU机器检查寄存器和PCI配置空间信息。</li>
+                            <li>SystemBMCDebugLog.zip.encrypted - 包含常规系统调试日志加上BMC调试日志</li>
+                        </ul>
+                <div class='helpactionhead'>操作</div>
+
+                <div class='actionsub'>产生日志</div>
+                        <p>点击产生日志按钮来收集最新调试日志数据。由此产生的压缩归档将通过点击调试日志链接被下载到您的系统。您也可以选择在使用调试日志链接，稍后下载数据。需要注意的是，建议经常下载新的数据进行分析。</p>
+   </body>
+</html>

@@ -1,0 +1,125 @@
+#!/bin/sh
+
+# Copyright 2015 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+LOG_TAG=restore-defaults
+KEEP_LAN="LAN"
+KEEP_USER="USRMGR"
+KEEP_HOSTINTF="HOSTINTF"
+KEEP_FAILOVER="fail-over"
+KEEP_FOLDER=""
+KEEP_SNMP=""
+
+usage() {
+    echo "Usage: $0 option (option: 1=default, 2=full, 3=erase/reformat,"
+    echo " 4=erase/reformat but keep user info, 5=default but keep user and lan info)"
+    exit 1
+}
+
+remove_targetted() {
+    # Do not delete server certificates for the web server or ssh
+    logger -t "$LOG_TAG" -p local0.info "removing targetted contents:"
+
+    if [ $OPTION -eq "5" ]; then
+        KEEP_FOLDER="nvfs"
+        KEEP_SNMP="snmp"
+
+        cd /nv/"$KEEP_FOLDER"
+        for subfile in *; do
+            case $subfile in
+                $KEEP_LAN*|$KEEP_USER*|$KEEP_HOSTINTF*|$KEEP_FAILOVER*);;
+
+            *)  logger -t "$LOG_TAG" -p local0.info "remove $subfile"
+                rm -rf $subfile;;
+            esac
+        done
+    fi
+
+    cd /nv
+    for file in *; do
+        case $file in
+            # The only files that stay are here:
+            CA|RestoreDefaultConfiguration|dropbear|sdr|server.pem|"$KEEP_FOLDER"|"$KEEP_SNMP");;
+            # All else get removed.
+            *)  logger -t "$LOG_TAG" -p local0.info "remove $file"
+                rm -rf $file;;
+        esac
+    done
+
+    # Log files remaining - but not to stdout.
+    logger -t "$LOG_TAG" -p local0.info "Files remaining: $(ls /nv)"
+}
+
+clean_nv() {
+    # remove everything
+    logger -t "$LOG_TAG" -p local0.info "removing full contents: /nv"
+    rm -rf /nv/*
+}
+
+reformat_jffs() {
+    # Nuclear option; erase and reformat the flash partition.
+    set -e # Exit on error
+    fs=nv
+    chrdev=`getmtd -c $fs`
+    blkdev=`getmtd -b $fs`
+
+    logger -t "$LOG_TAG" -p local0.info "unmount /$fs"
+    umount /$fs
+
+    logger -t "$LOG_TAG" -p local0.info "Erasing and reformatting $chrdev"
+    flash_eraseall $chrdev
+
+    logger -t "$LOG_TAG" -p local0.info "mount $blkdev as /$fs"
+    mount -t jffs2 $blkdev /$fs
+}
+
+reformat_jffs_save_userinfo() {
+    # similar to reformat_jffs(), but keep user info unchanged.
+    logger -t "$LOG_TAG" -p local0.info "reformat jffs but keep user info unchanged. Backup first"
+    cp -f /nv/nvfs/USRMGR_ID-0.bin /nv/nvfs/USRMGR_ID-0.bin.mac /tmp
+    reformat_jffs
+    logger -t "$LOG_TAG" -p local0.info "format finished. Restore user info from backup"
+    mkdir -p /nv/nvfs
+    mv /tmp/USRMGR_ID-0.bin /tmp/USRMGR_ID-0.bin.mac /nv/nvfs
+}
+
+if [ $# -ne 1 ]; then
+    logger -t "$LOG_TAG" -p local0.info "$0 invoked with invalid argument! $*"
+    usage
+fi
+OPTION=$1
+
+set -e # Exit on error
+
+logger -t "$LOG_TAG" -p local0.info "Restoring Configuration! Option: $OPTION"
+
+# Select the restore option
+case "$OPTION" in
+    2)  clean_nv;;
+    3)  reformat_jffs;;
+    4)  reformat_jffs_save_userinfo;;
+    1|5)  remove_targetted;;
+    *)  usage;;
+esac
+
+# Copy default configuration files to /nv
+cp -f /etc/port.conf /nv/port.conf
+cp -f /etc/kvm.inf /nv/kvm.inf
+cp -f /etc/MouseMode /nv/MouseMode
+cp -f /etc/service.conf /nv/service.conf
+
+# final step (in case BMC is reset during restore) is to delete marker
+logger -t "$LOG_TAG" -p local0.info "Completed"
+exit 0

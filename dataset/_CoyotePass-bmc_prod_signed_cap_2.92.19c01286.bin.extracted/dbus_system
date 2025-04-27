@@ -1,0 +1,40 @@
+#!/bin/sh
+
+NAME=dbus_system
+
+cmd=$1
+
+rc=1
+case "$cmd" in
+start|restart)
+    /etc/init.d/monit reload $NAME
+    usleep 1000000
+    monitored=$(monit status $NAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit $cmd $NAME
+        rc=$?
+    fi
+    ;;
+stop)
+    monitored=$(monit status $NAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit stop $NAME
+        rc=$?
+    fi
+    ;;
+status)
+    monit status dbus-daemon
+    rc=$?
+    ;;
+*)
+    echo "Usage: $0 {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+
+if [ $rc -ne 0 ]; then
+    /etc/monit/scripts/dbus_system-init $cmd
+    rc=$?
+fi
+
+exit $?

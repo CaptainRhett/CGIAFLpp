@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Storage Information - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>Storage Information - Help</div>
+        <p>Use this page to collect system storage information about the server.</p>
+
+        <h2>Port Destination</h2>
+        <p>Identifies the physically labelled port or board position where the storage device is located. EXAMPLE: “SATA Port 0” or “PCIe Port 1”.</p>
+        <h2>Device Index</h2>
+        <p>Index of this device in the IPMI Get /Set Boot Options command as provided by BIOS. This is used by PSME to identify the boot device index for use in Set Boot Options IPMI command when a change of boot device is required.</p>
+        <h2>Connector Type</h2>
+        <p>Connector Type indicator:
+        <ul>
+        <li>00h = Unknown</li>
+        <li>01h = SATA</li>
+        <li>02h = SAS</li>
+        <li>03h = PCIe</li>
+        <li>04h = m.2</li>
+        <li>05h = USB</li>
+        <li>06h = U.2</li>
+        </ul>
+        </p>
+        <h2>Protocol</h2>
+        <p>Device Protocol indicator:
+        <ul>
+        <li>00h = Unknown</li>
+        <li>01h = IDE</li>
+        <li>02h = AHCI</li>
+        <li>03h = NVMe</li>
+        <li>04h = USB</li>
+        </ul>
+        </p>
+        <h2>Device Type</h2>
+        <p>Device Type indicator:
+        <ul>
+        <li>01h = HDD</li>
+        <li>02h = SSD</li>
+        <li>03h = Optical - DVD</li>
+        <li>04h = Optical - Blue Ray*</li>
+        <li>05h = USB</li>
+        </ul>
+        </p>
+        <h2>Capacity(GB)</h2>
+        <p>Device Capacity in GB.</p>
+        <h2>RPM</h2>
+        <p>Device RPM value (applicable for HDDs. 0 for Non HDD).</p>
+        <h2>Model</h2>
+        <p>The model string of the device.</p>
+        <h2>Serial</h2>
+        <p>The serial number of the device.</p>
+        <h2>PCI Class Code</h2>
+        <p>PCI Class code in case of PCIe storage device, 0 otherwise.</p>
+        <h2>Vendor ID</h2>
+        <p>PCI Vendor ID in case of PCIe storage device, 0 otherwise.</p>
+        <h2>Device ID</h2>
+        <p>PCI Device ID in case of PCIe storage= device, 0 otherwise.</p>
+        <h2>Firmware Version</h2>
+        <p>The firmware version of the device.</p>
+    </body>
+</html>

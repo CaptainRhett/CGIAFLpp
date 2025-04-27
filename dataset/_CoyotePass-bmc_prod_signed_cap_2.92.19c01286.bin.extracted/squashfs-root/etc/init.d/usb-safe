@@ -1,0 +1,109 @@
+#! /bin/sh
+NAME=usb
+DAEMON=/usr/bin/$NAME
+PID_FILE=/var/run/$NAME.pid
+LOG_TAG="usb-init"
+
+start_usb() {
+# Check if drivers are loaded
+# Load if not
+if [ -f /etc/enable_gadget_drv ]; then
+    enable_gadget_drv=1
+fi
+local max_retry=50
+if [ $enable_gadget_drv -eq 1 ]; then
+    READY_FILE=/sys/module/ast_vhub/parameters/vhub_ready
+else
+    READY_FILE=/sys/module/ikvm_vmass/parameters/vhub_ready
+fi
+
+if [ $enable_gadget_drv -eq 1 ]; then
+    if ! lsmod | grep -q 'configfs'; then
+        /sbin/insmod /bin/module/configfs.ko
+        /sbin/insmod /bin/module/usb-common.ko
+        /sbin/insmod /bin/module/udc-core.ko
+        /sbin/insmod /bin/module/ast_vhub.ko
+        /sbin/insmod /bin/module/libcomposite.ko
+        wait_vhub_ready=1
+    fi
+else
+    if ! lsmod | grep -q 'ikvm_vmass'; then
+        /sbin/insmod /bin/module/ikvm_vmass.ko
+        wait_vhub_ready=1
+    fi
+fi
+
+if [ $wait_vhub_ready -eq 1 ]; then
+    echo -n "waiting for udc_vhub_ready"
+
+    # wait for the driver to respond that the vhub is ready
+    while [ "$(cat $READY_FILE 2>/dev/null)" == "0" ]; do
+        max_retry=$((max_retry - 1))
+        [[ $max_retry -eq 0 ]] && break
+        sleep .1
+    done
+fi
+
+if [ $enable_gadget_drv -eq 1 ]; then
+    if ! lsmod | grep -q 'f_vmass'; then
+        /sbin/insmod /bin/module/f_vmass.ko
+        /sbin/insmod /bin/module/vmass.ko
+    fi
+else
+    if ! lsmod | grep -q 'usb_hid'; then
+        /sbin/insmod /bin/module/usb_hid.ko
+    fi
+fi
+
+/etc/monit/scripts/usb-init start
+/etc/monit/scripts/uima-init start
+
+# wait for the uima task to actually get started by monit
+max_retry=50
+while ! ps | grep -q uima$; do
+    max_retry=$((max_retry-1))
+    [[ $max_retry -eq 0 ]] && break
+    sleep .1
+done
+
+/etc/monit/scripts/uiso-init start
+# wait for the uiso task to actually get started by monit
+max_retry=50
+while ! ps | grep -q uiso$; do
+    max_retry=$((max_retry-1))
+    [[ $max_retry -eq 0 ]] && break
+    sleep .1
+done
+}
+
+stop_usb() {
+/etc/monit/scripts/ikvm-init stop 
+/etc/monit/scripts/uiso-init stop
+/etc/monit/scripts/uima-init stop
+/etc/monit/scripts/usb-init stop
+
+/sbin/rmmod ikvm_vmass
+/sbin/rmmod usb_hid
+}
+
+
+case "$1" in
+start)
+    # Run 
+    start_usb
+    rc=$?
+    ;;
+
+stop)
+    stop_usb
+    /sbin/rmmod usb_hid
+    rc=$?
+    ;;
+
+*)
+    echo "Invalid argument - $1"
+    usage $0
+    rc=2
+    ;;
+esac
+

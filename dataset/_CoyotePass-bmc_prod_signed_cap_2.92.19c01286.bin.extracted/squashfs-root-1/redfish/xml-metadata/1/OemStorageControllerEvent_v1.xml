@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# InsydeOem Schema:  OemStorageControllerEvent  v1.0.0                                 -->
+<!--#                                                                                      -->
+<!--#  @section LICENSE                                                                    -->
+<!--#                                                                                      -->
+<!--# Copyright (c) 2015-2021, Insyde Software Corp. All Rights Reserved.                  -->
+<!--#                                                                                      -->
+<!--# You may not reproduce, distribute, publish, display, perform, modify, adapt,         -->
+<!--# transmit, broadcast, present, recite, release, license or otherwise exploit          -->
+<!--# any part of this publication in any form, by any means, without the prior            -->
+<!--# written permission of Insyde Software Corp.                                          -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemStorageControllerEvent">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="OemStorageControllerEvent" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The OemStorageControllerEvent schema contains properties related to the Oem Storage Controller Event."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent Oem Storage Controller Events."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemStorageControllerEvent.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This type contains Get Link Status command response."/>
+      <Annotation Term="OData.LongDescription" String="This type shall contain properties from Get Link Status command response."/>
+      <EntityType Name="OemStorageControllerEvent" BaseType="OemStorageControllerEvent.OemStorageControllerEvent">
+
+        <Property Name ="SeqNo" Type = "Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Sequence Number of event."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Sequence Number of event."/>
+        </Property>
+        <Property Name ="EventId" Type = "Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The ID of event."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the ID of event."/>
+        </Property>
+        <Property Name ="Level" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The level of event."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the level of event."/>
+        </Property>
+        <Property Name ="Time" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The timestamp of event."/>
+          <Annotation Term="OData.LongDescription" String="Indicates the timestamp of event."/>
+        </Property>
+        <Property Name ="Message" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Description of event."/>
+          <Annotation Term="OData.LongDescription" String="Indicates the Description of event."/>
+        </Property>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

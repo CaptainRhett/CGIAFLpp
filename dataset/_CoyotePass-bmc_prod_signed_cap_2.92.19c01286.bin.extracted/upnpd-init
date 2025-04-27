@@ -1,0 +1,92 @@
+#!/bin/sh
+
+# Copyright 2016-2017 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+NAME=upnp_dev
+DAEMON=/usr/bin/${NAME}
+PID_FILE=/var/run/${NAME}.pid
+LOG_TAG=upnpd-init
+LOG_CFG=/nv/daemon-log.cfg
+LOGEXEC=/etc/monit/scripts/log-exec.sh
+UPNP_LOG=/var/log/${NAME}.log
+UPNP_LOG_EN=0
+
+if [ -f $LOG_CFG ]; then
+    UPNP_LOG_EN=$(grep -c "^UPNP_LOG_EN=1" $LOG_CFG)
+fi
+
+start() {
+    ENABLED=$(sed -n 's/UPNPD=\([0|1]\).*$/\1/p' /nv/service.conf)
+    if [ $ENABLED -eq 0 ]; then
+        monit unmonitor upnp_dev
+        logger -t $LOG_TAG -p local0.info "$NAME is disabled in /nv/service.conf - unmonitoring $DAEMON"
+        return 1
+    fi
+    logger -t "$LOG_TAG" -p local0.info "Starting BMC Service $NAME"
+    if [ $(ps | grep -c "[u]pnp_dev") -eq 0 ]; then
+        if [ $UPNP_LOG_EN -eq 1 ]; then
+            /sbin/start-stop-daemon -S -p $PID_FILE -m -b -x $LOGEXEC -- -l $UPNP_LOG -e $DAEMON && return 0
+        else
+            /sbin/start-stop-daemon -S -p $PID_FILE -m -b -x $DAEMON && return 0
+        fi
+        rc=$?
+        reason="Unable to execute $DAEMON; rc: $rc"
+    else
+        reason="UPNP is already running"
+        echo $reason
+    fi
+    logger -t "$LOG_TAG" -p local0.info "Failed to start $NAME: $reason"
+    return 1
+}
+
+stop() {
+    logger -t "$LOG_TAG" -p local0.info "Shutting down BMC Service $NAME"
+    for signal in 9; do
+        /sbin/start-stop-daemon -K -s $signal -p $PID_FILE
+        sleep 1
+        if [ $(ps | grep -c "[u]pnp_dev") -ne 0 ]; then
+            killall -$signal $NAME
+            sleep 1
+        fi
+        if [ $(ps | grep -c "[u]pnp_dev") -eq 0 ]; then
+            logger -t "$LOG_TAG" -p local0.info "Successful shutdown of BMC Service $NAME"
+            return 0
+        fi
+    done
+    logger -t "$LOG_TAG" -p local0.info "Failed to stop $NAME; $(ps | grep '[u]pnp_dev')"
+    return 1
+}
+
+case "$1" in
+    start)
+    start
+    ;;
+    stop)
+    stop
+    ;;
+    status)
+    echo "Checking UPNP status: "
+    ps | grep "[u]pnp_dev" || echo "stopped"
+    ;;
+    restart)
+    stop
+    start
+    ;;
+    *)
+    echo "Usage: UPNP {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+exit $?

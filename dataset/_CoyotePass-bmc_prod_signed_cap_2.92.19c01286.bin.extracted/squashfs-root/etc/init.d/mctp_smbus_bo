@@ -1,0 +1,43 @@
+#!/bin/sh
+
+SVCNAME=mctp_smbus_bo
+
+cmd=$1
+CONFIG="/tmp/monit.d/105-mctp_smbus_bo.conf"
+
+rc=1
+case "$cmd" in
+start|restart)
+    if [ ! -f $CONFIG ]; then
+        /etc/init.d/monit reload $SVCNAME
+        sleep 2
+    fi
+    monitored=$(monit status $SVCNAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit $cmd $SVCNAME
+        rc=$?
+    fi
+    ;;
+stop)
+    monitored=$(monit status $SVCNAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit stop $SVCNAME
+        rc=$?
+    fi
+    ;;
+status)
+    monit status $SVCNAME
+    rc=$?
+    ;;
+*)
+    echo "Usage: $0 {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+
+if [ $rc -ne 0 ]; then
+    /etc/monit/scripts/mctp_smbus_bo-init $cmd
+    rc=$?
+fi
+
+exit $?

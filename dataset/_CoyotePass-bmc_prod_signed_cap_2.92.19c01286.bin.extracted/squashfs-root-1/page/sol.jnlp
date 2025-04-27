@@ -1,0 +1,24 @@
+<jnlp spec="1.0+" codebase="https://%s/">
+  <information>
+    <title>Insyde Java SOL Viewer</title>
+    <vendor>Insyde</vendor>
+    <description>Java Web Start Application</description>
+  </information>
+
+  <security>
+   <all-permissions/>
+  </security>
+
+  <resources>
+    <j2se version="1.6.0+" initial-heap-size="32M" max-heap-size="32M"/>
+    <jar href="SOL.jar" download="eager" main="true" version="%s"/>
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+  </resources>
+
+  <application-desc main-class="tw.com.insyde.sol.SOLMain">
+    <argument>%s</argument> <!-- IPv4 IP address of BMC Server -->
+    <argument>%d</argument> <!-- SSH_Port = 623 -->
+    <argument>%s</argument> <!-- Username used in RCMP+ IPMI LAN channel authentication -->
+  </application-desc>
+</jnlp>

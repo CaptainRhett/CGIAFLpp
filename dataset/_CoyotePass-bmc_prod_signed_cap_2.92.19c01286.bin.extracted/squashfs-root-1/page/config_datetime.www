@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+    <title></title>
+    <link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/basic.css" type="text/css">
+    <script language="javascript" src="../js/utils.js"></script>
+    <script language="javascript" src="../js/inputvalidation.js"></script>
+    <script language="javascript" src="../../js/iframe_event.js"></script>
+    <script language="javascript" src="../../js/config_datetime.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body>
+    <span class="LoadingStyle" id="loading"></span>
+    <table border="0" cellpadding="0" cellspacing="5" width="500">
+        <tr>
+            <td width="20px"><img src="../images/arrow_red.gif" border="0" class="redarrow"></td>
+            <td>
+                <div id="caption_div" class="mtitle"></div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+    <table border="0" cellpadding="0" cellspacing="5" class="content_table">
+        <tr>
+            <td></td>
+            <td colspan="2"><div id="kcs_segment_state" class="Categorytext"></div></td>
+        </tr>
+    </table>
+    <div>
+        <tr><td>&nbsp;</td>
+          <td width ="100px">&nbsp;</td>
+                <span id="hh_field" class="labelhead"></span> &nbsp;<font color="#00AAFF" size="7">:</font>&nbsp;
+                <span id="min_field" class="labelhead"></span> &nbsp;<font color="#00AAFF" size="7">:</font>&nbsp;
+                <span id="ss_field" class="labelhead"></span>
+        </tr>
+    </div>
+    <tr></tr>
+    <div>
+        <tr><td>&nbsp;</td>
+          <td width ="100px">&nbsp;</td>
+                <span id="yy_field" class="labelhead"></span> &nbsp;<font color="#00AAFF" size="4">/</font>&nbsp;
+                <span id="mon_field" class="labelhead"></span> &nbsp;<font color="#00AAFF" size="4">/</font>&nbsp;
+                <span id="dd_field" class="labelhead"></span>&nbsp; &nbsp;
+                <span id="wdd_field" class="labelhead"></span>
+        </tr>
+    <div>
+    <table border="0" cellpadding="0" cellspacing="5" class="content_table">
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+            <td></td>
+            <td class= "bold" width ="135">
+                <label id="timezone_td" class="labelhead">
+                </label>
+            </td>
+            <td colspan="2">
+                <select name="timezone_list" class="labelhead" id="timezone" />
+                <br> <font color="#ff0000">*The time zone setting will valid after BMC reboot.</font>
+            </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr class="enable_ntp_server">
+            <td></td>
+            <td class= "bold" width="135">
+		<label id="ntp_enable_lb" class="labelhead">
+		</label>
+	    </td>
+            <td>
+                <input type="checkbox" id="ntp_enable" value="0"/>
+            </td>
+        </tr>
+        <td></td>
+    </table>
+
+    <table border="0" cellpadding="0" cellspacing="5" class="content_table">
+        <tr>
+            <td></td>
+            <td>
+                <fieldset  class="wide group">
+                    <legend id="ntp_server_legend" class="legendcaption"></legend>
+                     <table border="0" cellspacing="0" cellpadding="0" width ="100%">
+                        <tr><td>&nbsp;</td></tr>
+                        <tr><td width ="25px">&nbsp;</td>
+                            <td class= "bold" width ="165">
+                                <label id="server_pri_td" class="labelhead">
+                                </label>
+                                </td><td>
+                                <input type="text" size=36 id="ntp_server_pri" class="labelhead"/>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td>
+                            <td></td><td></td>
+                        </tr>
+                        <tr><td>&nbsp;</td>
+                            <td class= "bold" width ="165">
+                                <label id="server_sec_td" class="labelhead">
+                                </label>
+                                </td><td>
+                                <input type="text" size=36 id="ntp_server_2nd"  class="labelhead"/>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td></td><td></td></tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    <tr><td>&nbsp;</td>
+        <td></td><td></td>
+    </tr>
+    <div class="btnTray">
+        <tr><td>&nbsp;</td>
+            <tr><td width ="80px">&nbsp;</td>
+               <input type="button" class="classicBtn" id="save_btn"/>
+        </tr>
+    </div>
+</body>
+</html>

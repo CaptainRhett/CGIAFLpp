@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>Modify User - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>Modify User - Help</div>
+            <p>Use this page to  modify a user's password and permissions.</p>
+
+            <h2>User Name</h2>
+                <p>The name of the user being configured.</p>
+                <p>The name is a string of 1 to 16 alpha-numeric characters or '.','_' or '-'.</p>
+                <p>The name must begin with an alpha-numeric character or '_'.</p>
+
+            <h2>Change Password</h2>
+                <p>To change the user's password, check this box which will enable the password fields.</p>
+
+            <h2>Password, Confirm Password</h2>
+                <p>System has simple password mode and complex password mode.</p>
+                <p>Users can change system password mode in "Security Settings" page.</p>
+                <p>Enter and confirm the new password here.</p>
+                <ul>
+                    <li>Simple password criteria:
+                        <ul>
+                            <li>The password must be between 6 and 20 characters long.</li>
+                        </ul>
+                    </li>
+                    <li>Complex password criteria:
+                        <ul>
+                            <li>1.The password length must be between 8 to 20 characters.</li>
+                            <li>2.The password must contain at least a space or one of the following special characters.
+                                 <ul>
+                                      <li>!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</li>
+                                 </ul>
+                            </li>
+                            <li>3.The password must conatain below 3 types of the following characters.
+                                 <ul>
+                                      <li>at least one uppercase letter(A to Z)</li>
+                                      <li>at least one lowercase letter(a to z)</li>
+                                      <li>at least one digits(0 to 9)</li>
+                                 </ul>
+                            </li>
+                            <li>The password cannot be the same as the username or username in reverse order.</li>
+                            <li>The password must have at least two new characters when compared with previous password.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <h2>Network Privilege</h2>
+                <p>The level of network privilege to assign to this user.</p>
+                    <ul>
+                        <li>- Administrator
+                        <li>- Operator
+                        <li>- User
+                        <li>- No Access
+                    </ul>
+
+            <h2>Enable Access</h2>
+                <p>Check this box to enable the user for LAN access.
+                Also enables/disables SOL, KVM, Media Redirection.
+                </p>
+
+            <h2>SNMPv3 Access</h2>
+            <p>Enable/Disable for SNMPv3 accessible.</p>
+            <h2>SNMPv3 Access Level</h2>
+            <p>The Access Level for SNMPv3.</p>
+            <ul>
+                <li>- Read-Only</li>
+                <li>- Read-Write</li>
+            </ul>
+            <h2>SNMPv3 Authentication Protocol</h2>
+            <p>The Authentication Protocol for SNMPv3.</p>
+            <ul>
+                <li>- MD5</li>
+                <li>- SHA</li>
+            </ul>
+            <h2>SNMPv3 Authentication Passphrase</h2>
+            <p>Follow the rule to set the passphrase using in authentication protocol for SNMPv3.</p>
+            <ul>
+                <li>The passphrase's length needs to be set between 8 and 12.</li>
+                <li>If SNMPv3 authentication Protocol or the SNMPv3 privacy Protocol/Passphrase had been changed, the authentication passphrase must be set again for security demand.</li>
+            </ul>
+            <h2>SNMPv3 Privacy Protocol</h2>
+            <p>The Privacy Protocol for SNMPv3.</p>
+            <ul>
+                <li>- AES</li>
+            </ul>
+            <h2>SNMPv3 Privacy Passphrase</h2>
+            <p>Follow the rule to set the passphrase using in privacy protocol for SNMPv3.</p>
+            <ul>
+                <li>The passphrase's length needs to be set between 8 and 12.</li>
+                <li>If SNMPv3 authentication Protocol/Passphrase or SNMPv3 privacy Protocol had been changed, the privacy passphrase must be set again for security demand.</li>
+            </ul>
+       <a href='./ewsprivilege.html' target="_blank" rel="noopener noreferrer">Click here to get detailed network privilege of each level</a>
+
+           <div class='helpactionhead'>Actions</div>
+               <div class='actionsub'>Modify</div>
+                   <p>Click 'Modify' to accept the modifications and return to the user list.</p>
+               <div class='actionsub'>Cancel</div>
+                   <p>Click 'Cancel' to return to the list without modifying the new user.</p>
+    </body>
+</html>

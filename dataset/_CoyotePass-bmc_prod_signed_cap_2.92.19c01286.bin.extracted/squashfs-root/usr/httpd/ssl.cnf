@@ -1,0 +1,152 @@
+# OpenSSL configuration file used for generating certificate requests.
+
+oid_section		= new_oids
+
+# Use a configuration file that has only X.509v3 extensions in its main [= default] section.
+[ new_oids ]
+
+# The default CA section
+[ ca ]
+default_ca	= CA_default
+
+# Definition of the default CA section
+[ CA_default ]
+dir           = /nv/CA/root            # Where everything is kept 
+certs         = $dir/certs             # Where the issued certs are kept
+crl_dir       = $dir/crl               # Where the issued crl are kept
+database      = $dir/index.txt         # Database index file
+
+new_certs_dir = $dir/newcerts          # Default place for new certs
+
+certificate   = $dir/cacert.pem        # The CA certificate
+serial        = $dir/serial            # The current serial number
+crlnumber     = $dir/crlnumber         # The current crl number
+
+crl           = $dir/crl.pem           # The current crl (cert list)
+private_key   = $dir/private/cakey.pem # The private key
+RANDFILE      = $dir/.rand             # Private random number file
+
+x509_extensions = usr_cert             # The extentions to add to the cert
+
+name_opt      = ca_default
+cert_opt      = ca_default
+
+default_days     = 3652                # valid 10 years + 2 days to certify root CA
+default_crl_days = 30                  # valid ~30 days for certificate revoke list
+default_md       = sha256              # which hash method to use, e.g. SHA1 or MD5
+preserve         = no                  # keep passed DN ordering
+
+# A few difference way of specifying how similar the request should look 
+# For the CA type, the listed attributes must be the same, and the optional 
+# and supplied fields are just that
+policy = policy_match
+
+# For the CA policy
+[ policy_match ]
+countryName            = match
+stateOrProvinceName    = match
+organizationName       = match
+organizationalUnitName = optional
+commonName             = optional
+emailAddress           = optional
+
+# For the 'anything' policy. At this point in time, you must list all acceptable
+# 'object' types.
+[ policy_anything ]
+countryName            = optional
+stateOrProvinceName    = optional
+localityName           = optional
+organizationName       = optional
+organizationalUnitName = optional
+#commonName            = supplied
+commonName             = optional
+emailAddress           = optional
+
+[ req ]
+default_bits       = 2048
+default_keyfile    = privkey.pem
+distinguished_name = ca_dn
+attributes         = ca_attr
+x509_extensions    = cert_type					# The extentions to add to the self signed cert
+prompt             = no
+encrypt_key        = yes
+string_mask        = nombstr
+
+[ ca_dn ]
+countryName            = US
+stateOrProvinceName    = OR
+localityName           = Hillsboro
+0.organizationName     = Intel Corporation
+organizationalUnitName = BMC Software Team
+commonName             = Intel
+emailAddress           = bmc.engineer@intel.com 
+
+[ ca_attr ]
+
+[ usr_cert ]
+# These extensions are added when 'ca' signs a request.
+# This goes against PKIX guidelines but some CAs do it and some software 
+# requires this to avoid interpreting an end user certificate as a CA.
+basicConstraints=CA:FALSE
+# Here are some examples of the usage of nsCertType. If it is omitted 
+# the certificate can be used for anything *except* object signing.
+# This is OK for an SSL server. 
+# nsCertType = server               # For an object signing certificate this would be used. 
+# nsCertType = objsign                # For normal client use this is typical 
+# nsCertType = client, email          # and for everything including object signing: 
+# nsCertType = client, email, objsign # This is typical in keyUsage for a client certificate. 
+# keyUsage   = nonRepudiation, digitalSignature, keyEncipherment
+# This will be displayed in browser's comment listbox. 
+nsComment="Certificate self issued by Server"
+# PKIX recommendations harmless if included in all certificates. 
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+# This stuff is for subjectAltName and issuerAltname.
+# - Import the email address
+#subjectAltName=email:copy
+# - Copy subject details 
+#issuerAltName=issuer:copy
+# This is the base URL for all others URL addresses if not supplied
+#nsBaseUrl = https://bmc.insyde.com/ssl/
+# This is the link where to download the latest Certificate
+# - Revocation List (CRL)
+#nsCaRevocationUrl = https://bmc.insyde.com/ssl/bmc-ca.crl
+# This is the link where to revoke the certificate
+#nsRevocationUrl  = https://bmc.insyde.com/ssl/revocation.html? 
+# This is the location where the certificate can be renewed
+#nsRenewalUrl  = https://bmc.insyde.com/ssl/renewal.html? 
+# This is the link where the CA policy can be found
+#nsCaPolicyUrl  = https://bmc.insyde.com/ssl/policy.html 
+# This is the link where we can get the issuer certificate
+#issuerAltName = URI:https:https://bmc.insyde.com/ssl/bmc.crt
+# This is the link where to get the latest CRL
+#crlDistributionPoints = URI:https://bmc.insyde.com/ssl/sopac-ca.crl
+
+[ cert_type ]
+basicConstraints=CA:TRUE
+nsCertType=server
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ v3_req ]
+basicConstraints=CA:FALSE
+keyUsage=nonRepudiation, digitalSignature, keyEncipherment
+
+[ v3_ca ]
+basicConstraints=CA:TRUE
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ crl_ext ]
+# CRL extensions. 
+# Only issuerAltName and authorityKeyIdentifier make any sense in a CRL.
+# issuerAltName=issuer:copy 
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ proxy_cert_ext ]
+basicConstraints=CA:FALSE
+nsComment="Certificate issued by http://bmc.insyde.com/ssl/ proxy server"
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer:always
+proxyCertInfo=critical,language:id-ppl-anyLanguage,pathlen:3,policy:foo
+

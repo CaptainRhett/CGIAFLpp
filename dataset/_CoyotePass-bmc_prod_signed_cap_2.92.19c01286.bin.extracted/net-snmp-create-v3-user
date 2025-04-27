@@ -1,0 +1,409 @@
+#!/bin/sh
+#
+# this shell script is designed to add new SNMPv3 users
+# to Net-SNMP config file.
+
+#if [ $(ps | grep -c '[Ss]nmpd') -eq 0 ]; then
+#    echo "snmpd daemon is not exist."
+#else
+#    echo "Apparently at least one snmpd demon is already running."
+#    echo "You must stop them in order to use this command."
+#    exit 1
+#fi
+
+usmUserString=usmUser
+Aalgorithm="MD5"
+Xalgorithm=""
+token=rwuser
+user=""
+new_user=""
+lineNum=0
+line=""
+action="add"
+actionFlag=0
+disable=0
+
+checkActionFlg() {
+    if [ $actionFlag -eq 0 ]; then
+        actionFlag=1
+    else
+        usage=yes
+        done=1
+    fi
+}
+
+while test "x$done" = "x" -a "x$1" != "x" -a "x$usage" != "xyes"; do
+    case "$1" in
+        -*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+        *) optarg= ;;
+    esac
+
+unset shifted
+case $1 in
+    --version|--ver*)
+      echo 5.9.4.pre2
+      exit 0
+      ;;
+    --help)
+      usage="yes"
+      ;;
+
+    -A|-a)
+	shift
+	if test "x$1" = "x" ; then
+	    echo "You must specify an authentication algorithm or pass phrase"
+	    exit 1
+	fi
+        case $1 in
+            MD5|SHA|SHA-512|SHA-384|SHA-256|SHA-224)
+	    Aalgorithm=$1
+	    shift
+	    ;;
+            md5|sha)
+	    Aalgorithm=$(echo "$1" | tr a-z A-Z)
+	    shift
+	    ;;
+            *)
+	    apassphrase=$1
+	    shift
+	    ;;
+        esac
+        ;;
+    -X|-x)
+	shift
+	if test "x$1" = "x" ; then
+	    echo "You must specify an encryption algorithm or pass phrase"
+	    exit 1
+	fi
+        case $1 in
+            AES|AES128)
+	    Xalgorithm=$1
+	    shift
+	    ;;
+            aes|aes128)
+	    Xalgorithm=$(echo "$1" | tr a-z A-Z)
+	    shift
+	    ;;
+            *)
+	    xpassphrase=$1
+	    shift
+	    ;;
+	esac
+	;;
+    -ro)
+        token="rouser"
+	shift
+	;;
+    -disable)
+        disable=1
+        shift
+        ;;
+    -g)
+        checkActionFlg
+        action="get"
+        shift
+        ;;
+    -d)
+        checkActionFlg
+        action="del"
+        shift
+        ;;
+    -s)
+        checkActionFlg
+        action="set"
+        shift
+        ;;
+    -c)
+        checkActionFlg
+        action="changeName"
+        shift
+        ;;
+    -*)
+	echo "unknown suboption to $0: $1"
+	usage=yes
+	done=1
+	;;
+    *)
+        done=1
+        ;;
+    esac
+done
+
+if test "x$usage" = "xyes"; then
+    echo ""
+    echo "Usage:"
+    echo "  net-snmp-create-v3-user [-ro] [-A authpass] [-X privpass]"
+    echo "                          [-a MD5|SHA|SHA-512|SHA-384|SHA-256|SHA-224] [-x AES] [username]"
+    echo "  net-snmp-create-v3-user [-s] [-ro] [-disable] [username]"
+    echo "  net-snmp-create-v3-user [-d username]"
+    echo "  net-snmp-create-v3-user [-g username]"
+    echo "  net-snmp-create-v3-user [-c ] [username] [new_username]"
+    echo ""
+    exit
+fi
+
+checkUserValid () {
+    string=`echo $1 | grep "^#"`
+    error=0
+
+    if [ "$1" == "$string" ]; then
+        error=1
+    elif [ $1 == "$usmUserString" ]; then
+        error=1
+    elif [ $1 == "dlmod" ]; then
+        error=1
+    fi
+
+    if [ $error -ne 0 ]; then
+        echo "Invalid user string"
+    fi
+    return $error
+}
+
+checkUserExistInFile () {
+    lineNum=$(awk "/\<$1\>/ {print FNR}" $2)
+    if test "x$lineNum" = "x" ; then
+#        echo "No user duplicated"
+        return 0
+    else
+        return 1
+    fi
+    return 0
+}
+
+deleteUserInFile() {
+    lineNum=$(awk "/\<$1\>/ {print FNR}" $2 | sort -r)
+    error=0
+
+    for l in $lineNum; do
+    if test "x$l" != "x" ; then
+        if [ $l -gt 0 ]; then
+            sed -i "${l}d" $2
+            if [ $? -ne 0 ]; then
+                error=1
+            fi
+        else
+            error=1
+        fi
+    fi
+    done
+    if [ $error -ne 0 ]; then
+        echo "Fail to delete user '$1' in file '`basename $2`'."
+    fi
+    return $error
+}
+
+toHexIfSpecialChar(){
+    name=$1
+    if [ -z "${name##*[^[:alnum:]]*}" ]; then #Not 0-9, A-Z, a-z
+        name=0x$(echo -n $name | xxd  -c 32 -p | sed 's/ *$//g')
+    fi
+    echo $name
+}
+
+changeUserNameInFile() {
+    lineNum=$(awk "/\<$1\>/ {print FNR}" $3 | sort -r)
+    error=0
+
+    if test "x$lineNum" == "x" ; then
+        echo "Username '$1' not exist in file '`basename $3`'."
+        error=1
+    fi
+    for l in $lineNum; do
+    if test "x$l" != "x" ; then
+        if [ $l -gt 0 ]; then
+            sed -i "${l}s/\<$1\>/$2/g" $3
+            if [ $? -ne 0 ]; then
+                error=1
+            fi
+        else
+            error=1
+        fi
+    fi
+    done
+    if [ $error -ne 0 ]; then
+        echo "Fail to change username '$1' in file '`basename $3`'."
+    fi
+    return $error
+}
+
+user=$1
+shift
+if test "x$user" = "x" ; then
+    echo "You must specify a user name"
+    exit 1
+else
+    checkUserValid $user
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    prompt=yes
+fi
+
+if [ "$action" ==  "changeName" ]; then
+    new_user=$1
+    shift
+    if test "x$new_user" = "x" ; then
+        echo "You must specify a new user name"
+        exit 1
+    else
+        checkUserValid $new_user
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+    fi
+fi
+if [ "$action" ==  "add" ]; then
+    if test "x$apassphrase" = "x" ; then
+        echo "You must specify an authentication pass-phrase"
+        exit 1
+    else
+        passphraseLen=${#apassphrase}
+        if [ $passphraseLen -lt 8 ]; then
+            echo "Auth passphrase length too short"
+            exit 1
+        fi
+        prompt=yes
+    fi
+    if test "x$prompt" = "xyes" -a "x$Xalgorithm" != "x" ; then
+        if test "x$xpassphrase" = "x" ; then
+            echo "You must specify an encryption pass-phrase"
+            exit 1
+        else
+            passphraseLen=${#xpassphrase}
+            if [ $passphraseLen -lt 8 ]; then
+                echo "Encrypt passphrase length too short"
+                exit 1
+            fi
+        fi
+    fi
+fi
+
+outdir="/nv/snmp/persistent"
+authenticateFile="$outdir/snmpd.conf"
+if test ! -d "$outdir"; then
+    mkdir "$outdir"
+fi
+if test ! -d $authenticateFile ; then
+    touch $authenticateFile
+fi
+
+prefix="/nv/snmp"
+datarootdir="${prefix}/share"
+authorizeFile="${datarootdir}/snmp/snmpd.conf"
+if test ! -d $authorizeFile ; then
+    touch $authorizeFile
+fi
+
+if [ "$action" ==  "add" ]; then
+    deleteUserInFile $(toHexIfSpecialChar $user) $authenticateFile
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    line="createUser $user $Aalgorithm \"$apassphrase\" $Xalgorithm \"$xpassphrase\""
+    echo $line >> $authenticateFile
+
+    deleteUserInFile $user $authorizeFile
+    if [ $? -ne 0 ]; then
+        exit 2
+    fi
+    line="$token $user"
+    sed -i "/#USM_User/a $line" $authorizeFile
+
+elif [ "$action" ==  "del" ]; then
+    deleteUserInFile $(toHexIfSpecialChar $user) $authenticateFile
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+
+datarootdir=${prefix}/share
+# To suppress shellcheck complaints about $prefix and $datarootdir.
+: "$prefix" "$datarootdir"
+    deleteUserInFile $user $authorizeFile
+    if [ $? -ne 0 ]; then
+        exit 2
+    fi
+
+elif [ "$action" ==  "set" ]; then
+    deleteUserInFile $user $authorizeFile
+    if [ $? -ne 0 ]; then
+        exit 2
+    fi
+    if [ $disable -ne 0 ];then
+        markStr="#"
+    fi
+    line="$markStr$token $user"
+    sed -i "/#USM_User/a $line" $authorizeFile
+
+elif [ "$action" ==  "changeName" ]; then
+    changeUserNameInFile $(toHexIfSpecialChar $user) $(toHexIfSpecialChar $new_user) $authenticateFile
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+
+    changeUserNameInFile $user $new_user $authorizeFile
+    if [ $? -ne 0 ]; then
+        exit 2
+    fi
+
+elif [ "$action" ==  "get" ]; then
+    access="0"
+    level="0"
+    authentication="0"
+    privacy="0"
+
+    level_str=$(awk "/\<$user\>/ "'{print $1}' $authorizeFile)
+    if [ "$level_str" == "" ]; then
+        level="0"
+    else
+        case $level_str in
+            "rouser"|"#rouser")
+                level="1" ;;
+            "rwuser"|"#rwuser")
+                level="2" ;;
+        esac
+
+        markString=`echo $level_str | grep "^#"`
+        if [ "$level_str" == "$markString" ]; then
+            access="0"
+        else
+            access="1"
+        fi
+    fi
+
+    user=$(toHexIfSpecialChar $user)
+    userType=$(awk "/\<$user\>/ "'{print $1}' $authenticateFile)
+    case $userType in
+        createUser)
+            userInfoStr=$(awk "/\<$user\>/ "'{print $2,$3,$5}' $authenticateFile)
+            ;;
+        *)
+            userInfoStr=$(awk "/\<$user\>/ "'{print $5,$8,$10}' $authenticateFile)
+            ;;
+    esac
+
+    if [ "$userInfoStr" != "" ]; then
+        i=1
+        for v in $userInfoStr; do
+            case $i in
+                2) authentication_oid=$v ;;
+                3) privacy_oid=$v ;;
+            esac
+            i=$((i+1))
+        done
+
+        case $authentication_oid in
+            .1.3.6.1.6.3.10.1.1.2|MD5)
+                authentication="1" ;; #MD5
+            .1.3.6.1.6.3.10.1.1.3|SHA)
+                authentication="2" ;; #SHA
+        esac
+
+        case $privacy_oid in
+            .1.3.6.1.6.3.10.1.2.4|AES)
+                privacy="1" ;; #AES
+        esac
+    fi
+
+    echo "$access, $level, $authentication, $privacy"
+fi

@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+	<title></title>
+	<link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+	<link rel="stylesheet" href="../css/basic.css" type="text/css">
+	<script language="javascript" src="../js/utils.js"></script> 
+	<script language="javascript" src="../js/sys_fru.js"></script> 
+  <script language="javascript" src="../../js/iframe_event.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body>
+	<span class="LoadingStyle" id="loading"></span>
+	<table border="0" cellpadding="0" cellspacing="5" class="mtable">
+        <tr><td width="20px"><img src="../images/arrow_red.gif" border="0" class="redarrow"></td>
+        <td><div id="fru_title_div" class="mtitle"></div>
+	</td></tr>
+	<tr><td><br></td><td><div id="kcs_segment_state" class="Categorytext"></div></td></tr>
+	<tr><td></td>
+        	<td>
+        	<!-- below area is needed to modify by yourself -->
+        	<table>		
+		<tr><td>
+			<table width="550" border="0" cellspacing="0" cellpadding="0">
+			<tr><td align="left">
+				<select id="FRUSelector"></select>
+                        </td></tr>
+			<tr><td height="25">&nbsp;</td</tr>
+			<!-- Chassis Info -->
+			<tr id= "CHS_Info" class="nodisplay"><td align="left">
+				<fieldset class="wide group">
+				<legend id="chassis_info_legent" class="legendcaption"></legend>
+				<table>
+				<tr><td align="right" class= "bold">
+                                  <label id="chassis_type_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="chassisType" class="labeltext"></span>
+                                </td></tr>
+				<tr><td align="right" class= "bold">
+                                  <label id="chassis_part_number_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="chassisPartNo" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                  <label id="chassis_serial_number_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="chassisSerialNo" class="labeltext"></span>
+                                </td></tr>
+				</table>
+				</fieldset>
+			</td></tr>
+			<!-- Board Info -->
+			<tr id= "BD_Info" class="nodisplay"><td align="left">
+				<fieldset class="wide group">
+				<legend id="board_info_legent" class="legendcaption"></legend>
+				<table>
+				<tr><td align="right" class= "bold">
+                                  <label id="board_lan_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardLanguage" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                        <label id="board_mfg_datetime_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardMfgDateTime" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                    <label id="board_mfg_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardMfcName" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                        <label id="board_product_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardProductName" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                        <label id="board_serial_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardSerialNo" class="labeltext"></span>
+                                        </td></tr>
+                                <tr><td align="right" class= "bold">
+                                        <label id="board_part_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardPartNo" class="labeltext"></span>
+                                </td></tr>
+				<tr><td align="right" class= "bold">
+                                        <label id="board_file_id_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="boardFruFileID" class="labeltext"></span>
+                                </td></tr>
+				</table>
+				</fieldset>
+			</td></tr>
+			<!-- Product Info -->
+			<tr id= "PDT_Info" class="nodisplay"><td align="left">
+				<fieldset class="wide group">
+                                <legend id="product_info_legend" class="legendcaption"></legend>
+                                <table>
+				<tr><td align="right" class= "bold">
+                                        <label id="product_lan_lbl" class="labeltitle">
+                                        </label></td>
+                                  <td><span id="proLanguage" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                      <label id="product_mfg_lbl" class="labeltitle">
+                                        </label></td>
+                                  <td><span id="proMfcName" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                        <label id="product_name_lbl" class="labeltitle">
+                                        </label></td>
+                                    <td><span id="proProductName" class="labeltext"></span>
+                                </td></tr>
+                                <tr><td align="right" class= "bold">
+                                        <label id="product_part_lbl" class="labeltitle">
+                                      </label></td>
+                                        <td><span id="proPartNo" class="labeltext"></span>
+                                </td></tr>
+                               	<tr><td align="right" class= "bold">
+                                        <label id="product_version_lbl" class="labeltitle">
+                                      </label></td>
+                                        <td><span id="proVersion" class="labeltext"></span>
+                                </td></tr>
+				<tr><td align="right" class= "bold">
+                                        <label id="product_serial_lbl" class="labeltitle">
+                                        </label></td>
+                                        <td><span id="proSerialNo" class="labeltext"></span>
+                               	</td></tr>
+                                <tr><td align="right" class= "bold">
+                                    <label id="product_asset_tag_lbl" class="labeltitle">
+                                      </label></td>
+                                        <td><span id="proAssetTag" class="labeltext"></span>
+                                  </td></tr>
+                                <tr>
+                                    <td align="right" class= "bold">
+                                        <label id="product_file_id_lbl" class="labeltitle">
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <span id="productFruFileID" class="labeltext"></span>
+                                    </td>
+                                </tr>
+				</table>
+				</fieldset>
+			</td></tr>
+			<tr><td align= "left">
+				<div id= "textField" class= "Categorytext"></div>
+			</td></tr>
+			</table>
+		</td></tr>
+		</table>
+        	<!-- end of this area -->
+	</td></tr>
+	</table>
+</body>
+</html>

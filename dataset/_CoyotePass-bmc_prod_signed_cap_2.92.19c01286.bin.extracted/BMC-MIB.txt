@@ -1,0 +1,220 @@
+INSYDE-IPMI-MIB DEFINITIONS ::= BEGIN
+
+--
+-- Top-level infrastructure of the Insyde Software Corp. enterprise MIB tree
+--
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, enterprises, Integer32 FROM SNMPv2-SMI
+    DisplayString, PhysAddress FROM SNMPv2-TC
+;
+
+insyde MODULE-IDENTITY
+    LAST-UPDATED "202103311030Z"
+    ORGANIZATION "www.insyde.com"
+    CONTACT-INFO "email:kylekj.chang@insyde.com"
+    DESCRIPTION  "Top-level infrastructure of the Insyde Software Corp. enterprise MIB tree"
+
+    REVISION     "202103311030Z"
+    DESCRIPTION  "Add System Information and Server Health"
+
+    REVISION     "200903201150Z"
+    DESCRIPTION  "First draft"
+    ::= { enterprises 45065 }
+
+--
+--  Insyde Software Corp. enterprise-specific management objects
+--
+
+supervyse3   OBJECT IDENTIFIER ::= { insyde 1 }
+
+system    OBJECT IDENTIFIER ::= { supervyse3 1 }
+
+serverHealth    OBJECT IDENTIFIER ::= { supervyse3 2 }
+
+--
+--  MIB Module Object Types
+--
+systemInfo        OBJECT IDENTIFIER ::= { system 1 }
+
+hostPwrStatus     OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "server host power current status(ON/OFF)"
+    ::= { systemInfo 1 }
+
+bmcUptime         OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "BMC uptime information"
+    ::= { systemInfo 2 }
+
+bmcFWBLDTime      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "BMC firmware built time information"
+    ::= { systemInfo 3 }
+
+bmcFWversion      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "BMC firmware current version"
+    ::= { systemInfo 4 }
+
+bakBmcFWversion   OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "BMC firmware backup version"
+    ::= { systemInfo 5 }
+
+buildID           OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "BMC firmware build id"
+    ::= { systemInfo 6 }
+
+baseboardSN       OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "BMC baseboard serial number"
+    ::= { systemInfo 7 }
+
+sensor            OBJECT IDENTIFIER ::= { serverHealth 1 }
+
+sensorTable       OBJECT-TYPE
+    SYNTAX        SEQUENCE OF SensorEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "Capable for showing Supervyse 3.x BMC Sensor Table including
+         get all sensor related informations."
+    ::= { sensor 1 }
+
+sensorEntry       OBJECT-TYPE
+    SYNTAX        SensorEntry
+    MAX-ACCESS    not-accessible
+    STATUS        current
+    DESCRIPTION
+        "An entry containing management information applicable to a
+         particular sensor."
+    INDEX   { sensorNumber }
+    ::= { sensorTable 1 }
+
+SensorEntry ::=
+    SEQUENCE {
+        sensorNumber          Integer32,
+        sensorHealth          DisplayString,
+        sensorName            DisplayString,
+        sensorStatus          DisplayString,
+        sensorHumanReading    DisplayString,
+        lnrThreshold          DisplayString,
+        lcThreshold           DisplayString,
+        lncThreshold          DisplayString,
+        uncThreshold          DisplayString,
+        ucThreshold           DisplayString,
+        unrThreshold          DisplayString
+    }
+
+sensorNumber      OBJECT-TYPE
+    SYNTAX        Integer32 (1..2147483647)
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor number"
+    ::= { sensorEntry 1 }
+
+sensorHealth      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor health(OK/Warning/Critical/Unknown)"
+    ::= { sensorEntry 2 }
+
+sensorName        OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor name"
+    ::= { sensorEntry 3 }
+
+sensorStatus      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor status(Normal/Not Available/...)"
+    ::= { sensorEntry 4 }
+
+sensorHumanReading OBJECT-TYPE
+    SYNTAX         DisplayString
+    MAX-ACCESS     read-only
+    STATUS         current
+    DESCRIPTION
+        "sensor human reading value(like fan speed, voltage, temperature...)"
+    ::= { sensorEntry 5 }
+
+lnrThreshold      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor lower nonrecover threshold values"
+    ::= { sensorEntry 6 }
+
+lcThreshold       OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor lower critical threshold values"
+    ::= { sensorEntry 7 }
+
+lncThreshold      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor lower noncritical threshold values"
+    ::= { sensorEntry 8 }
+
+uncThreshold      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor upper noncritical threshold values"
+    ::= { sensorEntry 9 }
+
+ucThreshold       OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor upper critical threshold values"
+    ::= { sensorEntry 10 }
+
+unrThreshold      OBJECT-TYPE
+    SYNTAX        DisplayString
+    MAX-ACCESS    read-only
+    STATUS        current
+    DESCRIPTION
+        "sensor upper nonrecover threshold values"
+    ::= { sensorEntry 11 }
+
+END

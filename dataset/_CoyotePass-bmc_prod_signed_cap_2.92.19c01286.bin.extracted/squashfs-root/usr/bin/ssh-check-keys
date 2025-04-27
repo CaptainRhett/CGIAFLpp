@@ -1,0 +1,72 @@
+#!/bin/sh
+
+KEY_TYPES="rsa"
+LOCKDIR=/tmp/dropbear-key-check
+DROPBEAR=/nv/dropbear
+##############################################################################
+# Generate ssh keys if not present, locking for re-entrance
+ssh_gen_keys() {
+    # generate SSH host keys
+    local key_file=
+
+    # get the lock
+    while :; do
+        # lock for concurrency
+        mkdir "$LOCKDIR" 2>/dev/null
+        if [ $? -eq 0 ]; then
+            # we got the lock; put our pid in the file so others can tell if
+            # we fail to clean up after ourselves
+            echo -n "$$" > "$LOCKDIR/pid"
+
+            mkdir -p "$DROPBEAR"
+            for key in $KEY_TYPES ; do
+                key_file="$DROPBEAR/dropbear_${key}_host_key"
+                if [ ! -e $key_file ]; then
+                    logger -t "$LOG_TAG" -p local0.info "Generating ${key} SSH Key..."
+                    dropbearkey -t $key -f $key_file
+                fi
+            done
+
+            rm -rf "$LOCKDIR"
+            return 0
+        else
+            # this process did not get the lock; wait for lock to be dropped
+            # at which point, the keys should be good to go
+            LOCKPID=$(cat "$LOCKDIR/pid")
+            while [ -d "$LOCKDIR" ]; do
+                if ps | grep -q "^\s*${LOCKPID}\>"; then
+                    sleep 1
+                else
+                    rm -rf "$LOCKDIR"
+                    break
+                fi
+            done
+        fi
+    done
+}
+
+ssh_check_keys() {
+    local key_file=
+    # We need to delete DSS type key. It is considered unsafe and deprecated.
+    if [ -e "$DROPBEAR/dropbear_dss_host_key" ]; then
+        rm -f "$DROPBEAR/dropbear_dss_host_key"
+    fi
+    # We need to delete ecdsa tyep key.
+    if [ -e "$DROPBEAR/dropbear_ecdsa_host_key" ]; then
+        rm -f "$DROPBEAR/dropbear_ecdsa_host_key"
+    fi
+    for key in $KEY_TYPES; do
+        key_file="$DROPBEAR/dropbear_${key}_host_key"
+        if [ ! -e $key_file ]; then
+            return 1
+        fi
+    done
+    return 0
+}
+
+if ! ssh_check_keys; then
+    # if starting from init, delay to allow the rest of the system to boot
+    [ $PPID -eq 1 ] && sleep 5m
+
+    ssh_gen_keys
+fi

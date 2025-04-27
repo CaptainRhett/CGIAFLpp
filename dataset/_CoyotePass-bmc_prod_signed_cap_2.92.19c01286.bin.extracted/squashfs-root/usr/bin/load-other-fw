@@ -1,0 +1,105 @@
+#!/bin/sh
+
+# Copyright 2018 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+MOUNT_POINT="/mnt"
+FW_TARGET_BASE="/tmp/web-fwupd"
+
+# pass in region name: pcie-switch, etc.
+authenticate_other_fw() {
+# sig file, cert file, header file, data file
+# our hash
+    local REG=$1
+    local OEMBASE=/pnv/oem-region/region-$REG
+    local HDR=$OEMBASE.hdr
+    local DAT=$OEMBASE.dat
+    local CRT=$OEMBASE.crt
+    local CA_=$OEMBASE.ca
+    local SIG=$OEMBASE.sig
+    local CAP=/tmp/bmc-root-cert.pem
+
+    # Use the timestamp from the signed image header instead of NOW
+    local TS=$(dd if=$HDR bs=4 skip=6 count=1 2>/dev/null | \
+               hexdump -e '4/4 "%d"')
+
+    # authenticate oem certificate first with root cert as CA
+    openssl x509 -inform DER -outform PEM < $CA_ > $CAP
+    openssl x509 -inform DER -outform PEM < $CRT | \
+        openssl verify -attime $TS -CAfile $CAP >/dev/null 2>&1 || return $?
+    rm -f $CAP
+
+    # check the signature with the oem certificate
+    LHASH=$(cat $HDR $DAT | sha256sum | cut -d - -f 1 | sed -e 's/^\s*//;s/\s*$//')
+    RHASH=$(openssl pkeyutl -verifyrecover -in $SIG -certin -inkey $CRT -keyform DER | \
+            dd bs=1 skip=19 count=32 2>/dev/null | \
+            hexdump -e '32/1 "%02x" 1 "\n"' | sed -e 's/^\s*//;s/\s*$//')
+    [ "$LHASH" == "$RHASH" ]
+}
+
+mount_image_fs() {
+    local R="$1"
+    local OEMDAT=/pnv/oem-region/region-$R.dat
+    authenticate_other_fw $R
+    rc=$?
+    if [ $rc -ne 0 ]; then
+        echo "Failed to authenticate 3rd party FW"
+		return 1
+    else
+        echo "Authenticate 3rd party FW successfully"
+        mount -o ro $OEMDAT $MOUNT_POINT
+		rc=$?
+		if [ $rc -ne 0 ]; then
+            echo "Failed to mount FW image"
+			return 2
+		else
+            echo "Mount successfully"
+		fi
+    fi
+	return 0
+}
+
+unmount_image_fs() {
+    if mount | grep -q $MOUNT_POINT; then
+        umount $MOUNT_POINT
+    fi
+}
+
+copy_image_files() {
+    local R="$1"
+    local TARGET_FOLDER=$FW_TARGET_BASE/$R
+    echo $TARGET_FOLDER
+    if [ -d $TARGET_FOLDER ]; then
+        rm $TARGET_FOLDER/*
+        echo "remove target folders"
+    else
+        mkdir $TARGET_FOLDER
+        echo "create new target folders"
+    fi
+    cp $MOUNT_POINT/* $TARGET_FOLDER
+    echo "copy mount image files to target folders"
+    ls -l $TARGET_FOLDER
+    echo "remove source files of /pnv/oem-region/region-*"
+    rm /pnv/oem-region/region-$R.*
+}
+
+type=$1
+mount_image_fs $type
+rc=$?
+if [ $rc -eq 0 ]; then
+	copy_image_files $type
+	unmount_image_fs $type
+	rc=0
+fi
+exit $rc

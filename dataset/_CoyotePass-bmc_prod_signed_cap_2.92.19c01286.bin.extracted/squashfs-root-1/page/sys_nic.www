@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+        <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+        <title></title>
+        <link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+        <link rel="stylesheet" href="../css/basic.css" type="text/css">
+        <link rel="stylesheet" href="../css/grid/listgrid.css" type="text/css">
+        <script language="javascript" src="../js/generalTableController.js"></script>
+        <script language="javascript" src="../js/utils.js"></script>
+        <script language="javascript" src="../js/sys_nic.js"></script>
+        <script language="javascript" src="../../js/iframe_event.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+    </head>
+    <body>
+        <span class="LoadingStyle" id="loading"></span>
+        <table border="0" cellpadding="0" cellspacing="0" class="mtable">
+            <tr><td width="20px"><img src="../images/arrow_red.gif" border="0" class="redarrow"></td>
+                <td><div id="nic_caption_div" class="mtitle"></div></td>
+            </tr>
+            <tr><td><br></td><td></td></tr>
+            <tr><td></td>
+                <td><fieldset class="widel group">
+                    <legend id="submenu_legend_smbios" class="legendcaption">
+                    </legend>
+                    <div id="inputControlsMessage" class="nodisplay"></div>
+                    <div><span class="TableInfo" id="nic_list_info"></div>
+                    <div id="nic_list"></div>
+                </fieldset></td>
+            </tr>
+            <tr><td></td><td><div id="kcs_segment_state" class="Categorytext"></div></td></tr>
+            <tr><td><br></td>
+            <td><fieldset class="widel group">
+                <legend id="submenu_legend_ncsi" class="legendcaption">
+                </legend>
+                <div id="inputControlsMessage" class="nodisplay"></div>
+                <div id="inputControls" class="lignleft">
+                    <table cellspacing="0" cellpadding="5" border="0" width="100%">
+                        <tr>
+                            <td class="py-5" id="ncsiSelectLabel"></td>
+                            <td class="pl-8">
+                                <select id="ncsiSelector" class="select-blue"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_dev_type_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIDevType">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_phy_addr_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIPhyAddr">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_name_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIName">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_fw_ver_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIFwVer">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_pci_did_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIPciDid">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_pci_vid_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIPciVid">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_pci_ssid_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIPciSsid">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_pci_svid_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIPciSvid">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_manuf_id_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIManufId">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_rev_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSIVer">N/A</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bold">
+                                <span id="ncsi_temperature_span" class="labelhead"></span>
+                            </td>
+                            <td>
+                                <label id="curNCSITemperature">N/A</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset></td>
+            </tr>
+        </table>
+    </body>
+</html>

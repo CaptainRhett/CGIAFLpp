@@ -1,0 +1,540 @@
+img{border:none}
+.redarrowDiv *{ vertical-align:middle; }
+
+.title {
+	vertical-align: top;
+	margin-top: 5px;
+	font-family: Arial, Verdana, Georgia, sans serif;
+	font-size: 18px;
+	color: rgb(0, 0, 0);
+}
+
+main {
+    position: relative;
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    line-height: 1.8;
+}
+
+.grid-col-2 {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: auto auto;
+    align-items: end;
+    margin-bottom: 5px;
+}
+
+.grid-self-right {
+    justify-self: right;
+}
+
+#eventlog-panel {
+    grid-template-areas:
+        "action  pagger";
+}
+
+.item-b {
+    grid-area: pagger;
+}
+
+.labeltextblink {
+   font-size: 12px;
+   color: #000000;
+   font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+   font-style: normal;
+   line-height: 18px;
+   animation: blinker 1s linear infinite;
+}
+
+.hidden {
+   display: none;
+}
+
+.patrol_progressbar {
+   /*value: 0;
+   max: 100;*/
+   width: 300px;
+}
+
+.align_r {
+   float: right;
+}
+
+.stepdiv1 {
+   display: inline;
+   height: 100px!important;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+.stepdiv2 {
+   overflow-x:hidden;
+   overflow-y:auto;
+   overflow:-moz-hidden-unscrollable;
+}
+
+/****** div-menu:start ******/
+nav {
+    height: 5vh;
+    background-color: transparent;
+    width: 0px;
+    position: fixed;
+    left: 0px;
+    transition: background-color .3s, width 1.3s;
+    z-index: 1000;
+    box-shadow: none;
+}
+
+nav:hover {
+    background-color: #0077ae;
+    transition: background-color .3s;
+    width: 160px;
+    box-shadow: 2px 0px 3px #000;
+}
+
+nav:hover .float_menu {
+    left: 0;
+    color: #CCC;
+    transition: left 1s, color .8s;
+}
+
+.menubutton {
+    width: 35px;
+    display: inline-block;
+    height: 5px;
+    border-top: 5px solid #0077ae;
+    border-bottom: 5px solid #0077ae;
+    background-color: #0077ae;
+    margin: 5px auto;
+    margin-left: 0px;
+    padding: 5px 0;
+    background-clip: content-box;
+    left: 10px;
+}
+
+.float_menu {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    color: #000;
+    cursor: pointer;
+    position: relative;
+    left: -120px;
+    transition: left 1s;
+}
+
+.float_menu li {
+    margin-top: 0px;
+    transition: .3s;
+}
+
+.float_menu li:hover {
+    transform: scale(1.1, 1.1);
+}
+
+
+a:link,
+a:visited {
+    color: #5b5247;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #5b5247;
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+#div-menu {
+    padding-left: 8px;
+    margin-top: -50px;
+    float: right;
+}
+
+#div-menu .menu a {
+    list-style: none;
+    color: #f2f2f2;
+    height: 22px;
+    padding-top: 10px;
+    padding-left: 10px;
+    display: block;
+    letter-spacing: 1px;
+    line-height: 90%;
+    width: 145px;
+}
+
+#div-menu .menu .submenu a {
+    width: auto;
+}
+
+#div-menu .menu span {
+    font-size: 13px;
+}
+
+#div-menu .title {
+    border-bottom: 1px solid #999;
+    height: 25px;
+    color: #333;
+    padding-left: 10px;
+    font-weight: bold;
+    /*margin-right: 20px;*/
+}
+
+#div-menu .menu {
+    padding-top: 10px;
+}
+
+#div-menu .menu a:hover {
+    background: #005278;
+}
+
+#div-menu .menu li {
+    position: relative;
+}
+
+#div-menu .menu dl {
+    position: absolute;
+    top: -10px;
+    left: 140px;
+    background-color: #0077ae;
+    border: 1px solid #DDD;
+    padding: 10px 15px 5px 15px;
+    min-width: 90px;
+    min-height: 80px;
+    box-shadow: 2px 2px 5px #999;
+    z-index: 10;
+    display: none;
+}
+
+#div-menu .menu dl a {
+    margin: 3px 0 0 0;
+    padding: 5px;
+    font-size: 13px;
+    display: block;
+    height: auto;
+}
+
+#div-menu .menu dl h2 {
+    font-size: 13px;
+}
+
+#div-menu .menu dl dd:hover {
+    background: #005278;
+}
+/****** div-menu:end ******/
+
+/****** container:start ******/
+.grid-raid-level-step1 {
+    display: grid;
+    grid-template-columns: 20px 60px auto;
+    margin-top: 5px;
+    padding: 0px;
+}
+.g-item {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    border: 0px solid rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.panelSubtitle {
+    font-size: 13px;
+    line-height: 1.8;
+    padding-right: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: #454545;
+}
+
+.grid-raid-config-step2 {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 28px 28px;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.grid-raid-config-step3 {
+    display: grid;
+    grid-template-columns: 200px 150px 200px 150px;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.labelColor {
+    color: #454545;
+}
+
+.contentColor {
+    color: #191919;
+}
+
+.g-item-2 {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    border: 0px solid rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    text-align: left;
+    /*vertical-align: top;*/
+}
+
+/****** container:end ******/
+/****** volumeCreateForm:start ******/
+/** {
+  box-sizing: border-box;
+}
+*/
+body {
+    background-color: #f1f1f1;
+}
+
+#volumeCreateForm {
+    background-color: #ffffff;
+    margin: 20px auto;
+    padding: 30px;
+    width: 70%;
+    min-width: 300px;
+}
+
+#volumeStep_caption {
+    position: relative;
+    top: 10px;
+    text-align: center;
+}
+
+#stepTitle {
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 10px;
+    color: #454545;
+}
+
+.vspace {
+    height: 5px;
+}
+/*h1 {
+    text-align: left;
+}*/
+
+inputx {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+    background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+.stepbutton {
+    background-color: #2184be;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.stepbutton:hover {
+    opacity: 0.8;
+}
+
+.stepbutton:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+#prevBtn {
+    /*grayout effect*/
+    /*background-color: #bbbbbb;*/
+    background-color: #2184be;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #4CAF50;
+}
+.overflow_auto {
+    overflow:auto;
+}
+.float_right {
+    float:right;
+}
+.stepindicates {
+    text-align:center;
+    margin-top:40px;
+}
+
+/****** volumeCreateForm:end ******/
+
+/****** DedHotSpareStep:start ******/
+body {
+    background-color: #f1f1f1;
+}
+
+#HotSpareForm {
+    background-color: #ffffff;
+    margin: 20px auto;
+    padding: 30px;
+    width: 70%;
+    min-width: 300px;
+}
+
+#DHS_Step_caption {
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: #454545;
+    line-height: 1.8;
+}
+
+#dhs_stepTitle {
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 10px;
+    color: #454545;
+    line-height: 1.8;
+}
+
+
+/* Hide all steps by default: */
+.dhstab {
+    display: none;
+}
+
+#dhs_prevBtn {
+    background-color: #2184be;
+}
+
+/* Make circles that indicate the steps of the form: */
+.dhs_step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.dhs_step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.dhs_step.finish {
+    background-color: #4CAF50;
+}
+/****** DedHotSpareStep:end ******/
+
+.patrolread_title_paddleft {
+    padding-left: 3px;
+}
+
+.drivevolumeTitleCenter {
+    text-align: center;
+}
+
+.grid-self-right {
+    justify-self: right;
+}
+
+.grid-col-2 {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: auto auto;
+    align-items: end;
+    margin-bottom: 5px;
+}
+
+#eventlog-panel {
+    grid-template-areas:
+        "action  pagger";
+}
+
+.item-a {
+    grid-area: action;
+}
+
+.item-b {
+    grid-area: pagger;
+}
+
+.labeltitle{
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.labeltext{
+    font-size: 12px;
+    font-style: normal;
+    line-height: 18px;
+}
+
+.mango_selector_left {
+    font-size: 12px;
+    border: 2px solid #0077ae;
+    padding: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    text-transform: none;
+    border-radius:5px;
+    background-color: rgba(255, 255, 255, 0);
+    text-align-last:left;
+    outline: none;
+    color: #191919;
+}
+
+.textfield {
+    font-size: 12px;
+    line-height: 18px;
+    position: relative;
+    border: 2px solid #0077ae;
+    border-radius: 3px;
+    outline: none;
+    padding: 0px 4px;
+}
+
+.textfield.correct {
+    border-color: #33ff33;
+}
+
+.textfield.error {
+    border-color: #ff0000;
+}
+
+.margin-t-10 {
+    margin-top: 10px;
+}

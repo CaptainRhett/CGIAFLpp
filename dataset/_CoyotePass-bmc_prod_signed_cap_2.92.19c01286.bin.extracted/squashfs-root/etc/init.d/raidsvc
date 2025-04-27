@@ -1,0 +1,42 @@
+#!/bin/sh
+
+SVCNAME=raidsvc
+BINNAME=RAIDService
+
+cmd=$1
+
+rc=1
+case "$cmd" in
+start|restart)
+    /etc/init.d/monit reload $SVCNAME
+    sleep 2
+    monitored=$(monit status $BINNAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit $cmd $BINNAME
+        rc=$?
+    fi
+    ;;
+stop)
+    monitored=$(monit status $BINNAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit stop $BINNAME
+        rc=$?
+        /etc/init.d/monit reload $SVCNAME
+    fi
+    ;;
+status)
+    monit status $BINNAME
+    rc=$?
+    ;;
+*)
+    echo "Usage: $0 {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+
+if [ $rc -ne 0 ]; then
+    /etc/monit/scripts/raidsvc-init $cmd
+    rc=$?
+fi
+
+exit $?

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# InsydeOem Schema:  InsydeNcsi  v1.0.0                                                -->
+<!--#                                                                                      -->
+<!--#  @section LICENSE                                                                    -->
+<!--#                                                                                      -->
+<!--# Copyright (c) 2003-2019, Insyde Software Corp. All Rights Reserved.                  -->
+<!--#                                                                                      -->
+<!--# You may not reproduce, distribute, publish, display, perform, modify, adapt,         -->
+<!--# transmit, broadcast, present, recite, release, license or otherwise exploit          -->
+<!--# any part of this publication in any form, by any means, without the prior            -->
+<!--# written permission of Insyde Software Corp.                                          -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/OemNcsiPackage_v1.xml">
+    <edmx:Include Namespace="OemNcsiPackage"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemNcsi">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="OemNcsi" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The VirtualMedia schema contains properties related to monitoring and control of an instance of virtual media such as a remote CD, DVD, or USB device. Virtual media functionality is provided by a Manager for a system or device."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a virtual media service for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemNcsi.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="OemNcsi" BaseType="OemNcsi.OemNcsi">
+
+        <NavigationProperty Name="Package" Type="Collection(OemNcsiPackage.OemNcsiPackage)" Nullable="false">
+          <Annotation Term="OData.Description" String="A reference to the NC-SI Package with this NC-SI."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type  NC-SI Package for this NC-SI."/>
+        </NavigationProperty>
+        <Property Name="Actions" Type="OemNcsi.v1_0_0.Actions" Nullable="false">
+            <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+            <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+        </Property>
+        <Property Name ="PhysicalAddress" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="This type contains physical address."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the physical address."/>
+        </Property>
+        <Property Name ="DeviceType" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="This type contains device type."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the device type."/>
+        </Property>
+        <Property Name ="I2CChannel" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="This type contains i2c channel."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the i2c channel."/>
+        </Property>
+        <Property Name = "VersionID" Type = "OemNcsi.v1_0_0.VersionID"/>
+      </EntityType>
+
+      <ComplexType Name="VersionID" Nullable="false">
+        <Annotation Term="OData.Description" String="This type contains NC-SI Version ID."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties  which describe the NC-SI Version ID"/>
+        <Property Name ="NcsiVersion" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="The version number of the NC-SI."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the version number of the NC-SI."/>
+        </Property>
+        <Property Name ="FirmwareName" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="NC-SI firmware name."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the NC-SI firmware name."/>
+        </Property>
+        <Property Name ="FirmwareVersion" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="NC-SI firmware verision."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the NC-SI firmware verision."/>
+        </Property>
+        <Property Name ="PCIDID" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="PCI DID information for the Network Controller."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the PCI DID information for the Network Controller."/>
+        </Property>
+        <Property Name ="PCIVID" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="PCI VID information for the Network Controller."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the PCI VID information for the Network Controller."/>
+        </Property>
+        <Property Name ="PCISSID" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="PCI SSID information for the Network Controller."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the PCI SSID information for the Network Controller."/>
+        </Property>
+        <Property Name ="PCISVID" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="PCI SVID information for the Network Controller."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the PCI SVID information for the Network Controller."/>
+        </Property>
+        <Property Name ="ManufacturerID" Type = "Edm.String">
+          <Annotation Term="OData.Description" String="The Manufacturer ID holds the IANA Enterprise Number for the manufacturer of the Network Controller."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the Manufacturer ID holds the IANA Enterprise Number for the manufacturer of the Network Controller."/>
+        </Property>
+      </ComplexType>
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+      </ComplexType>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

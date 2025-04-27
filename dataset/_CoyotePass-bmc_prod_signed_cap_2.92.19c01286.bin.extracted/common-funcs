@@ -1,0 +1,130 @@
+# Copyright 2015 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+# Source this file to access these functions
+
+###############################################################################
+is_jtag_enabled()
+{
+    enabled=0
+
+    resp=$(cmdtool -n 20 30 db 0 0)
+    case "$resp" in
+      "0 0"*)
+            bits=$(echo $resp | awk '{print $3}')
+            # requires consent - bit 2 and enabled - bit 1
+            if [[ $((bits & 0x6)) -eq 6 ]]; then
+                enabled=1
+            fi
+        ;;
+      *);;
+    esac
+    echo $enabled
+    return 0
+}
+
+
+HTTPD_INIT_LCKDIR=/var/lock/http-init
+httpd_init_is_inprogress()
+{
+    rc=1
+    if [ -e ${HTTPD_INIT_LCKDIR} ]; then
+        rc=0
+    fi
+    return $rc
+}
+
+httpd_init_set_inprogress()
+{
+    rc=1
+    trap "rm -rf ${HTTPD_INIT_LCKDIR}; exit" INT TERM EXIT
+    mkdir ${HTTPD_INIT_LCKDIR} >&/dev/null
+    if [ $? -eq 0 ]; then
+        echo "$$" > ${HTTPD_INIT_LCKDIR}/pid
+        rc=0
+    fi
+    return $rc
+}
+
+httpd_is_running()
+{
+    rc=1
+    if [ 0 -ne $(ps | grep -cE '.*[l]ighttpd -f') ]; then
+        rc=0
+    fi
+    return $rc
+}
+
+# Return 0 if the RMM chip enabling advanced features is present
+rmm_available()
+{
+    RMM_MTD=/sys/bus/spi/devices/spi0.1/mtd
+    [ -d $RMM_MTD ]
+    return $?
+}
+
+# Platform does not use license(RMM4 is used by default), return 2
+# Platform uses a license, but the license is not activated, return 1
+license_use()
+{
+    ret=2
+    PLATFORM_ID=$(sed -e 's/.*fwproductid=//g' -e 's/ .*//' /proc/cmdline)
+    if [ $PLATFORM_ID == '0098' ] || [ $PLATFORM_ID == '0099' ] || [ $PLATFORM_ID == '00aa' ]; then
+        ret=1
+        return $ret
+    else
+        return $ret
+    fi
+}
+
+# Platform uses a license, but the license is not activated, return 1
+# Platform uses license, license is activated, return 0
+license_available()
+{
+    LICENSE_FILE=/pnv/license.v2c
+    license_use
+    ret=$?
+    if [ $ret == 1 ]; then
+        [ -f $LICENSE_FILE ]
+            return $?
+    else
+        return $ret
+    fi
+}
+
+# If the license is used in config and the license in the file system is valid, 0 is returned
+# Return 0 if the RMM chip enabling advanced features is present
+advance_feature_available()
+{
+    license_available
+    ret=$?
+    if [ $ret == 2 ]; then
+        rmm_available
+        return $?
+    else
+        return $ret
+    fi
+}
+
+UPLOADED_CERT_INDICATOR=/nv/CA/root/user-upload-valid
+has_custom_https_cert()
+{
+    [ -f $UPLOADED_CERT_INDICATOR ]
+    return $?
+}
+
+clear_custom_https_cert()
+{
+    rm -f $UPLOADED_CERT_INDICATOR
+}

@@ -1,0 +1,283 @@
+#!/bin/sh
+
+# Copyright 2016 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+CRT_FILE=/pnv/oem-region/region-web.crt
+DAT_FILE=/pnv/oem-region/region-web.dat
+CUSTOM_PATH=/custom
+CUSTOM_INDICATOR=/var/run/web-custom
+DEFAULT_SSL_CERT_CFG=/usr/httpd/ssl.cnf
+CUSTOM_SSL_CERT_CFG=/tmp/ssl.cnf
+LOG_TAG=load-custom
+
+source /etc/monit/scripts/common-funcs
+
+# pass in region name: web, etc.
+authenticate_oem() {
+# sig file, cert file, header file, data file
+# our hash
+    local REG=$1
+    local OEMBASE=/pnv/oem-region/region-$REG
+    local HDR=$OEMBASE.hdr
+    local DAT=$OEMBASE.dat
+    local CRT=$OEMBASE.crt
+    local CA_=$OEMBASE.ca
+    local SIG=$OEMBASE.sig
+    local CAP=/tmp/bmc-root-cert.pem
+
+    # Use the timestamp from the signed image header instead of NOW
+    local TS=$(dd if=$HDR bs=4 skip=6 count=1 2>/dev/null | \
+               hexdump -e '4/4 "%d"')
+
+    # authenticate oem certificate first with root cert as CA
+    openssl x509 -inform DER -outform PEM < $CA_ > $CAP
+    openssl x509 -inform DER -outform PEM < $CRT | \
+        openssl verify -attime $TS -CAfile $CAP >/dev/null 2>&1 || return $?
+    rm -f $CAP
+
+    # check the signature with the oem certificate
+    LHASH=$(cat $HDR $DAT | sha256sum | cut -d - -f 1 | sed -e 's/^\s*//;s/\s*$//')
+    RHASH=$(openssl pkeyutl -verifyrecover -in $SIG -certin -inkey $CRT -keyform DER | \
+            dd bs=1 skip=19 count=32 2>/dev/null | \
+            hexdump -e '32/1 "%02x" 1 "\n"' | sed -e 's/^\s*//;s/\s*$//')
+    [ "$LHASH" == "$RHASH" ]
+}
+
+start_oem_signed_custom() {
+    local R="$1"
+    local OEMDAT=/pnv/oem-region/region-$R.dat
+    if authenticate_oem $R; then
+        mount -o loop $OEMDAT /custom/oem/$R
+    fi
+}
+
+stop_oem_signed_custom() {
+    local R="$1"
+    if mount | grep -q "/custom/oem/$R"; then
+        umount /custom/oem/$R
+    fi
+}
+
+start_load_custom_web() {
+    local cmd=$1
+    local custom=$2
+    local custom_web=$CUSTOM_PATH/${custom}/web
+    for dir in images css res; do
+        custom_dir=${custom_web}/${dir}
+        mount_pt=/web/$dir
+        if [ -d $custom_dir ]; then
+            mount -o bind $custom_dir $mount_pt
+        fi
+    done
+
+    # BEGIN_FIXUP
+    # This is a bit of a hack so all custom OEM packages do not need to be
+    # rebuilt. This is necessary because of a new requirements that resources
+    # from the login page are restricted to the /preauth directory.
+    tmp_login_css=/tmp/preauth_login.css
+    mount_pt=/web/css/login.css
+    sed 's%"/images/%"/preauth/images/%' ${mount_pt} > $tmp_login_css
+    mount -o bind $tmp_login_css ${mount_pt}
+    # END_FIXUP
+
+    # If no user-uploaded key/cert, set config to use same DN info
+    # from the oem ews authorization certificate
+    if ! has_custom_https_cert; then
+        # match the self-signed TLS certificate to the oem-ews certificate
+        local tmp_dn=$(mktemp /tmp/oem_ca_dn.XXXXXXXX)
+        for cert in SSL; do
+            eval custom_cert_cfg=\$CUSTOM_${cert}_CERT_CFG
+            eval default_cert_cfg=\$DEFAULT_${cert}_CERT_CFG
+            echo -n > $tmp_dn
+            openssl x509 -noout -subject -inform DER -in $CRT_FILE | \
+                sed  -e 's/^subject=//g' | \
+                sed -e 's/,/\n/g' | \
+                while read dn; do \
+                    local v=$(echo "$dn" | sed 's/[^=]*=//')
+                    case "$dn" in
+                        C\ =*) echo "countryName = $v" >> $tmp_dn ;;
+                        ST\ =*) echo "stateOrProvinceName = $v" >> $tmp_dn ;;
+                        L\ =*) echo "localityName = $v" >> $tmp_dn ;;
+                        O\ =*) echo "0.organizationName = $v" >> $tmp_dn ;;
+                        OU\ =*) echo "organizationalUnitName = $v" >> $tmp_dn ;;
+                        CN\ =*) echo "commonName = $v" >> $tmp_dn ;;
+                    esac
+                done
+
+            # substitute info in [ ca_dn ] section with oem info
+            sed -e '/\[ ca_dn \]/,/^$/{/^[a-z0-9]/d}' \
+                -e "/^\[ ca_dn \]/r $tmp_dn" $default_cert_cfg > $custom_cert_cfg
+            mount -o bind $custom_cert_cfg $default_cert_cfg
+        done
+        rm -f $tmp_dn
+
+        # Ensure the cert matches the config customized or not.
+        # If starting at init/boot time, this happens later.
+        if [ "init" != "$cmd" ]; then
+            (/usr/httpd/crt.sh; /etc/init.d/httpd restart) &
+        fi
+    fi
+    echo $custom > $CUSTOM_INDICATOR
+}
+
+stop_load_custom_web() {
+    # BEGIN_FIXUP
+    # First unmount fixed up css from start.
+    mount_pt=/web/css/login.css
+    umount ${mount_pt}
+    # END_FIXUP
+
+    for dir in images css res; do
+        mount_pt=/web/$dir
+        if mount | grep -q "$mount_pt"; then
+            umount $mount_pt
+        fi
+        if mount | grep -q /usr/httpd; then
+            for cert in SSL; do
+                eval custom_cert_cfg=\$CUSTOM_${cert}_CERT_CFG
+                eval default_cert_cfg=\$DEFAULT_${cert}_CERT_CFG
+                umount $default_cert_cfg && rm -f $custom_cert_cfg
+            done
+        fi
+    done
+    rm -f $CUSTOM_INDICATOR
+}
+
+status_load_custom_web() {
+    if [ -f $CUSTOM_INDICATOR ]; then
+        custom=$(cat $CUSTOM_INDICATOR)
+        custom_web=$CUSTOM_PATH/${custom}/web
+        for dir in images css res; do
+            mount_pt=/web/$dir
+            if mount | grep -q "$mount_pt"; then
+                tmp_dir=/tmp/web-$dir
+                echo "$tmp_dir ($custom_web/$dir) mounted on $mount_pt"
+            fi
+        done
+    else
+        echo "EWS customization is stopped"
+    fi
+}
+
+find_suspect_files() {
+	local DIR="$1"
+	local SUSPECT=""
+
+	# only allow certain files/dirs as top level nodes
+	SUSPECT=$(find "$DIR" -mindepth 1 -maxdepth 1 \
+                  ! -name res \
+                  ! -name css \
+                  ! -name ca_dn \
+                  ! -name images \
+              | wc -l)
+	[ "$SUSPECT" -eq 0 ] || return 1
+
+	# only allow files and directories (no symlinks, device nodes, fifos, etc.)
+	SUSPECT=$(find "$DIR" ! -type f ! -type d | wc -l)
+	[ "$SUSPECT" -eq 0 ] || return 2
+
+	# only allow jpg, png, gif, css and css extensions
+	SUSPECT=$(find "$DIR" \
+		\( -type f -o -type l \) \
+			! -iname '*.jpg' \
+			! -iname '*.bmp' \
+			! -iname '*.ico' \
+			! -iname '*.png' \
+			! -iname '*.gif' \
+			! -iname '*.css' \
+			! -iname 'customize.json' \
+			! -iname 'README' \
+            ! -iname 'ca_dn' \
+		| wc -l)
+	[ "$SUSPECT" -eq 0 ] || return 3
+
+	return 0
+}
+
+validate_custom_web() {
+	local IMAGE="$1"
+	local OFFSET="$2"
+	local TESTMOUNT="/tmp/mnt/oews"
+	local LOOP=$(losetup -f)
+
+	mkdir -p "$TESTMOUNT"
+	if ! mount -t cramfs -o ro,loop,offset="$OFFSET" "$IMAGE" "$TESTMOUNT"; then
+		hexdump -C "$IMAGE"
+		rmdir "$TESTMOUNT"
+		return 127
+	fi
+	find_suspect_files "$TESTMOUNT"
+	RET=$?
+	# cleanup
+	umount "$TESTMOUNT"
+	rmdir "$TESTMOUNT"
+	return $RET
+}
+
+usage() {
+    prog=$0
+    echo "Usage: $prog start|stop|status"
+    exit 255
+}
+
+if [ $# -lt 1 ]; then
+    usage $0
+fi
+
+cmd=$1
+case "$cmd" in
+init|start|restart)
+    stop_load_custom_web # unmount anything already mounted.
+    dir=default
+    if [ -f $CRT_FILE -a ! -f $DAT_FILE ]; then
+        echo "OEM Web customizations locked to default; nothing to load"
+    elif [ -s $CRT_FILE -a -f $DAT_FILE ]; then
+        start_oem_signed_custom web
+        rc=$?
+        if [ $rc -ne 0 ]; then
+            echo "Failed to authenticate OEM customization"
+        else
+            dir=oem
+            start_load_custom_web "$cmd" "$dir"
+        fi
+    else
+        echo "No customization to load"
+    fi
+    ;;
+
+stop)
+    stop_load_custom_web
+    stop_oem_signed_custom web
+    rc=$?
+    ;;
+
+status)
+    status_load_custom_web
+    rc=$?
+    ;;
+
+validate)
+    validate_custom_web "$2" "$3"
+    rc=$?
+    ;;
+
+*)
+    echo "Invalid argument - $cmd"
+    usage $0
+    rc=2
+    ;;
+esac
+
+exit $rc

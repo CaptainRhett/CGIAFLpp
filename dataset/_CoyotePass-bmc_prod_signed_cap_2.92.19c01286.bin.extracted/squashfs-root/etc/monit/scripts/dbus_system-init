@@ -1,0 +1,72 @@
+#!/bin/sh
+
+NAME=dbus_system
+DAEMON=/usr/bin/dbus-daemon
+SERVERCMD="$DAEMON --system"
+LOG_TAG=dbus_system
+PID_FILE=/var/run/dbus-system.pid
+
+start() {
+    logger -t "$LOG_TAG" -s -p user.info "Starting $NAME"
+    if [ $(ps | grep -c "[d]bus-daemon --system") -eq 0 ]; then
+        rm -f $PID_FILE
+        $SERVERCMD
+        rc=$?
+        if [ $rc -ne 0 ]; then
+            reason="Unable to execute $DAEMON; rc: $rc"
+            echo $reason
+            logger -t "$LOG_TAG" -s -p user.info "Failed to start $NAME: $reason"
+            return 1
+        fi
+    else
+        reason="$(NAME) is already running"
+        echo $reason
+        logger -t "$LOG_TAG" -s -p user.info "Failed to start $NAME: $reason"
+        return 1
+    fi
+
+    return 0
+}
+
+stop() {
+    logger -t "$LOG_TAG" -s -p user.info "Shutting down $NAME"
+    for signal in 9; do
+        /sbin/start-stop-daemon -K -s $signal -p $PID_FILE
+        sleep 1
+        if [ $(ps | grep -c "[d]bus-daemon") -ne 0 ]; then
+            killall -$signal $NAME
+            sleep 1
+        fi
+        if [ $(ps | grep -c "[d]bus-daemon") -eq 0 ]; then
+            return 0
+        fi
+    done
+    logger -t "$LOG_TAG" -s -p user.info "Failed to stop $NAME; $(ps | grep '[d]bus-daemon')"
+    return 1
+}
+
+case "$1" in
+    start)
+    start
+    rc=$?
+    ;;
+    stop)
+    stop
+    rc=$?
+    ;;
+    status)
+    echo "Checking $(NAME) status: "
+    ps | grep "[d]bus-daemon" || echo "stopped"
+    rc=$?
+    ;;
+    restart)
+    stop
+    start
+    rc=$?
+    ;;
+    *)
+    echo "Usage: $(NAME) {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+exit $rc

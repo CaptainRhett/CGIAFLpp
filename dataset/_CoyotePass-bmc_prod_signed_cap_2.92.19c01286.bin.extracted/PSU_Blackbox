@@ -1,0 +1,56 @@
+#!/bin/sh
+# /usr/lib/sysdiag/PSU_Blackbox - Collects PSU Blackbox data.
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="Power Supply Blackbox Data"
+TEST_COMMENT="Blackbox data from available power supply units."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+# Actual test starts here.
+PSULOG_LOCATION="/tmp/PSDATA"
+PSULOG_NAME="PS_BB_Log_"
+
+num_logs_found=0
+
+if [ $(ls -l $PSULOG_LOCATION/${PSULOG_NAME}* | wc -l) -ne 0 ]
+then
+for i in $PSULOG_LOCATION/$PSULOG_NAME*
+do
+    if ! [ -e $i ]
+    then
+        continue
+    fi
+    
+    # Cat Logs
+#    echo $i
+    cat $i | safehexdump 
+    num_logs_found=`expr $num_logs_found + 1`
+        
+    if [ $? != 0 ]
+    then
+        exit 1
+    fi
+done
+
+else
+    echo "This feature is not supported by any power supplies in the system."
+fi
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+EndHtmlSections

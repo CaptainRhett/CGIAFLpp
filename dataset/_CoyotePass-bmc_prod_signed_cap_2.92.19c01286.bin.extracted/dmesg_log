@@ -1,0 +1,30 @@
+#!/bin/sh
+# /usr/lib/sysdiag/bmc_status - Collects BMC status information.
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="BMC Kernel Ring Buffer"
+TEST_COMMENT="Output of dmesg command (kernel ring buffer)."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+# Actual test starts here.
+# Get dmesg
+dmesg
+
+EndHtmlSections

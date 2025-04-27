@@ -1,0 +1,94 @@
+#!/bin/sh
+# /etc/init.d/sync-agent: start sync-agent
+#
+# chkconfig: 2345 10 90
+#
+#Runlevel : S = S28
+#Runlevel : 6 = K47
+#Runlevel : 7 = K47
+#Runlevel : 8 = K47
+#
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+LUAJIT="luajit"
+SERVER_PATH="/usr/local/sync-agent/"
+SERVER_STOP_CMD="kill"
+SERVER_STOP_CMDOPTS="HUP"
+SERVER_STOP_CMDOPTS_CONF="USR1"
+AGENT_NAME="agent.lua"
+RF2GROUP_AGENT_NAME="subagents/redfish-2-redfishgroup.lua"
+GROUP2FN_AGENT_NAME="subagents/redfishgroup-2-fns.lua"
+INIT_AGENT_NAME="subagents/init-agent.lua"
+SYNC_AGENT_PID_DIR="/var/run/sync-agent-subagents/"
+SYNC_AGENT_PID="/var/run/sync-agent.pid"
+RF2GROUP_AGENT_PID="/var/run/redfish2redfishgroup.pid"
+GROUP2FN_AGENT_PID="/var/run/redfishgroup2fns.pid"
+
+# Options for start/stop the daemons
+case "$1" in
+  start)
+    echo -n "Starting Sync Agent"
+    mkdir -p $SYNC_AGENT_PID_DIR
+    export LD_LIBRARY_PATH=/usr/local/lib
+    #start-stop-daemon --start --quiet --exec $SERVER_PATH$SERVER_NAME -n $SERVER_NAME
+    echo 1 > /tmp/redfish-start
+    cd $SERVER_PATH; $LUAJIT $INIT_AGENT_NAME
+    $LUAJIT $AGENT_NAME
+    $LUAJIT $RF2GROUP_AGENT_NAME
+    $LUAJIT $GROUP2FN_AGENT_NAME
+    echo "."
+    echo -n
+    ;;
+  stop)
+    echo -n "Stopping Sync Agent"
+    #start-stop-daemon --stop --quiet --exec $SERVER_PATH$SERVER_NAME -n $SERVER_NAME --signal $SERVER_STOP_CMDOPTS
+    $SERVER_STOP_CMD -9 `cat $SYNC_AGENT_PID`
+    rm $SYNC_AGENT_PID
+    $SERVER_STOP_CMD -9 `cat $RF2GROUP_AGENT_PID`
+    rm $RF2GROUP_AGENT_PID
+    $SERVER_STOP_CMD -9 `cat $GROUP2FN_AGENT_PID`
+    rm $GROUP2FN_AGENT_PID
+    if [ $SYNC_AGENT_PID_DIR* != "$SYNC_AGENT_PID_DIR*" ]; then
+        for SUBAGENT in $SYNC_AGENT_PID_DIR*
+        do
+            $SERVER_STOP_CMD -9 `cat $SUBAGENT`
+            rm $SUBAGENT
+        done
+    fi
+    echo "."
+    echo -n
+    ;;
+  restart)
+    echo -n "Restarting Sync Agent"
+    #start-stop-daemon --stop --quiet --exec $SERVER_PATH$SERVER_NAME -n $SERVER_NAME --signal $SERVER_STOP_CMDOPTS
+    $SERVER_STOP_CMD -9 `cat $SYNC_AGENT_PID`
+    rm $SYNC_AGENT_PID
+    $SERVER_STOP_CMD -9 `cat $RF2GROUP_AGENT_PID`
+    rm $RF2GROUP_AGENT_PID
+    $SERVER_STOP_CMD -9 `cat $GROUP2FN_AGENT_PID`
+    rm $GROUP2FN_AGENT_PID
+    if [ $SYNC_AGENT_PID_DIR* != "$SYNC_AGENT_PID_DIR*" ]; then
+        for SUBAGENT in $SYNC_AGENT_PID_DIR*
+        do
+            $SERVER_STOP_CMD -9 `cat $SUBAGENT`
+            rm $SUBAGENT
+        done
+    fi
+    sleep 3
+    export LD_LIBRARY_PATH=/usr/local/lib
+    #start-stop-daemon --start --quiet --exec $SERVER_PATH$SERVER_NAME -n $SERVER_NAME
+    cd $SERVER_PATH; $LUAJIT $INIT_AGENT_NAME
+    $LUAJIT $AGENT_NAME
+    $LUAJIT $RF2GROUP_AGENT_NAME
+    $LUAJIT $GROUP2FN_AGENT_NAME
+    echo "."
+    echo -n
+    ;;
+  *)
+    echo "Usage: /etc/init.d/sync-agent {start|stop|restart}"
+    echo "."
+    echo -n
+    exit 1
+esac
+
+exit 0

@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>IPv4 Network - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../dflt-css/base_help.css' rel='stylesheet' type='text/css'/>
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>IPv4 Network - Help</div>
+            <p>Use this page to configure the network settings for server management.</p>
+
+            <h2>Hostname</h2>
+                <p>The hostname is a RFC 1123 compliant string less than 64 alpha-numeric characters. Hyphen characters are allowed as long as the hyphen is not the first or final character in the hostname.
+                The default value is "BMC" + MAC address.
+                (eg: MAC address is '00 1e 67 f9 2f b3', default host name will be 'BMC001E67F92FB3')
+                (ps: If the OCP card is not distinguished, the default host name will be 'BMC000000000000'. In this case, the host name will be update to "BMC" + MAC address after the OCP card is distinguished and reload the web page)
+                </p>
+
+            <h2>Enable LAN Failover</h2>
+                <p>Enabling failover bonds all available ethernet interfaces into the first LAN Channel.  When the primary interface's leash is lost, one of the secondary interfaces is activated automatically with the same IP address.</p>
+                <p>Select ethernet devices to bond.</p>
+                <p>Select specify a LAN channel to primary LAN channel.</p>
+            <h2>Enable Host Interface</h2>
+                <p>Host Interface is based on Ethernet over USB. It provides an interface between the host and BMC for communication that implements many functions, including iKVM (HID Mouse and Keyboard) and Virtual Media.</p>
+                <p>If Host Interface is not enabled yet, you must enable and save it. Then continue to set the host interface configuration.</p>
+                <p>Host Interface only supports Static IP and can only modify IP address and netmask.</p>
+            <h2>LAN Channel</h2>
+                <p>Lists the LAN Channel(s) available for server management.</p>
+
+            <h2>MAC Address</h2>
+                <p>The MAC address of the device (read only).</p>
+
+            <h2>NIC Description</h2>
+                <p>Display NIC dedicated to BMC / Host or shared between Host and BMC of LAN Channel(s) (read only).</p>
+
+            <h2>Link Status</h2>
+                <p>Display NIC Link status of LAN Channel(s) (read only).</p>
+
+            <h2>IP Address</h2>
+                <p>Select the type of IP assignment with the radio buttons.
+                If configuring a static IP, enter the requested IP Address, Subnet Mask,
+                Gateway, Primary DNS and Secondary DNS Server in the given fields.</p>
+                    <ul>
+                        <li>- IP Address made of 4 numbers separated by dots as in "xxx.xxx.xxx.xxx".</li>
+                        <li>- 'xxx' ranges from 0 to 255.</li>
+                        <li>- First 'xxx' must not be 0.</li>
+                    </ul>
+
+        <div class='helpactionhead'>Actions</div>
+            <div class='actionsub'>Save</div>
+                <p>Click 'Save' to save any changes made.</p>
+
+                <p class="warning">
+                <img src='../../images/warning.png'>
+                <b>NOTE:</b>
+                Please close any active KVM sessions prior to changing the network settings, in order to avoid disconnection from the server.
+                </p>
+    </body>
+</html>

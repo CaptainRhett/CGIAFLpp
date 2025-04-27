@@ -1,0 +1,73 @@
+#!/bin/sh
+# /usr/lib/sysdiag/sysdiag_stage2 - Collects more infomation
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="sysdiag_stage2"
+TEST_COMMENT="System Diagnostics Stage 2"
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+
+# Actual test starts here.
+# Dump ipmid log
+DumpSeries "/var/log/ipmid*"
+
+# Dump nv/biosId
+# This contains binary data, so we must HEXDUMP it instead.
+
+# Write the banner for the file, because we're reporting SOMETHING about it regardless.
+echo "<span class='subtitle'>- biosID</span>"
+
+# Then, verify that it exists
+if [ -e "/nv/biosID" ]
+then
+    # Then verify that it's not 0 length
+    if [ -s "/nv/biosID" ]
+    then
+        # OK, all clear, hexdump it.
+        safehexdump < /nv/biosID
+    else
+        echo "File exists, but is 0 length"
+    fi
+else
+    echo "File not found"
+fi
+echo
+
+# Dump /nv dir contents
+echo "<span class='subtitle'>- ls -lR /nv</span>"
+ls /nv -lR
+echo
+
+# Dump /var dir contents
+echo "<span class='subtitle'>- ls -lRL /var</span>"
+ls /var -lRL
+echo
+
+# Dump /tmp dir contents
+echo "<span class='subtitle'>- ls -lRL /tmp</span>"
+ls /tmp -lRL
+echo
+
+# Dump the bonding status
+#echo "<span class='subtitle'>- /etc/init.d/bonding status</span>"
+#/etc/init.d/bonding status
+#echo
+
+EndHtmlSections

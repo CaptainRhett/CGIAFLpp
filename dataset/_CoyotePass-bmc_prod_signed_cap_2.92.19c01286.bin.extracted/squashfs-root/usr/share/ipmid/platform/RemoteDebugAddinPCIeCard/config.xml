@@ -1,0 +1,291 @@
+<!-- PIA Configuration XML for RemoteDebugAddinPCIe Card -->
+<PIA>
+<!-- Drivers create a handle for low level actions -->
+<driver_list>
+    <driver_class driver_id="GPIO_DRIVER">
+        <GPIO_driver_instance>
+            <GPIO_signal_offset
+                signal_id="JTAG_XDP_HOOK0"
+                offset="JTAG_XDP_HOOK0_OFS"
+                u16PhysGpio="146"
+                bfPowerState="PWRSTATE_ANY"
+                bDebounce="0"
+                bInput="1"
+                bOutput="0"
+                bInverted="0"
+                bInitVal="0"
+                bOpenDrain="0"
+                />
+            <GPIO_signal_offset
+                signal_id="JTAG_XDP_HOOK1"
+                offset="JTAG_XDP_HOOK1_OFS"
+                u16PhysGpio="202"
+                bfPowerState="PWRSTATE_ANY"
+                bDebounce="0"
+                bInput="1"
+                bOutput="0"
+                bInverted="0"
+                bInitVal="0"
+                bOpenDrain="0" />
+            <GPIO_signal_offset
+                signal_id="JTAG_XDP_HOOK3"
+                offset="JTAG_XDP_HOOK3_OFS"
+                u16PhysGpio="145"
+                bfPowerState="PWRSTATE_ANY"
+                bDebounce="0"
+                bInput="1"
+                bOutput="0"
+                bInverted="0"
+                bInitVal="0"
+                bOpenDrain="0" />
+            <GPIO_signal_offset
+                signal_id="JTAG_XDP_HOOK7"
+                offset="JTAG_XDP_HOOK7_OFS"
+                u16PhysGpio="33"
+                bfPowerState="PWRSTATE_ANY"
+                bDebounce="0"
+                bInput="1"
+                bOutput="0"
+                bInverted="0"
+                bInitVal="0"
+                bOpenDrain="0"
+                bDisablePassthru="1" />
+            <GPIO_signal_offset
+                signal_id="JTAG_XDP_PRESENT"
+                offset="JTAG_XDP_PRESENT_OFS"
+                u16PhysGpio="37"
+                bfPowerState="PWRSTATE_ANY"
+                bDebounce="0"
+                bInput="1"
+                bOutput="0"
+                bInverted="0"
+                bInitVal="0"
+                bOpenDrain="0"
+                bDisablePassthru="1" />
+        </GPIO_driver_instance>
+    </driver_class>
+    <driver_class driver_id="LAN_LEASH_DRIVER">
+          <LAN_LEASH_driver_instance>
+          <LAN_LEASH_signal_offset signal_id="LANLeashLostSig" offset="LAN_LEASH_OFS_1"/>
+          </LAN_LEASH_driver_instance>
+    </driver_class>
+</driver_list>
+
+
+<!-- Entities are containers for sensors and effectors -->
+<entity_list>
+  <entity entity_id="Baseboard_Entity">
+
+      <sensor	sensor_id="EventLoggingDisabled"
+          u16ScanPeriodMs="0"
+          u8Class="DISCRETE_SEN"
+          u16IPMISensorNumber="0x07"
+          >
+          <core_flags bScannable="FALSE"
+              bScanEnable="TRUE" />
+
+
+          <sensor_event event_id="EvtLogCleared"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NONE"
+              u8DeassertionSeverity="FAULT_NONE">
+              <discrete_settings u8DiscreteOffset="2" bInitValue="FALSE" bDoInit="TRUE" bPolarity="POLARITY_INVERTED" />
+          </sensor_event>
+      </sensor>
+
+      <sensor sensor_id="System Event"
+          u16ScanPeriodMs="1000"
+          u8Class="DISCRETE_SEN"
+          u16IPMISensorNumber="0x08"
+          >
+          <core_flags bScannable="FALSE"
+              bScanEnable="TRUE" />
+
+
+          <sensor_event event_id="PEF Action"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NONE"
+              u8DeassertionSeverity="FAULT_NONE">
+              <discrete_settings u8DiscreteOffset="4" bInitValue="FALSE" bDoInit="TRUE" bPolarity="POLARITY_INVERTED" />
+          </sensor_event>
+      </sensor>
+
+      <sensor sensor_id="BMCHW_Watchdog"
+          signal_id="0"
+          u16ScanPeriodMs="0"
+          u8Class="DISCRETE_SEN"
+          u16IPMISensorNumber="0x0A"
+          >
+
+          <core_flags bScannable="FALSE"
+              bScanEnable="FALSE"
+              bTimeStamping="FALSE"
+              bNVStorage="FALSE"
+              />
+
+          <ipmi_flags bManuallyRearmed="FALSE"
+              bEdgeTriggered="FALSE"
+              bSigned="FALSE"
+              bRearmPersistState="TRUE"/>
+
+          <sensor_event event_id="BMC_WDT_Asserted"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NON_CRITICAL"
+              u8DeassertionSeverity="FAULT_NONE">
+              <discrete_settings u8DiscreteOffset="1"
+                  bInitValue="FALSE"
+                  bDoInit="TRUE"
+                  bPolarity="POLARITY_NORMAL"
+                  bInverted="FALSE" />
+          </sensor_event>
+      </sensor>
+
+      <sensor	sensor_id="MgmtHealthSensor"
+          signal_id="0"
+          u16ScanPeriodMs="0"
+          u8Class="DISCRETE_SEN"
+          u16IPMISensorNumber="0x10"
+          >
+
+          <core_flags bScannable="FALSE"
+              bScanEnable="TRUE"
+              bTimeStamping="FALSE"
+              bNVStorage="FALSE"
+              />
+
+          <ipmi_flags bManuallyRearmed="FALSE"
+              bEdgeTriggered="FALSE"
+              bSigned="FALSE"
+              />
+
+          <sensor_event event_id="Sensor_Failure"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NON_CRITICAL"
+              u8DeassertionSeverity="FAULT_NONE">
+
+              <discrete_settings u8DiscreteOffset="4"
+                  bInitValue="FALSE"
+                  bDoInit="TRUE"
+                  bPolarity="POLARITY_NORMAL"
+                  bInverted="FALSE"/>
+          </sensor_event>
+      </sensor>
+
+
+      <sensor	sensor_id="RemoteDebug"
+          signal_id="0"
+          u16ScanPeriodMs="0"
+          u8Class="DISCRETE_SEN"
+          u16IPMISensorNumber="0xDB"
+          >
+          <core_flags bScannable="FALSE"
+              bScanEnable="FALSE"
+              bTimeStamping="FALSE"
+              bNVStorage="FALSE"
+              />
+
+          <ipmi_flags bManuallyRearmed="FALSE"
+              bEdgeTriggered="FALSE"
+              bSigned="FALSE"
+              bRearmPersistState="FALSE"/>
+
+          <sensor_event event_id="RmtDebug_HWJumper"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NONE"
+              u8DeassertionSeverity="FAULT_NONE">
+              <discrete_settings u8DiscreteOffset="0" bInitValue="FALSE" bDoInit="TRUE" bPolarity="POLARITY_NORMAL"/>
+          </sensor_event>
+
+          <sensor_event event_id="RmtDebug_Enabled"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NONE"
+              u8DeassertionSeverity="FAULT_NONE">
+              <discrete_settings u8DiscreteOffset="1" bInitValue="FALSE" bDoInit="TRUE" bPolarity="POLARITY_NORMAL"/>
+          </sensor_event>
+
+          <sensor_event event_id="RmtDebug_Active"
+              signal_id="NULL_ID"
+              SensorEventType="DISCRETE_SEN"
+              u8AssertionSeverity="FAULT_NONE"
+              u8DeassertionSeverity="FAULT_NONE">
+              <discrete_settings u8DiscreteOffset="2" bInitValue="FALSE" bDoInit="TRUE" bPolarity="POLARITY_NORMAL"/>
+          </sensor_event>
+      </sensor>
+
+  </entity>
+</entity_list>
+
+<!-- General associations -->
+
+<!-- Module config records -->
+<moduleconfig>
+    <dbsconfig u32Key="DBS_ID"
+        u16MaxDB="512" />
+
+    <selconfig u32Key="SEL_ID"
+        u32EvtLogDisableSensorId="EventLoggingDisabled"
+        u16MaxEntriesSupported="4000"/>
+
+    <rtcconfig u32Key="RTC_ID"
+        u8TimestampSource="TIMESTAMP_OS"
+        u8ClockSource="RTC_EXTERNAL"
+        u32RTCSyncRateMs="60000"
+        u32RTCSignalID="0"/>
+
+    <sessionconfig u32Key="SESSION_MGR_ID"
+        u32SessAuditSensorId="0"
+        u8MinPasswdLen="6"
+        bAllowOemPriv="0" />
+
+    <chassisconfig u32Key="CHASSIS_ID"
+        u32PhysSecSensorId="NULL_ID"
+        u8SupportsFPPwrDisable="0"
+        u8SupportsFPRstDisable="0"
+        u8SupportsFPNMIDisable="0"
+        u8SupportsFPSleepDisable="0" />
+
+    <ncsiconfig u32Key="NCSI_ID"
+        u32NCSIPackageNum="0"
+        u32NCSIChannelUsed="0" />
+
+    <mgmthealthconfig u32Key="MGMT_HEALTH_ID"
+        u32MgmtHealthSensorId="MgmtHealthSensor" />
+
+    <smonconfig u32Key="SIG_MONITOR_ID"
+        u32SMonTaskInterval="40" />
+
+    <secmodeconfig u32Key="SECM_ID"
+        u32PlatSecSensorId="NULL_ID"
+        Enabled="0" />
+
+    <bmchw_wdconfig u32Key="BMCHW_WD_CM_ID"
+        u32BmcHwWDSensorId="BMCHW_Watchdog" />
+
+    <!-- rmtdbg_config
+           u8HasHostRmtJtagDebugSupport="1" - should only be enabled on Wolf Pass
+                                              Cluster or the PCIe add-in card.
+                                              Not for external use until RDBG supports TLS
+           u8IsRmtDebugDefaultEnabled="1"   - Should only be enabled on WPC or PCIe add-in
+           u8IsConsentImplied=1             - indicates consent jumper is overriden
+                                              THIS SHOULD ONLY BE DONE ON REMOTE DEBUG ADD-IN CARD
+      -->
+    <rmtdbg_config u32Key="RMTDBG_CFG_ID"
+        u32RmtDbgSensorId="RemoteDebug"
+        u8HasHostRmtJtagDebugSupport="1"
+        u8IsRmtDebugDefaultEnabled="1"
+        u8IsConsentImplied="1"
+        />
+
+    <producttypeconfig u32Key="PRD_TYPE_ID"
+        u8IsBlade="0"
+        u8DisableHostIfcs="1"
+        />
+</moduleconfig>
+
+</PIA>

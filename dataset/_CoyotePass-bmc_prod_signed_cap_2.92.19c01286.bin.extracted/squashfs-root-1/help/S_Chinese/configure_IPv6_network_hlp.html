@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>Ipv6 网络 — 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../dflt-css/base_help.css' rel='stylesheet' type='text/css'/>
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+        <div class='helpmainhead'>Ipv6 网络 — 帮助</div>
+        <p>
+        使用此页面为服务器管理配置网络设置。
+        </p>
+
+        <h2>启用故障转移</h2>
+        <p>
+        启用故障转移绑定所有可用的以太网接口到第一个局域网频道。当主接口绑定断开的话，二级接口会以相同的IP地址被自动激活。
+        </p>
+        <p>
+        选择要绑定的以太网设备。
+        </p>
+        <p>
+        选择指定网络通道到主网络通道。
+        </p>
+        <h2>启用Host Interface</ h2>
+        <p>Host Interface基于USB以太网。 它提供了主机和BMC之间的通信接口，该接口实现了许多功能，包括iKVM（HID鼠标和键盘）和虚拟媒体。</ p>
+        <p>如果尚未启用Host Interface，则必须启用并保存。 然后继续设置主机接口配置。</ p>
+        <p>Host Interface仅支持静态IP，并且只能修改IP地址和网络前缀长度。</ p>
+        <h2>局域网通道</h2>
+        <p>
+        它列出了可用于管理服务器的局域网通道。局域网通道描述了服务器上的物理网卡的连接。
+        所有通道都是板载网卡。基板管理通道是共享网卡配置和共享操作系统的。
+        </p>
+
+        <h2>MAC地址</h2>
+        <p>设备的MAC地址(只读)</p>
+        <h2>网络接口控制器</h2>
+        <p>显示局域网通道的网络接口控制器是专用于BMC/主机或是主机和BMC共用（只读）。</p>
+        <h2>网络链接</h2>
+        <p>显示局域网通道的网络链接状态（只读）。</p>
+
+        <h2>IP地址</h2>
+        <p>
+        使用单选按钮来选择IP分配的类型。如果配置一个静态IP,在给定的字段输入所请求的IP地址、子网掩码、网关、主DNS和二级DNS服务器。
+        </p>
+        <ul>
+            <li>- IPv6地址用冒号分开，由8、4位十六进制数字组成。</li>
+            <li>- A::可用于两个或两个以上的零域的单个序列。</li>
+        </ul>
+
+        <div class='helpactionhead'>操作</div>
+
+        <div class='actionsub'>保存</div>
+        <p>点击“保存”按钮保存任何修改。</p>
+
+        <p class="warning">
+        <img src='../../images/warning.png'>
+        <b>备注:</b>
+        专用的管理网卡IP地址必须跟基板在不同的子网IP地址。
+        </p>
+        <br>
+        <p class="warning">
+        <img src='../../images/warning.png'>
+        <b>备注:</b>
+        在尝试修改网络设置前，请关闭所有打开的远程控制台重定向会话。否则所有的会话将丢失。
+        </p>
+    </body>
+</html>

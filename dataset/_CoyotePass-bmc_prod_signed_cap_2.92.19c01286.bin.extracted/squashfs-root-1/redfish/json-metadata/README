@@ -1,0 +1,5 @@
+json-metadata:
+-------------
+If changes or additions are made to DMTF Schemas, the updated schemas belong in
+this directory. The SMPF JSONSchemas schema would be used to implement a
+collection that is accessed from service root.

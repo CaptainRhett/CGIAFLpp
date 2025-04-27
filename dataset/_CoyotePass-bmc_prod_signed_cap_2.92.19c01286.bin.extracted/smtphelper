@@ -1,0 +1,47 @@
+#!/bin/sh
+# INTEL CONFIDENTIAL
+# Copyright 2016 Intel Corporation
+#
+# The source code contained or described herein and all documents related to
+# the source code ("Material") are owned by Intel Corporation or its suppliers
+# or licensors. Title to the Material remains with Intel Corporation or its
+# suppliers and licensors. The Material contains trade secrets and proprietary
+# and confidential information of Intel or its suppliers and licensors. The
+# Material is protected by worldwide copyright and trade secret laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed, or disclosed
+# in any way without Intel's prior express written permission.
+#
+# No license under any patent, copyright, trade secret or other intellectual
+# property right is granted to or conferred upon you by disclosure or delivery
+# of the Materials, either expressly, by implication, inducement, estoppel or
+# otherwise. Any license under such intellectual property rights must be
+# express and approved by Intel in writing.
+
+# Command used by msmtp to get the auth password
+
+if [ $# -ne 1 ]; then
+    echo "Usage $0 channel"
+    exit 255
+fi
+
+CHANNEL=$1
+NETFN=0C      # Transport
+CMD=02        # CMD_GET_LAN_CONFIGURATION_PARAMETERS
+LAN_PARM=C3   # SMTP Server Parameters
+SMTP_PARM=03  # Auth Password
+BS=00         # Block selector not used
+
+# CC gets first byte; VC gets second (ignored); and PW gets remaining bytes.
+# cmdtool gets hex encoded auth password.
+# sed removes trailing nulls and adds a newline required by msmtp
+read CC VC PW <<!
+$(cmdtool -n 20 $NETFN $CMD $CHANNEL $LAN_PARM $SMTP_PARM $BS | sed '1s/\( 0\+\)* *$/ 0A/')
+!
+
+if [ $CC -eq 0 ]; then
+    # Ascii encode
+    echo "0000000 $PW" | xxd -r
+fi
+
+exit $CC

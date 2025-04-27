@@ -1,0 +1,65 @@
+#!/bin/sh
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+# This script is used to determine if the JTAG consent jumper is set.
+# Exit code is 0 if consent is given, 1 otherwise.
+
+LOG=/var/log/jtag_test
+num_driver_instances()
+{
+    using_drv=$(lsmod | sed -n '/^jtag_drv/s/^.* \([0-9]*\) .*$/\1/p')
+    if [ -z "$using_drv" ]; then
+        insmod /bin/module/jtag_drv.ko >& /dev/null
+        using_drv=0
+    fi
+    echo $using_drv
+}
+
+jtag_svr_pid()
+{
+    running=0
+    PID_FILE=/var/run/jtag_socket_svr.pid
+    if [ -r $PID_FILE ]; then
+        pid=$(cat $PID_FILE)
+        if [ -e /proc/$pid ]; then
+            running=$pid
+        fi
+    fi
+    echo $running
+}
+
+ret=1
+instances=$(num_driver_instances)
+pid=$(jtag_svr_pid)
+
+PLATFORM_ID=$(sed -e 's/.*fwproductid=//g' -e 's/ .*//' /proc/cmdline)
+
+if [ $instances -gt 0 -a $pid -ne 0 ]; then
+    # Driver being used & jtag server is running; Consent given previously.
+    echo "$(date +%Y-%m-%d.%H:%M:%S): *** socket server already running as pid $pid ***" >> $LOG
+    ret=0
+else
+    echo "$(date +%Y-%m-%d.%H:%M:%S): *** Checking debug consent ***" >> $LOG
+    # Consent pin is set if jtag_test runs successfully
+    if [ $PLATFORM_ID == '0098' ] || [ $PLATFORM_ID == '0099' ]; then
+        /usr/bin/jtag_test -i 1 --ir-size=0xe >> $LOG 2>&1
+    else
+        /usr/bin/jtag_test -i 1 >> $LOG 2>&1
+    fi
+
+    if [ $? -eq 0 ]; then
+        ret=0
+    fi
+fi
+exit $ret

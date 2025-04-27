@@ -1,0 +1,45 @@
+{
+    "@Redfish.Copyright": "Copyright © 2015-2019 Insyde Software Corp. All rights reserved.",
+    "@odata.type": "#MessageRegistry.v1_0_3.MessageRegistry",
+    "Id": "StatusChange.1.0.0",
+    "Name": "StatusChange Message Registry",
+    "Language": "en",
+    "Description": "This registry defines the alert messages for Redfish",
+    "RegistryPrefix": "StatusChange",
+    "RegistryVersion":  "1.0.0",
+    "OwningEntity": "Insyde",
+    "Messages": {
+        "SystemOK": {
+            "Description": "System is not exhibiting any errors.",
+            "Message": "System is not exhibiting any errors.",
+            "Severity": "OK",
+            "NumberOfArgs": 0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SystemDegraded": {
+            "Description": "System got some minor situations.",
+            "Message": "System is encountering difficulties.",
+            "Severity": "Warning",
+            "NumberOfArgs": 0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SystemWarning": {
+            "Description": "System got some critical situations.",
+            "Message": "System got a situation.",
+            "Severity": "Critical",
+            "NumberOfArgs": 0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        },
+        "SystemFailure": {
+            "Description": "System has failed or shutdown.",
+            "Message": "System has failed or shutdown.",
+            "Severity": "Warning",
+            "NumberOfArgs": 0,
+            "ParamTypes": [],
+            "Resolution": "None."
+        }
+    }
+}

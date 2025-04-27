@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# Copyright 2016-2017 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+# Get common functions (is_jtag_enabled)
+source /etc/monit/scripts/common-funcs
+source /etc/init.d/platform-common
+
+
+NAME=jtag_socket_svr
+DAEMON=/usr/bin/$NAME
+PID_FILE=/var/run/$NAME.pid
+LOG_TAG="jtagsvr-init"
+LOGEXEC=/etc/monit/scripts/log-exec.sh
+LOG_CFG=/nv/daemon-log.cfg
+JTAGSVR_LOG_EN=0
+TLS_KEYFILE=/nv/server.pem
+if [ -f $LOG_CFG ]; then
+    source $LOG_CFG
+fi
+PLATFORM_ID=$(sed -e 's/.*fwproductid=//g' -e 's/ .*//' /proc/cmdline)
+
+start() {
+    lsmod | grep -q jtag_drv || /sbin/insmod /bin/module/jtag_drv.ko
+    current_pid=$(/bin/ps | awk '$5 ~ /(^|\/)jtag_socket_svr/ {print $1}')
+    if [ -z "$current_pid" ]; then
+        logger -t "$LOG_TAG" -p local0.info "Starting BMC Service $NAME"
+        if [ $JTAGSVR_LOG_EN -gt 0 ]; then
+            DEBUG_OP="-l $JTAGSVR_LOG_EN"
+        fi
+        /sbin/start-stop-daemon -S -p $PID_FILE -m -b -x $DAEMON -- -s -i $PLATFORM_ID -k $TLS_KEYFILE $DEBUG_OP -n eth2 && return 0
+        rc=$?
+        reason="Unable to execute $DAEMON; rc: $rc"
+    else
+        reason="$NAME daemon is already running"
+        if [ $(cat $PID_FILE) -ne $current_pid ]; then
+            reason="$reason; updated $PID_FILE"
+            echo $current_pid > $PID_FILE
+        fi
+    fi
+    logger -t "$LOG_TAG" -p local0.info "Failed to start $NAME; $reason"
+    return 1
+}
+
+stop() {
+    logger -t "$LOG_TAG" -p local0.info "Shutting down BMC Service $NAME"
+    for signal in 15 9; do
+        /sbin/start-stop-daemon -K -s $signal -p $PID_FILE
+        sleep 1
+        pid=$(ps | grep '[j]tag_socket_svr -' | awk '{print $1}')
+        if [ -n "$pid" ]; then
+            kill -$signal $pid
+            sleep 1
+        fi
+        if [ $(ps | grep -c '[j]tag_socket_svr -') -eq 0 ]; then
+            rm -f $PID_FILE
+            return 0
+        fi
+    done
+    logger -t "$LOG_TAG" -p local0.info "Failed to stop $NAME: $(ps | grep '[j]tag_socket_svr -')"
+    return 1
+}
+
+case "$1" in
+    start)
+        if [ $(is_jtag_enabled) -eq 0 ]; then
+            echo "Platform remote debug is not supported on this platform!"
+            exit 1
+        else
+            start
+        fi
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        echo "Checking $NAME daemon status: "
+        ps | grep '[j]tag_socket_svr -' || echo "stopped"
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $?

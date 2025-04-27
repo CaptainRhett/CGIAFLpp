@@ -111,7 +111,9 @@ fsrv_run_result_t __attribute__((hot)) fuzz_run_target(afl_state_t      *afl,
 
 /* Write modified data to file for testing. If afl->fsrv.out_file is set, the
    old file is unlinked and a new one is created. Otherwise, afl->fsrv.out_fd is
-   rewound and truncated. */
+   rewound and truncated.
+   将修改后的数据写入文件进行测试。如果设置了 afl->fsrv.out_file，
+   则取消链接旧文件并创建新文件。否则，afl->fsrv.out_fd 将被回绕并截断 */
 
 u32 __attribute__((hot)) write_to_testcase(afl_state_t *afl, void **mem,
                                            u32 len, u32 fix) {

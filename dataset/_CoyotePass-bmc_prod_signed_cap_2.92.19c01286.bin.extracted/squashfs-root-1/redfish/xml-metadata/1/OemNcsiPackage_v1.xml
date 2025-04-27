@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Oem Schema:  OemNcsiPackage                                                 -->
+<!--#                                                                                      -->
+<!--#  @section LICENSE                                                                    -->
+<!--#                                                                                      -->
+<!--# Copyright (c) 2003-2020, Insyde Software Corp. All Rights Reserved.                  -->
+<!--#                                                                                      -->
+<!--# You may not reproduce, distribute, publish, display, perform, modify, adapt,         -->
+<!--# transmit, broadcast, present, recite, release, license or otherwise exploit          -->
+<!--# any part of this publication in any form, by any means, without the prior            -->
+<!--# written permission of Insyde Software Corp.                                          -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemNcsiPackage">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="OemNcsiPackage" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The VirtualMedia schema contains properties related to monitoring and control of an instance of virtual media such as a remote CD, DVD, or USB device. Virtual media functionality is provided by a Manager for a system or device."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a virtual media service for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemNcsiPackage.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="OemNcsiPackage" BaseType="OemNcsiPackage.OemNcsiPackage">
+        <Property Name="PackageInfo" Type="Collection(OemNcsiPackage.v1_0_0.PackageInfo)"/>
+      </EntityType>
+
+      <ComplexType Name ="PackageInfo" Nullable="false">
+        <Property Name="ChannelIndex" Type = "Edm.Decimal"/>
+        <Property Name="MACAddress" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The currently configured MAC address of the ncsi."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current MAC address of this ncsi."/>
+        </Property>
+        <Property Name="LinkStatus" Type = "OemNcsiPackage.v1_0_0.LinkStatusComplex"/>
+        <Property Name="NcsiStatistics" Type = "OemNcsiPackage.v1_0_0.NcsiStatisticsComplex"/>
+        <Property Name="Capabilities" Type = "OemNcsiPackage.v1_0_0.NcsiCapabilitiesComplex"/>
+        <Property Name="NcsicontrollerPacketStatistics" Type = "OemNcsiPackage.v1_0_0.NcsicontrollerPacketStatisticsComplex"/>
+      </ComplexType>
+
+      <ComplexType Name="LinkStatusComplex" Nullable="false">
+      <Annotation Term="OData.Description" String="This type contains Get Link Status command response."/>
+      <Annotation Term="OData.LongDescription" String="This type shall contain properties from Get Link Status command response."/>
+        <Property Name ="Link" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link status."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link status."/>
+        </Property>
+        <Property Name ="SpeedAndDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Speed and duplex."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Speed and duplex."/>
+        </Property>
+        <Property Name ="AutoNegotiateFlag" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Auto Negotiate Flag is enabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if Auto Negotiate Flag is enabled. The value shall be enabled if enabled and disabled if not."/>
+        </Property>
+        <Property Name ="ParallelDetectionFlag" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the Auto Negotiate Flag is supported."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if the Auto Negotiate Flag is supported. The value shall be enabled if supported and disabled if not."/>
+        </Property>
+        <Property Name ="TXFlowControl" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Transmission of Pause frames by the NC onto the external network interface is enabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if Transmission of Pause frames by the NC onto the external network interface is enabled. The value shall be enabled if enabled and disabled if not."/>
+        </Property>
+        <Property Name ="RXFlowControl" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Reception of Pause frames by the NC from the external network interface is enabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if Reception of Pause frames by the NC from the external network interface is enabled. The value shall be enabled if enabled and disabled if not."/>
+        </Property>
+        <Property Name ="SerDesLink" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="SerDes status."/>
+          <Annotation Term="OData.LongDescription" String="This indicates SerDes status."/>
+        </Property>
+        <Property Name ="AutoNegotiateComplete" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This indicates if auto-negotiation was completed using Parallel Detection."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if auto-negotiation was completed using Parallel Detection. The value shall be done if complete and Not Complete if not."/>
+        </Property>
+        <Property Name ="OEMLinkSpeedValid" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if OEM link settings is valid."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if OEM link settings is valid. The value shall be yes if valid and no if not."/>
+        </Property>
+        <Property Name ="LinkPartnerAdvertisedFlowControl" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Filtering Any VLAN or non-VLAN traffic supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Filtering Any VLAN or non-VLAN traffic supported."/>
+        </Property>
+        <Property Name ="1000BaseTFullDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 1000BASE-T full-duplex capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 1000BASE-T full-duplex capable."/>
+        </Property>
+        <Property Name ="1000BaseTHalfDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 1000BASE-T half-duplex capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 1000BASE-T half-duplex capable."/>
+        </Property>
+        <Property Name ="100BaseT4" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 100BASE-T4 capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 100BASE-T4 capable."/>
+        </Property>
+        <Property Name ="100BaseTXFullDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 100BASE-TX full-duplex capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 100BASE-TX full-duplex capable."/>
+        </Property>
+        <Property Name ="100BaseTXHalfDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 100BASE-TX half-duplex capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 100BASE-TX half-duplex capable."/>
+        </Property>
+        <Property Name ="10BaseTXFullDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 10BASE-T full-duplex capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 10BASE-T full-duplex capable."/>
+        </Property>
+        <Property Name ="10BaseTXHalfDuplex" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link Partner is 10BASE-T half-duplex capable."/>
+          <Annotation Term="OData.LongDescription" String="This indicates Link Partner is 10BASE-T half-duplex capable."/>
+        </Property>
+        <Property Name ="HostNCDriverStatus" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The status of Network Controller driver for the host external network interface associated with this channel."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the status of Network Controller driver for the host external network interface associated with this channel."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NcsiStatisticsComplex" Nullable="false">
+      <Annotation Term="OData.Description" String="This type contains Get NC-SI Statistics command response."/>
+      <Annotation Term="OData.LongDescription" String="This type shall contain properties from Get NC-SI Statistics command response."/>
+        <Property Name ="CommandReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="For packets that are not dropped."/>
+          <Annotation Term="OData.LongDescription" String="For packets that are not dropped, this field returns the number of NC-SI Control packets received and identified as NC-SI commands."/>
+        </Property>
+        <Property Name ="ControlPacketsDropped" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of NC-SI Control packets that were received and dropped."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the counts the number of NC-SI Control packets that were received and dropped."/>
+        </Property>
+        <Property Name ="CommandTypeErrors" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of NC-SI command packets that were received, but are not supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the counts the number of NC-SI command packets that were received, but are not supported."/>
+        </Property>
+        <Property Name ="CommandChecksumErrors" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of NC-SI Control Packets that were received but dropped because of an invalid checksum."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the counts the number of NC-SI Control Packets that were received but dropped because of an invalid checksum."/>
+        </Property>
+        <Property Name ="CommandReceivePackets" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the total number of NC-SI Control packets received."/>
+          <Annotation Term="OData.LongDescription" String="Counts the total number of NC-SI Control packets received. This count is the sum of NC-SI Commands Received and NC-SI Control Packets Dropped."/>
+        </Property>
+        <Property Name ="TransmitPackets" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the total number of NC-SI Control packets transmitted to the Management Controller."/>
+          <Annotation Term="OData.LongDescription" String="Counts the total number of NC-SI Control packets transmitted to the Management Controller. This count is the sum of NC-SI responses sent and AENs sent."/>
+        </Property>
+        <Property Name ="AENsSent" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the total number of AEN packets transmitted to the Management Controller."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the counts the total number of AEN packets transmitted to the Management Controller."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NcsiCapabilitiesComplex" Nullable="false">
+      <Annotation Term="OData.Description" String="This type contains Get NC-SI Capabilities command response."/>
+      <Annotation Term="OData.LongDescription" String="This type shall contain properties from Get NC-SI Capabilities command response."/>
+        <Property Name ="HardwareArbitration" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Hardware arbitration capability supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Hardware arbitration capability is supported."/>
+        </Property>
+        <Property Name ="HostNCDriverStatus" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Host NC Driver Indication status supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Host NC Driver Indication status is supported."/>
+        </Property>
+        <Property Name ="NetworkControllerToBMCFlowControl" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Network Controller to Management Controller flow control supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Network Controller to Management Controller flow control is supported."/>
+        </Property>
+        <Property Name ="BMCtoNetworkControllerFlowControl" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Management Controller to Network Controller flow control supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Management Controller to Network Controller flow control is supported."/>
+        </Property>
+        <Property Name ="AllMulticastAddresses" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the channel accept all multicast addresses."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if the channel accept all multicast addresses is supported."/>
+        </Property>
+        <Property Name ="ARPPackets" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward ARP Packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="DHCPClientPackets" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward DHCP Client Packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="DHCPServerPackets" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward DHCP Server Packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="NetBIOSPackets" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward Net BIOS Packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="IPv6NeighborAdvertisement" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward IPv6 Neighbor Advertisement packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="IPv6RouterAdvertisement" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward IPv6 Router Advertisement packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="DHCPv6relayandservermulticast" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Forward this packet type to the Management Controller supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Forward DHCPv6 relay and server multicast packets to the Management Controller is supported."/>
+        </Property>
+        <Property Name ="BufferingCapability" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This defines the amount of buffering in bytes that the channel provides for inbound packets destined for the Management Controller."/>
+          <Annotation Term="OData.LongDescription" String="The Buffering Capability field defines the amount of buffering in bytes that the channel provides for inbound packets destined for the Management Controller."/>
+        </Property>
+        <Property Name ="LinkStatusChangeAENSupport" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Link Status Change AEN is enabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if Link Status Change AEN is enabled. The value shall be Enabled if supported and Disabled if not."/>
+        </Property>
+        <Property Name ="ConfigurationRequiredAENcontrol" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Configuration Required AEN is enabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if Configuration Required AEN is enabled. The value shall be Enabled if supported and Disabled if not."/>
+        </Property>
+        <Property Name ="HostNCDriverStatusChangeAENcontrol" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Host NC Driver Status Change AEN is enabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates if Host NC Driver Status Change AEN is enabled. The value shall be Enabled if supported and Disabled if not."/>
+        </Property>
+        <Property Name ="VLANFilterCount" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the number of VLAN filters."/>
+          <Annotation Term="OData.LongDescription" String="The VLAN Filter Count field indicates the number of VLAN filters."/>
+        </Property>
+        <Property Name ="MixedFilterCount" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the number of mixed address filters that the channel supports."/>
+          <Annotation Term="OData.LongDescription" String="The Mixed Filter Count field indicates the number of mixed address filters that the channel supports."/>
+        </Property>
+        <Property Name ="MulticastFilterCount" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of multicast MAC address filters that the channel supports."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of multicast MAC address filters that the channel supports."/>
+        </Property>
+        <Property Name ="UnicastFilterCount" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of unicast MAC address filters that the channel supports."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of unicast MAC address filters that the channel supports."/>
+        </Property>
+        <Property Name ="VLANonly" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if VLAN is supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if VLAN is supported. The value shall be Supported if supported and Not Supported if not."/>
+        </Property>
+        <Property Name ="VLANAndNonVLAN" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Filtering VLAN and non-VLAN traffic is supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Filtering VLAN and non-VLAN traffic is supported. The value shall be Supported if supported and Not Supported if not."/>
+        </Property>
+        <Property Name ="AnyVLANandNonVLAN" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if Filtering any VLAN and non-VLAN traffic is supported."/>
+          <Annotation Term="OData.LongDescription" String="This indicates if Filtering any VLAN and non-VLAN traffic is supported. The value shall be Supported if supported and Not Supported if not."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="NcsicontrollerPacketStatisticsComplex" Nullable="false">
+      <Annotation Term="OData.Description" String="This type contains Get Controller Packet Statistics command response."/>
+      <Annotation Term="OData.LongDescription" String="This type shall contain properties from Get Controller Packet Statistics command response."/>
+        <Property Name ="CountersClearedFromLastRead" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of field has been cleard since it was last read by means of the NC-SI"/>
+          <Annotation Term="OData.LongDescription" String="Whether the corresponding field has been cleared since it was last read by means of the NC-SI."/>
+        </Property>
+        <Property Name ="TotalBytesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of bytes transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of bytes transmitted."/>
+        </Property>
+        <Property Name ="TotalUnicastPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of bytes received."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of bytes received."/>
+        </Property>
+        <Property Name ="TotalMulticastPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of goodmulticast packets received."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good multicast packets received."/>
+        </Property>
+        <Property Name ="TotalBroadcastPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good broadcast packets received."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good broadcast packets received."/>
+        </Property>
+        <Property Name ="TotalUnicastPacketsTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that passed L2 filtering by a specific MAC address."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that passed L2 filtering by a specific MAC address."/>
+        </Property>
+        <Property Name ="TotalMulticastPacketsTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good multicast packets transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good multicast packets transmitted."/>
+        </Property>
+        <Property Name ="TotalBroadcastPacketsTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good broadcast packets transmitted."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good broadcast packets transmitted."/>
+        </Property>
+        <Property Name ="FCSReceivedErrors" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of receive packets with FCS errors."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of receive packets with FCS errors."/>
+        </Property>
+        <Property Name ="AlignmentErrors" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of receive packets with alignment errors."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of receive packets with alignment errors."/>
+        </Property>
+        <Property Name ="FalseCarrierDetections" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the false carrier errors reported by the PHY."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the false carrier errors reported by the PHY."/>
+        </Property>
+        <Property Name ="RuntPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of received frames that passed address filtering, were less than minimum size, and had a valid FCS."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of received frames that passed address filtering, were less than minimum size, and had a valid FCS."/>
+        </Property>
+        <Property Name ="JabberPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of received frames that passed address filtering, were greater than the maximum size, and had a valid FCS."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of received frames that passed address filtering, were greater than the maximum size, and had a valid FCS."/>
+        </Property>
+        <Property Name ="PauseXonFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of XON packets received from the network."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of XON packets received from the network."/>
+        </Property>
+        <Property Name ="PauseXoffFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of XOFF packets received from the network."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of XOFF packets received from the network."/>
+        </Property>
+        <Property Name ="PauseXonFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of XON packets transmitted to the network."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of XON packets transmitted to the network."/>
+        </Property>
+        <Property Name ="PauseXoffFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of XOFF packets transmitted to the network."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of XOFF packets transmitted to the network."/>
+        </Property>
+        <Property Name ="SingleCollisionTransmitFrames" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of times that a successfully transmitted packet encountered a single collision."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of times that a successfully transmitted packet encountered a single collision."/>
+        </Property>
+        <Property Name ="MultipleCollisionTransmitFrames" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of times that a transmitted packet encountered more than one collision but fewer than 16."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of times that a transmitted packet encountered more than one collision but fewer than 16."/>
+        </Property>
+        <Property Name ="LateCollisionFrames" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of collisions that occurred after one slot time."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of collisions that occurred after one slot time."/>
+        </Property>
+        <Property Name ="ExcessiveCollisionFrames" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of times that 16 or more collisions occurred on a single transmit packet."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of times that 16 or more collisions occurred on a single transmit packet."/>
+        </Property>
+        <Property Name ="ControlFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of MAC control frames received that are not XON or XOFF flow control frames."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of MAC control frames received that are not XON or XOFF flow control frames."/>
+        </Property>
+        <Property Name ="64ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets received that are exactly 64 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets received that are exactly 64 bytes in length."/>
+        </Property>
+        <Property Name ="65To127ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets received that are between 65 and 127 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets received that are between 65 and 127 bytes in length."/>
+        </Property>
+        <Property Name ="128To255ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets received that are between 128 and 255 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets received that are between 128 and 255 bytes in length."/>
+        </Property>
+        <Property Name ="256To511ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets received that are between 256 and 511 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets received that are between 256 and 511 bytes in length."/>
+        </Property>
+        <Property Name ="512To1023ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets received that are between 512 and 1023 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets received that are between 512 and 1023 bytes in length."/>
+        </Property>
+        <Property Name ="1024To1522ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets received that are between 1024 and 1522 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets received that are between 1024 and 1522 bytes in length."/>
+        </Property>
+        <Property Name ="1523To9022ByteFramesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of received frames that passed address filtering and were greater than 1523 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of received frames that passed address filtering and were greater than 1523 bytes in length."/>
+        </Property>
+        <Property Name ="64ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that are exactly 64 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that are exactly 64 bytes in length."/>
+        </Property>
+        <Property Name ="65To127ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that are between 65 and 127 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that are between 65 amd 127 bytes in length."/>
+        </Property>
+        <Property Name ="128To255ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that are between 128 and 255 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that are between 128 and 255 bytes in length."/>
+        </Property>
+        <Property Name ="256To511ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that are between 256 and 511 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that are between 256 and 511 bytes in length."/>
+        </Property>
+        <Property Name ="512To1023ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that are between 512 and 1023 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that are between 512 and 1023 bytes in length."/>
+        </Property>
+        <Property Name ="1024To1522ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of good packets transmitted that are between 1024 and 1522 bytes in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of good packets transmitted that are between 1024 and 1522 bytes in length."/>
+        </Property>
+        <Property Name ="1523To9022ByteFramesTransmitted" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of transmitted frames that passed address filtering and were greater than 1523 in length."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of transmitted frames that passed address filtering and were greater than 1523 in length."/>
+        </Property>
+        <Property Name ="TotalBytesReceived" Type = "Edm.String"/>
+        <Property Name ="ValidBytesReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the bytes received in all packets that did not manifest any type of error."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the bytes received in all packets that did not manifest any type of error."/>
+        </Property>
+        <Property Name ="ErrorRuntPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Counts the number of invalid frames that were less than the minimum size."/>
+          <Annotation Term="OData.LongDescription" String="This indicates the number of invalid frames that were less than the minimum size."/>
+        </Property>
+        <Property Name ="ErrorJabberPacketsReceived" Type = "Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This indicates the packets that exceed the programmed MTU size and have a bad FCS value."/>
+          <Annotation Term="OData.LongDescription" String="Counts Jabber packets, which are defined as packets that exceed the programmed MTU size and have a bad FCS value."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

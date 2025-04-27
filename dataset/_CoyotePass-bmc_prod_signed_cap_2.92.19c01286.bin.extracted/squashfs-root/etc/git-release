@@ -1,0 +1,13 @@
+v2.92a-rel-qsbr-2023q4-CYP-can2-CI-enabled
+19c01286255536a11bf0303799a465e03f2e7db5
+ SMTP/msmtp-1.6.6.tar.xz                          | Bin 283744 -> 131 bytes
+ Sentinel/Sentinel_Fit-1.5.tar.gz                 | Bin 4550671 -> 132 bytes
+ ToolChain/Host/i386/gcc-3.4.5-glibc-2.3.4.tar.gz | Bin 20911221 -> 133 bytes
+ ToolChain/libmqueue-4.41.tar.gz                  | Bin 209979 -> 131 bytes
+ UPNP/libupnp-1.6.21.tar.bz2                      | Bin 1245353 -> 132 bytes
+ Web_Server/httpd/pcre-8.44.tar.bz2               | Bin 1577611 -> 132 bytes
+ ZIP/zip30.tar.gz                                 | Bin 1118845 -> 132 bytes
+ cJSON/cJSON-1.7.12.tar.gz                        | Bin 379990 -> 131 bytes
+ rng-tools/rng-tools-5.tar.gz                     | Bin 122182 -> 131 bytes
+ syslog-ng/libffi-3.4.2.tar.gz                    | Bin 1351355 -> 132 bytes
+ 10 files changed, 0 insertions(+), 0 deletions(-)

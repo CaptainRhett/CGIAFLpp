@@ -1,0 +1,40 @@
+#!/bin/sh
+
+NAME=websocket_srv
+
+cmd=$1
+
+rc=1
+case $cmd in
+start|restart)
+    /etc/init.d/monit reload $NAME
+    usleep 1500000
+    monitored=$(monit status $NAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit $cmd $NAME
+        rc=$?
+    fi
+    ;;
+stop)
+    monitored=$(monit status $NAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit stop $NAME
+        rc=$?
+    fi
+    ;;
+status)
+    monit status $NAME
+    rc=$?
+    ;;
+*)
+    echo "Usage: $0 start|stop|restart|status"
+    rc=2
+    ;;
+esac
+
+if [ $rc -ne 0 ]; then
+    /etc/monit/scripts/$NAME-init $cmd
+    rc=$?
+fi
+
+exit $rc

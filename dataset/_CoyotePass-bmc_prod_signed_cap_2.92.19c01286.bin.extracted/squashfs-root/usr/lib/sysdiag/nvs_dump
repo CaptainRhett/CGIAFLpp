@@ -1,0 +1,53 @@
+#!/bin/sh
+# /usr/lib/sysdiag/nvfs_dump - Collects nvfs files in hex format.
+
+source /usr/lib/sysdiag/NORUN_common
+
+STAGING_LOCATION_BASE="/tmp"
+STAGING_LOCATION="/tmp/nvfs"
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="BMC Named Variable Storage Data File Hex Dump"
+TEST_COMMENT="BMC configuration data file output in hex."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+echo "<span class='subtitle'>- BMC Configuration Data File Dump in Hex</span>"
+
+# Only include non-.mac logs
+cp -a /nv/nvfs "$STAGING_LOCATION_BASE"
+for i in $STAGING_LOCATION/*.mac; do
+    if [ -e $i ]
+    then
+        rm -f ${i%%.*}.*
+    fi
+done
+
+# Actual test starts here.
+for F in $STAGING_LOCATION/*; do
+	echo "$F:"
+	cat $F | safehexdump
+	echo
+done
+
+# save the PMCOnfigs to the zip file staging area so it will get included
+cp -a $STAGING_LOCATION "$ZIPDIR_ADVANCED"
+
+# remove the temporary files
+rm -rf $STAGING_LOCATION
+
+EndHtmlSections

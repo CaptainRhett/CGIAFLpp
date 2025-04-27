@@ -1,0 +1,48 @@
+#!/bin/sh
+# /usr/lib/sysdiag/watchdog_logs: Collect log files squirrelled away by the monit watchdog timeout, and join them into a single file chronologically.
+
+source /usr/lib/sysdiag/NORUN_common
+
+SAVELOGS="/nv/savelogs"
+LOG_NAMES="ipmid.log messages dmesg"
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="Watchdog Reset Logs"
+TEST_COMMENT="ipmid and syslog logs saved from a watchdog reset"
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+
+# Actual test starts here.
+mkdir -p "$ZIPDIR_ADVANCED/logs/savelogs"
+
+for R in 03 02 01; do
+	[ -d $SAVELOGS/$R.dump ] || continue
+	for LN in $LOG_NAMES; do
+		echo
+		echo "<span>$LN (last 100 lines) (<a href='logs/savelogs/$LN'>full log</a>)</span>"
+		LOGS="$(ls -Sr $SAVELOGS/$R.dump/$LN.*) $SAVELOGS/$R.dump/$LN"
+
+		for L in $LOGS; do
+			[ -e $L ] || continue
+			case $L in
+				*.gz) zcat $L;;
+				*) cat $L
+			esac
+		done | tee $ZIPDIR_ADVANCED/logs/savelogs/$LN | tail -n 100
+	done
+done
+
+EndHtmlSections

@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>IPv6 Network - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../dflt-css/base_help.css' rel='stylesheet' type='text/css'/>
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>IPv6 Network - Help</div>
+            <p>Use this page to configure the IPv6 network settings for server management.</p>
+
+            <h2>Enable LAN Failover</h2>
+                <p>Enabling failover bonds all available ethernet interfaces into the first LAN Channel. When the primary interface's leash is lost, one of the secondary interfaces is activated automatically with the same IP address.</p>
+                <p>Select ethernet devices to bond.</p>
+                <p>Select specify a LAN channel to primary LAN channel.</p>
+            <h2>Enable Host Interface</h2>
+                <p>Host Interface is based on Ethernet over USB. It provides an interface between the host and BMC for communication that implements many functions, including iKVM (HID Mouse and Keyboard) and Virtual Media.</p>
+                <p>If Host Interface is not enabled yet, you must enable and save it. Then continue to set the host interface configuration.</p>
+                <p>Host Interface only supports Static IP and can only modify IP address and prefix length.</p>
+            <h2>LAN Channel</h2>
+                <p>Lists the LAN Channel(s) available for server management. The LAN channels describe the physical NIC connection on the server. All channels are onboard NICs. The Baseboard Mgmt channel is a shared NIC configured for management and shared with the operating system.</p>
+
+            <h2>MAC Address</h2>
+                <p>The MAC address of the device (read only).</p>
+
+            <h2>NIC Description</h2>
+                <p>Display NIC dedicated to BMC / Host or shared between Host and BMC of LAN Channel(s) (read only).</p>
+
+            <h2>Link Status</h2>
+                <p>Display NIC Link status of LAN Channel(s) (read only).</p>
+
+
+            <h2>IP Address</h2>
+                <p>Select the type of IP assignment with the radio buttons. If configuring a static IP, enter the requested IP Address, IPv6 prefix length, and optionally the Gateway in the given fields.</p>
+                    <ul>
+                        <li>- IPv6 addresses consist of 8 4 digit hexadecimal numbers separated by colons.</li>
+                        <li>- A :: can be used for a single sequence of two or more zero fields.</li>
+                    </ul>
+
+        <div class='helpactionhead'>Actions</div>
+            <div class='actionsub'>Save</div>
+                <p>Click 'Save' to save any changes made.</p>
+
+                <p class="warning">
+                <img src='../../images/warning.png'>
+                <b>NOTE:</b>
+                The Dedicated Management NIC IP address must be on a different subnet than the baseboard IP address used for management traffic.</p>
+                <br>
+
+                <p class="warning">
+                <img src='../../images/warning.png'>
+                <b>NOTE:</b>
+                Please close any active KVM sessions prior to changing the network settings, in order to avoid disconnection from the server.</p>
+    </body>
+</html>

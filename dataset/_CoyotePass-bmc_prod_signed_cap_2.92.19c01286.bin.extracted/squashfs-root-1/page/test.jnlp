@@ -1,0 +1,77 @@
+<jnlp spec="1.0+" codebase="https://%s/">
+  <information>
+    <title>Insyde Java iKVM Viewer</title>
+    <vendor>Insyde</vendor>
+    <description>Java Web Start Application</description>
+  </information>
+
+  <security>
+   <all-permissions/>
+  </security>
+
+  <resources>
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <j2se version="1.6.0+" initial-heap-size="32M" max-heap-size="256M"/>
+    <jar href="iKVM.jar" download="eager" main="true" version="%s"/>
+  </resources>
+
+  <resources os="Windows" arch="x86">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="libwin_x86.jar" download="eager" version="%s"/>
+  </resources>
+  <resources os="Windows" arch="x86_64">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="libwin_x86_64.jar" download="eager" version="%s"/>
+  </resources>
+  <resources os="Windows" arch="amd64">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="libwin_x86_64.jar" download="eager" version="%s"/>
+  </resources>
+
+  <resources os="Linux" arch="i386">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="liblinux_x86.jar" download="eager" version="%s"/>
+  </resources>
+  <resources os="Linux" arch="x86">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="liblinux_x86.jar" download="eager" version="%s"/>
+  </resources>
+  <resources os="Linux" arch="x86_64">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="liblinux_x86_64.jar" download="eager" version="%s"/>
+  </resources>
+  <resources os="Linux" arch="amd64">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="liblinux_x86_64.jar" download="eager" version="%s"/>
+  </resources>
+
+  <resources os="Mac OS X" arch="x86_64">
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <nativelib href="libmac_x86_64.jar" download="eager" version="%s"/>
+  </resources>
+
+  <application-desc main-class="tw.com.insyde.ikvm.KVMMain">
+    <argument>%s</argument> <!-- IPv4 IP address of BMC Server -->
+    <argument>%s</argument> <!-- Username used in IPMI channel authentication -->
+    <argument>%s</argument> <!-- Password for the Username -->
+    <argument>%s</argument> <!-- KVM Host Name if any -->
+    <argument>%s</argument> <!-- Enable KVM Sec Type -->
+    <argument>%s</argument> <!-- Enable KM Sec Option -->
+    <argument>%s</argument> <!-- Enable VM Sec Option -->
+    <argument>%d</argument> <!-- KVM_Port default 5900 -->
+    <argument>%d</argument> <!-- VM_Port default 623 -->
+    <argument>%d</argument> <!-- COMPANY_ID -->
+    <argument>%d</argument> <!-- BOARD_ID -->
+    <argument>%s</argument> <!-- LANGUAGE_SETTING -->
+    %s <!-- additional hotkey macro strings -->
+  </application-desc>
+</jnlp>

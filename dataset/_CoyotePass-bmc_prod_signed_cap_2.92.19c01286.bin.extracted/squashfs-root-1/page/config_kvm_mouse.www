@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+    <title></title>
+    <link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/basic.css" type="text/css">
+    <link rel="stylesheet" href="../css/grid/listgrid.css" type="text/css">
+    <script language="javascript" src="../js/utils.js"></script>
+    <script language="javascript" src="../../js/iframe_event.js"></script>
+    <script language="javascript" src="../js/config_kvm_mouse.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body>
+    <span class="LoadingStyle" id="loading"></span>
+    <table border="0" cellpadding="0" cellspacing="5" class="content_table">
+        <tr><td width="20px"><img src="../images/arrow_red.gif" border="0" class="redarrow"></td>
+            <td><div id="kvm_mouse_caption_div" class="mtitle"></div></td>
+        </tr>
+        <tr><td><br></td><td colspan="3"></td></tr>
+        <tr><td colspan="2"><div id="kcs_segment_state" class="Categorytext"></div></td><td></td></tr>
+    </table>
+
+    <fieldset id="kvm_mouse_sub_cap1" class="fitcontent group">
+    <legend id="kvm_mouse_sub_caption1_legend" class="legendcaption"></legend>
+    <p id="kvm_desc_p" class="labelhead"></p>
+    <div class="subSection">
+        <table cellspacing="5" cellpadding="5" border="0" width="550" >
+                    <tr>
+                        <td width="150" class="bold">
+                            <label id="kvm_ency_lbl" class="labelhead">
+                            </label>
+                        </td>
+                        <td><select class="Categorytext" id="kvmEncrpytion"></select></td>
+                    </tr>
+                    <tr>
+                    <tr class="nodisplay">
+                        <td id="kvm_usb_key_type_td" width="150" class="bold"></td>
+                        <td><select class="Categorytext" id="usbEncrpytion"></select></td>
+                    </tr>
+                    <tr>
+                        <td class="bold"><span id="kvm_default_ports_span" class="labelhead"></span></td>
+                    </tr>
+                    <tr>
+                        <table width="400px">
+                        <!-- <table width="35%"> -->
+                            <tr align="right">
+                                <!-- hidden -->
+                                <td class="nodisplay">
+                                    <span id="kvm_cd_port_span" class="labelhead">
+                                    </span>
+                                    <input type="text" id="cd_port" size=5 maxlength=5 class="lignright">
+                                </td>
+                            </tr>
+                            <tr align="right">
+                                <td><span id="kvm_sport_span" class="labelhead">
+                                    </span>
+                                    <input type="text" id="kvm_sport" size=5 maxlength=5 class="lignright">
+                                </td>
+                                <td class="nodisplay"><span id="kvm_cd_sport_span" class="labelhead">
+                                    </span>
+                                    <input type="text" id="cd_sport" size=5 maxlength=5 class="lignright">
+                                </td>
+                                <td><span id="kvm_usb_sport_span" class="labelhead">
+                                    </span>
+                                    <input type="text" id="usb_sport" size=5 maxlength=5 class="lignright">
+                                </td>
+                            </tr>
+                        </table>
+                    </tr>
+               </table>
+    </div>
+    <div class="kvmsave">
+        <input type="button" class="buttonStyle" name="saveKvmBtn" id="saveKvmBtn">
+    </div>
+    </fieldset>
+
+    <fieldset id="kvm_mouse_sub_cap2" class="fitcontent group">
+        <legend id="sub_caption2_legend" class="legendcaption">
+        </legend>
+        <div id="kvmInputTbl">
+            <table width="100%" border="0">
+                    <tr>
+                        <td><span class="subHeader" id="currentMode" name="currentMode"></span></td>
+                    </tr>
+                    <tr><td><br></td><td colspan="3"></td></tr>
+                    <tr>
+                        <td><input type="radio" class="buttonStyle" name="mouseMode" id="absMouse"/><span id="absolute_span" class="labelhead"></span></td>
+                    </tr>
+                </table>
+        </div>
+        <div class="kvmsave">
+            <input type="button" class="buttonStyle" name="saveBtn" id="saveMouseBtn">
+         </div>
+    </fieldset>
+
+</body>
+</html>

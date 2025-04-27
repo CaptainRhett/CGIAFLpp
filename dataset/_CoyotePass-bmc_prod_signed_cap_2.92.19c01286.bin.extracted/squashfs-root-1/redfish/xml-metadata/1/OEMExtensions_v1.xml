@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# InsydeOem Schema:  OEMExtensions  v1.0.0-->
+<!--#                                                                                      -->
+<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+      <edmx:Include Namespace="Resource"/>
+      <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VirtualMedia_v1.xml">
+    <edmx:Include Namespace="VirtualMedia"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/OemStorageControllerTTYLog_v1.xml">
+    <edmx:Include Namespace="OemStorageControllerTTYLog"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/OemStorageControllerEventCollection_v1.xml">
+    <edmx:Include Namespace="OemStorageControllerEventCollection"/>
+  </edmx:Reference>
+
+
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OEMExtensions">
+            <ComplexType Name="EventServiceCACertificate">
+                <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+                <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                <Annotation Term="OData.Description" String="This is a reference to a collection of certificates used for HTTPS by this manager."/>
+                <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type CertificateCollection."/>
+                <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+            </ComplexType>
+
+            <ComplexType Name="HeartRate">
+                <Property Name ="HeartRateMinute" Type = "OEMExtensions.HeartRateMinuteList"/>
+            </ComplexType>
+            <EnumType Name="HeartRateMinuteList">
+                <Member Name="10"/>
+                <Member Name="20"/>
+                <Member Name="30"/>
+            </EnumType>
+            <ComplexType Name="WebISO">
+                <Property Name="WebISOStatus" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="SSLCipherPolicy">
+                <Property Name ="CipherString" Type = "OEMExtensions.SSLCipherPolicyList"/>
+            </ComplexType>
+            <EnumType Name="SSLCipherPolicyList">
+                <Member Name="Advanced"/>
+                <Member Name="BroadCompatibility"/>
+                <Member Name="WidestCompatibility"/>
+                <Member Name="Legacy"/>
+            </EnumType>
+            <ComplexType Name="Storage">
+                <Property Name="PciClass" Type="Edm.Int64"/>
+                <Property Name="VendorId" Type="Edm.String"/>
+                <Property Name="DeviceId" Type="Edm.String"/>
+                <Property Name="SubVendorId" Type="Edm.String"/>
+                <Property Name="SubDeviceId" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="EthernetInterface">
+                <Property Name="PciClass" Type="Edm.Int64"/>
+                <Property Name="SlotNumber" Type="Edm.Int64"/>
+                <Property Name="VendorId" Type="Edm.String"/>
+                <Property Name="DeviceId" Type="Edm.String"/>
+                <Property Name="SubVendorId" Type="Edm.String"/>
+                <Property Name="SubDeviceId" Type="Edm.String"/>
+                <Property Name="MaxSpeedMbps" Type="Edm.Int64"/>
+                <Property Name="DeviceId" Type="Edm.Int64"/>
+                <Property Name="PortIndex" Type="Edm.Int64"/>
+                <Property Name="FirmwareVersion" Type="Edm.String"/>
+            </ComplexType>
+            <ComplexType Name="StorageController">
+                <Property Name ="JunctionTemperature" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The temperature of Storage Controller."/>
+                  <Annotation Term="OData.LongDescription" String="The temperature of Storage Controller. If there is no temperature of Storage Controller, the property will not be displayed. "/>
+                </Property>
+                <Property Name ="Memory" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The memory capacity.."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the memory capacity."/>
+                </Property>
+                <Property Name ="PatrolReadProgressPercent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The patrol read progress percent."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the patrol read progress percent."/>
+                </Property>
+                <Property Name ="SeqNumNewestEvent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The newest sequential number of event."/>
+                  <Annotation Term="OData.LongDescription" String="The newest sequential number of event. If there is no event function, the property will not be displayed."/>
+                </Property>
+                <Property Name ="SeqNumOldestEvent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The oldest sequential number of event."/>
+                  <Annotation Term="OData.LongDescription" String="The oldest sequential number of event. If there is no event function, the property will not be displayed."/>
+                </Property>
+                <Property Name ="SeqNumLastClearEvent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The last clear sequential number of event."/>
+                  <Annotation Term="OData.LongDescription" String="The last clear sequential number of event. If there is no event function, the property will not be displayed."/>
+                </Property>
+                <Property Name ="SeqNumLastCleanShutdownEvent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The last clear shutdown sequential number of event."/>
+                  <Annotation Term="OData.LongDescription" String="The last clear shutdown sequential number of event. If there is no event function, the property will not be displayed."/>
+                </Property>
+                <Property Name ="SeqNumThisSessionBootEvent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="This session boot sequential number of event."/>
+                  <Annotation Term="OData.LongDescription" String="This session boot sequential number of event. If there is no event function, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUStatus" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The status of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The status of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUTemperatureCelsius" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The temperature of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The temperature of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUVoltageMilliVolts" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The Voltage of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The Voltage(mV) of BBU module. The temperature of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUCurrentMilliAmps" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The Current of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The Current(mA) of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUSerialNumber" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The serial number of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The serial number of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUHealthPercent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The health percentage of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The health percentage of BBU module. If there is no BBU module, the property will not be displayed. "/>
+                </Property>
+                <Property Name ="BBURemainingBatteryPercent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The Remaining Battery percentage of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The Remaining Battery percentage of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="PackageVersion" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The package version."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the package version."/>
+                </Property>
+                <Property Name ="BBUType" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The type of BBU type."/>
+                  <Annotation Term="OData.LongDescription" String="The type of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUPresent" Type = "Edm.Boolean">
+                  <Annotation Term="OData.Description" String="The present of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The present of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="BBUName" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The name of BBU module."/>
+                  <Annotation Term="OData.LongDescription" String="The name of BBU module. If there is no BBU module, the property will not be displayed."/>
+                </Property>
+                <Property Name ="PCIVendorID" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The pci verder ID."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the PCI vendor ID of the controller."/>
+                </Property>
+                <Property Name ="PCIDeviceID" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The pci device ID."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the PCI device ID of the controller."/>
+                </Property>
+                <Property Name ="PCISubVersionID" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The pci sub version ID."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the PCI sub version ID of the controller."/>
+                </Property>
+                <Property Name ="PCISubSystemID" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The pci sub system ID."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the PCI Sub SystemID of the controller."/>
+                </Property>
+                <Property Name ="BIOSVersion" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The BIOS version."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the BIOS version of the controller."/>
+                </Property>
+                <Property Name ="UEFIVersion" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The UEFI version."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI version of the controller."/>
+                </Property>
+                <Property Name ="ExpanderFWVersion" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The expander firmware version."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the expander firmware version of the controller."/>
+                </Property>
+                <Property Name ="SEEPROM" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The SEEPROM data of the controller."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the SEEPROM of the controller."/>
+                </Property>
+                <Property Name ="MemoryChangeable" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="This indicates memory changeable."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the memory changeable of the controller."/>
+                </Property>
+                <Property Name ="MemoryCorrectErrCount" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="This indicates memory correct error count."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the memory correct error count of the controller."/>
+                </Property>
+                <Property Name ="MemoryUnCorrectErrCount" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="This indicates memory encorrect error count."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the memory uncorrect error count of the controller."/>
+                </Property>
+                <Property Name ="Chip" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The chip data of the controller."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the chip of the controller."/>
+                </Property>
+                <Property Name ="ExpanderTemp" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The expander temperature of the controller."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the expander temperature of the controller."/>
+                </Property>
+                <Property Name ="HostInterface" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The host interface of the controller."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the host interface of the controller."/>
+                </Property>
+                <Property Name ="PortCount" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The port count of the controller."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the port count of the controller."/>
+                </Property>
+                <NavigationProperty Name="TTYLog" Type="OemStorageControllerTTYLog.OemStorageControllerTTYLog" ContainsTarget="true" Nullable="false">
+                  <Annotation Term="OData.Description" String=""/>
+                  <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+                <NavigationProperty Name="Events" Type="OemStorageControllerEventCollection.OemStorageControllerEventCollection" ContainsTarget="true" Nullable="false">
+                  <Annotation Term="OData.Description" String=""/>
+                  <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+            </ComplexType>
+
+            <ComplexType Name="Drive">
+                <Property Name ="Temperature" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The temperature of drive."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the temperature of drive."/>
+                </Property>
+                <Property Name ="SlotNumber" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The slot number of drive."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the slot number of drive."/>
+                </Property>
+                <Property Name ="PatrolReadProgressPercent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The patrol read progress percent."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the patrol read progress percent."/>
+                </Property>
+                <Property Name ="CopyBackProgressPercent" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The copy back progress percent."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the copy back progress percent."/>
+                </Property>
+                <Property Name ="StorageControllerReference" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The reference storagecontroller index."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the reference storagecontroller index."/>
+                </Property>
+                <Property Name="SMART" Type = "OEMExtensions.DriveSMART"/>
+            </ComplexType>
+
+            <ComplexType Name="DriveSMART">
+               <Property Name ="Available" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="Indicates if the SMART is available or not."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall contain the available status of SMART."/>
+                </Property>
+                <Property Name ="Awake" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="Indicates if the SMART is available or not."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall contain the available status of SMART."/>
+                </Property>
+                <Property Name ="HealthGood" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The health status of this drive."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the health status of this drive."/>
+                </Property>
+                <Property Name ="OfflineDataCollectionStatus" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The offline data collection status."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the ffline data collection status."/>
+                </Property>
+                <Property Name ="TotalOfflineDataCollectionSeconds" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The total offline data collection seconds."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the total offline data collection seconds."/>
+                </Property>
+                <Property Name ="SelfTestExecutionStatus" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The self test execution status."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the self test execution status."/>
+                </Property>
+                <Property Name ="SelfTestExecutionPercentRemaining" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The self test execution percent remaining."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the "/>
+                </Property>
+                <Property Name ="ConveyanceTestAvailable" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="Indicates if the conveyance test is available or not."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall contain the available status of conveyance test."/>
+                </Property>
+                <Property Name ="ShortAndExtendedTestAvailable" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="Indicates if the short and extended test is available or not."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall contain the available status of short and extended test."/>
+                </Property>
+                <Property Name ="StartTestAvailable" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="Indicates if start test is available or not."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall contain the available status of start test."/>
+                </Property>
+                <Property Name ="AbortTestAvailable" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="Indicates if abort test is available or not."/>
+                  <Annotation Term="OData.LongDescription" String="The value of this property shall contain the available status of abort test."/>
+                </Property>
+                <Property Name ="ShortTestPollingMinutes" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The short test polling minutes."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the short test polling minutes."/>
+                </Property>
+                <Property Name ="ExtendedTestPollingMinutes" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The extended test polling minutes."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the extended test polling minutes."/>
+                </Property>
+                <Property Name ="ConveyanceTestPollingMinutes" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The conveyance test polling minutes."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the conveyance test polling minutes."/>
+                </Property>
+                <Property Name ="BadSectors" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The "/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the "/>
+                </Property>
+                <Property Name ="PowerOn" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The count of time in power-on state."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the count of time in power-on state."/>
+                </Property>
+                <Property Name ="PowerCycle" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The count of  power cycle."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the count of power cycle."/>
+                </Property>
+                <Property Name ="Temperature" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The temperature of drive."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the temperature of drive."/>
+                </Property>
+                <Property Name ="RPM" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The rotation speed of this drive, in revolutions per minute (RPM)."/>
+                  <Annotation Term="OData.LongDescription" String="This property shall contain the rotation speed, in revolutions per minute (RPM), of the associated drive."/>
+                </Property>
+                <Property Name ="OverallHealth" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The overall health of this drive."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the overall health of this drive."/>
+                </Property>
+                <Property Name ="Attribute" Type = "OEMExtensions.SmartAttribute"/>
+            </ComplexType>
+
+            <ComplexType Name="SmartAttribute">
+                <Annotation Term="Redfish.DynamicPropertyPatterns">
+                    <Collection>
+                        <Record>
+                            <PropertyValue Property="Pattern" String="^SmartAttributes[0-9]+$"/>
+                            <PropertyValue Property="Type" String="Collection(Edm.String)"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </ComplexType>
+
+            <ComplexType Name="Volume">
+                <Property Name ="VolumeName" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The state of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the state of the volume."/>
+                </Property>
+                <Property Name ="RaidLevel" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The raid level of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the raid level of the volume."/>
+                </Property>
+                <Property Name ="State" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The state of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the state of the volume."/>
+                </Property>
+                <Property Name ="ReadPolicy" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The read policy of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the read policy of the volume."/>
+                </Property>
+                <Property Name ="WritePolicy" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The write policy of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the write policy of the volume."/>
+                </Property>
+                <Property Name ="IoPolicy" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The IO policy of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the IO policy of the volume."/>
+                </Property>
+                <Property Name ="AccessPolicy" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The access policy of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the access policy of the volume."/>
+                </Property>
+                <Property Name ="DiskCachePolicy" Type = "Edm.String">
+                  <Annotation Term="OData.Description" String="The disk cache policy of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the disk cache policy of the volume."/>
+                </Property>
+                <Property Name ="StripSize" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The strip size of the volume."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the strip size of the volume."/>
+                </Property>
+                <Property Name ="BadBlocks" Type = "Edm.Boolean">
+                  <Annotation Term="OData.Description" String="This indicates whether the volume has bad blocks."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates whether the volume has bad blocks."/>
+                </Property>
+                <Property Name ="StorageControllerReference" Type = "Edm.Decimal">
+                  <Annotation Term="OData.Description" String="The reference storagecontroller index."/>
+                  <Annotation Term="OData.LongDescription" String="This indicates the reference storagecontroller index."/>
+                </Property>
+            </ComplexType>
+        </Schema>
+
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,8 @@
+root:x:0:0:Linux User,,,:/:/bin/sh
+callback:x:61:61:IPMI User,,,:/:/bin/false
+user:x:62:62:IPMI User,,,:/:/bin/false
+operator:x:63:63:IPMI User,,,:/:/bin/false
+admin:x:64:64:IPMI User,,,:/:/bin/false
+oem:x:65:65:IPMI User,,,:/:/bin/false
+httpd:x:100:100:httpd,,,:/tmp/httpd:/bin/false
+asdbg:x:1001:1001:asdbg,,,:/tmp:/bin/false

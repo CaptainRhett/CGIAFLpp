@@ -1,0 +1,13 @@
+#!/bin/sh
+
+mkdir -p /tmp/crash
+
+FREE_SPACE=$(df -m /tmp | grep /tmp | awk '{print $4}')
+
+# if we do not have sufficient free space in /tmp, drop the core on the floor
+if [ $FREE_SPACE -lt 32 ]; then
+	cat -f - > /dev/null
+	exit 0
+fi
+
+gzip -f - > /tmp/crash/core-$1-$2-$3.gz

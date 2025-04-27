@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>存储信息 — 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+        <div class='helpmainhead'>存储信息 — 帮助</div>
+        <p>使用此页面来收集服务器上安装的存储的信息。</p>
+
+        <h2>目的地端口</h2>
+        <p>标识存储设备所在的带有物理标签的端口或板的位置。示例：“ SATA端口0”或“ PCIe端口1”。</p>
+        <h2>设备索引</h2>
+        <p>BIOS提供的IPMI Get / Set Boot Options命令中此设备的索引。当需要更改启动设备时，PSME使用它来标识要在“设置启动选项” IPMI命令中使用的启动设备索引。</p>
+        <h2>连接器类型</h2>
+        <p>连接器类型指示灯：
+        <ul>
+        <li>00h = 未知</li>
+        <li>01h = SATA</li>
+        <li>02h = SAS</li>
+        <li>03h = PCIe</li>
+        <li>04h = m.2</li>
+        <li>05h = USB</li>
+        <li>06h = U.2</li>
+        </ul>
+        </p>
+        <h2>协议</h2>
+        <p>设备协议指示灯：
+        <ul>
+        <li>00h = 未知</li>
+        <li>01h = IDE</li>
+        <li>02h = AHCI</li>
+        <li>03h = NVMe</li>
+        <li>04h = USB</li>
+        </ul>
+        </p>
+        <h2>设备类型</h2>
+        <p>设备类型指示灯：
+        <ul>
+        <li>01h = HDD</li>
+        <li>02h = SSD</li>
+        <li>03h = Optical - DVD</li>
+        <li>04h = Optical - Blue Ray*</li>
+        <li>05h = USB</li>
+        </ul>
+        </p>
+        <h2>容量（GB）</h2>
+        <p>设备容量（GB）</p>
+        <h2>RPM</h2>
+        <p>设备RPM值（适用于HDD。0适用于非HDD）</p>
+        <h2>型号</h2>
+        <p>设备的型号字符串。</p>
+        <h2>序列号</h2>
+        <p>设备的序列号。</p>
+        <h2>PCI类型代码</h2>
+        <p>如果是PCIe存储设备，显示PCI类型代码，否则为0。</p>
+        <h2>供应商编号</h2>
+        <p>如果是PCIe存储设备，显示PCI供应商识别码，否则为0。</p>
+        <h2>设备编号</h2>
+        <p>如果是PCIe存储设备，显示PCI设备识别码，否则为0。</p>
+        <h2>固件版本</h2>
+        <p>设备的固件版本。</p>
+    </body>
+</html>

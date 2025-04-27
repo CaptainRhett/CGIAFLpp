@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CK_FILE=/etc/monit/scripts/biosoob-ck.sh
+
+while [ 1 ]
+do
+    if [ -e $CK_FILE ]; then
+        echo "biosoob-ck exist" > /dev/null
+    fi
+    sleep 120
+done
+
+exit 0

@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Controller - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class="helpmainhead">Controller - Help</div>
+        <p id="desc">Use this page to view controller information / actual hard disks / logical disk arrays / and provided features.</p>
+        <h2 id="info">Controller Info</h2>
+        <p id="info_desc">Showing properties of Storage Controller.</p>
+        <p id="bbu_info_desc">If there is a BBU unit connected, the BBU relative information will be displayed:</p>
+        <ul>
+            <li id="bbupresent">BBUPresent: BBU unit whether connected.</li>
+            <li id="bbuname">BBUName: BBU Name.</li>
+            <li id="bbutype">BBUType: BBU Type.</li>
+            <li id="bbustatus">BBUStatus: BBU Status.</li>
+            <li id="bbutemper">BBUTemperatureCelsius: BBU temperature (Celsius).</li>
+            <li id="bbuvoltage">BBUVoltageMilliVolts: BBU voltage millivolts.</li>
+            <li id="bbuamps">BBUCurrentMilliAmps: BBU current milliamps.</li>
+            <li id="bbuserial">BBUSerialNumber: BBU serial number.</li>
+            <li id="bbubattery">BBURemainingBatteryPercent: BBU remaining battery percent.</li>
+        </ul>
+
+        <h2 id="resources">Resources</h2><h2>
+        <p id="resources_desc">Show list of physical / logical hard drives.</p>
+        <ul>
+            <p id="resourcesPD"><b>Physical Devices:</b> Displays information about the physical hard disk connected to the control card. Click the Go button to see more related information.</p>
+            <p id="resourcesLD"><b>Logical Devices:</b> Displays information about the created disk array group. You can click Go to see more information and press Del to delete the logical device.</p>
+        </ul>
+        </h2><h2 id="createvolume">Create Volume</h2>
+        <p id="createvolume_desc">Create a disk array step by step.</p>
+        <img src="../../images/warning.png">
+        <br>
+        <ul>
+            <p id="createvolume_step1_desc1" class="redNotice">In the <b>Step 1 "Free Raid Resources"</b> dialog box, the description of RAID 10/RAID 50/RAID 60 is as follows:</p>
+            <p id="createvolume_step1_desc2" class="redNotice">The description of RAID 10/RAID 50/RAID 60 is the principle of the RAID level, and the operation steps of creating RAID 10/RAID 50/RAID 60 are two different concepts.</p>
+            <p id="createvolume_step1_desc3" class="redNotice">(For example, the steps we provide to create RAID 10 are: Step 1-&gt;Select RAID 10, Step 2-&gt;Select at least 4 hard drives, Step 3-&gt;Start construction; instead of doing2 sets of RAID 0 first, then 2 groups of RAID 0 build 1 group of RAID 1.)</p>
+        </ul>
+        <div class="helpactionhead">Actions</div>
+
+        <div id="volumeAction" class="actionsub">Create Volume</div>
+        <p id="volume_desc">Press the <b>Create Volume</b> menu and a dialog will pop up to guide you through the three steps of creating a disk array. You can press <b> Cancel </b> at any step to leave. If there are currently no physical hard disks available for creation, the alert info dialog will show up.</p>
+        <ul>
+            <p id="volume_step1"><b>Step 1</b>: Set RAID level and select available drive disks.</p>
+            <p id="volume_step2"><b>Step 2</b>: Set the parameter volume disk name/size/strip size/disk cache policy/access policy/initial state.</p>
+            <p id="volume_step3"><b>Step 3</b>: Confirm the parameter values of the disk array to be created. If you want to modify, press the <b>back</b> button to modify the parameters.</p>
+        </ul>
+
+        <div id="pd_go" class="actionsub">Go-Physical Devices</div>
+        <p id="pd_go_desc">Click the Go button, the web page will switch to the Physical Devices page, displaying the complete information of the hard drive.</p><div id="ld_go" class="actionsub">Go-Logical Devices</div>
+        <p id="ld_go_desc">Click the Go button, the web page will switch to the Logical Devices page, displaying the complete information of this RAID drive.</p><div id="ld_del" class="actionsub">Del-Logical Devices</div>
+        <p id="ld_del_desc">Click the Del button, will delete this RAID drive.</p>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+#! /bin/sh
+
+# Copyright 2017 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+
+LOG_TAG=rcD
+
+
+FW_PRODUCT_ID=$(sed -n 's/.*fwproductid=\([[:alnum:]]*\).*$/\1/p' /proc/cmdline)
+SAFE_MODE=$(sed -n 's/.*safemode=\([[:alnum:]]*\).*$/\1/p' /proc/cmdline)
+
+if [ "$FW_PRODUCT_ID" = "008d" -a "$SAFE_MODE" = "jumper" ]; then
+    SAFE_MODE="off"
+fi
+
+
+if [ "$SAFE_MODE" = "off" ]; then
+    logger -t $LOG_TAG -p local0.info "`date +"%D %T"`: Shutting down BMC Services!"
+    killall monit # kill monit first to prevent restart of other services
+
+    ##################################################
+    # Shutdown daemons that have external connections
+    # first so they can properly close them.
+    for svc in usb uima uiso ikvm httpd sol jtagsvr rcmd biosoob upnpd ipmid all rngd upnpd; do
+        /etc/monit/scripts/${svc}-init stop > /dev/null 2>&1 &
+    done
+else
+    /etc/init.d/usb-safe stop
+    killall -15 ipmidSafe
+fi
+
+
+tries=10
+while [ $tries -gt 0 ]; do
+    remain=$(ps | awk '/[u]sb$|\/usr\/bin\/[i]pmid|[l]ighttpd -f|[i]kvmserver/ {print $5}')
+    if [ -z "$remain" ]; then                                                       
+        break;
+    fi
+    logger -t $LOG_TAG -p local0.info "`date +"%D %T"`: Waiting for services to terminate: $remain"
+    sleep 0.5
+    let tries--
+done
+logger -t $LOG_TAG -p local0.info "`date +"%D %T"`: Unmounting file systems!"
+/bin/umount -a -r
+logger -t $LOG_TAG -p local0.info "`date +"%D %T"`: Shutdown complete!"

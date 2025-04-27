@@ -1,0 +1,32 @@
+#!/bin/sh
+# /usr/lib/sysdiag/sensor_readings - Collects BMC sensor readings.
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="General BMC Sensor Readings"
+TEST_COMMENT="BMC sensor readings output."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+# Actual test starts here.
+# Get Sensor Readings
+echo "<span class='subtitle'>- BMC Sensor Readings</span>"
+/usr/bin/sensors -r
+echo
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+EndHtmlSections

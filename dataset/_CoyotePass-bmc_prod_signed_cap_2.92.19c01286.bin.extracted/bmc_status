@@ -1,0 +1,87 @@
+#!/bin/sh
+# /usr/lib/sysdiag/bmc_status - Collects BMC status information.
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="General BMC Status"
+TEST_COMMENT="Status of the baseboard management controller's operating system."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Actual test starts here.
+
+# BMC version
+echo "<span class='subtitle'>- BMC version</span>"
+#cat /etc/git-release
+head -n 1 /etc/bmc-release | sed s/=/\\n/g | tail -n 1
+echo
+
+# BMC Device ID
+echo "<span class='subtitle'>- BMC Device ID</span>"
+/usr/bin/cmdtool 20 18 1
+echo
+
+# Get system uptime
+echo "<span class='subtitle'>- Uptime and Load</span>"
+cat /proc/uptime
+/usr/bin/uptime
+echo
+
+# BMC kernel command line
+echo "<span class='subtitle'>- BMC kernel command line</span>"
+cat /proc/cmdline
+echo
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+# Get a single snapshot of 'top'
+echo "<span class='subtitle'>- Processes (Brief)</span>"
+top -b -n 1 >&1
+echo
+
+# Snapshot of the current processes
+echo "<span class='subtitle'>- BMC Processes</span>"
+ps lTw
+echo
+
+# Snapshot of the monit status
+echo "<span class='subtitle'>- Monitored Status</span>"
+monit status
+echo
+
+# Get system memory info (free and meminfo).
+echo "<span class='subtitle'>- Free Memory</span>"
+free
+echo
+echo "<span class='subtitle'>- Full Memory Information</span>"
+cat /proc/meminfo
+echo
+echo "<span class='subtitle'>- Slab Info</span>"
+cat /proc/slabinfo
+echo
+
+# interrupts and non-task info
+echo "<span class='subtitle'>- Interrupts</span>"
+cat /proc/interrupts
+echo
+
+echo "<span class='subtitle'>- SoftIRQs</span>"
+cat /proc/softirqs
+echo
+
+# Get Filesystem Info
+echo "<span class='subtitle'>- Filesystem Info</span>"
+df -h
+echo
+mount
+echo
+
+EndHtmlSections

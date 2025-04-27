@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>修改用户 — 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+        <div class='helpmainhead'>修改用户 — 帮助</div>
+        <p>使用此页面修改用户密码和权限。</p>
+
+        <h2>用户名</h2>
+        <p>用户名称正在配置中。</p>
+        <p>这个名字是一个1 – 16个字母或数字字符或“.”或“_”或“-”的字符串。</p>
+        <p>名称必须以英文字母, 数字或“_”开始</p>
+        <h2>修改密码</h2>
+        <p>选择这个选项将启用密码区域来修改用户密码。</p>
+        <h2>密码，确认密码</h2>
+		<p>系统拥有简单密码模式与复杂密码模式.</p>
+                <p>用户可以在“安全设定”界面中切换密码模式</p>
+                <p>在这里输入并确认新的密码。</p>
+                <ul>
+                    <li>简单密码要求:
+                        <ul>
+                            <li>密码必须在6到20个字符之间。</li>
+                        </ul>
+                    </li>
+                    <li>复杂密码要求:
+                        <ul>
+                            <li>1.密码长度必须在8到20个字符之间.</li>
+                            <li>2.密码必须至少包含以下一种特殊字符.
+                                 <ul>
+                                    <li>!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</li>
+                                 </ul>
+                            </li>
+                            <li>3.密码必须包含以下三类字符.
+                                 <ul>
+                                      <li>至少一个大写字母（A到Z）</li>
+                                      <li>至少一个小写字符（a到z）</li>
+                                      <li>至少一个数字（0到9）</li>
+                                 </ul>
+                            </li>
+                            <li>4.密码不能与用户名或反转用户名相同.</li>
+                            <li>5.与先前的密码相比必须至少包含两个新字符.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+        <h2>网络优先级</h2>
+        <p>给这个用户分配网络优先级。</p>
+        <ul>
+            <li>- 管理员</li>
+            <li>- 操作者</li>
+            <li>- 用户</li>
+            <li>- 不能存取</li>
+        </ul>
+        <h2>用户启用</h2>
+        <p>选择这个选项框来启用用户的网络存取权限。
+        同时启用或禁用SOL,KVM,Media重定向。
+        </p>
+
+        <h2>SNMPv3 存取</h2>
+        <p>启用/禁用SNMPv3 存取。</p>
+        <h2>SNMPv3 存取级别</h2>
+        <p>SNMPv3 可存取级别。</p>
+        <ul>
+            <li>- 只读</li>
+            <li>- 可读写</li>
+        </ul>
+        <h2>SNMPv3 认证协议</h2>
+        <p>SNMPv3 可配置认证协议</p>
+        <ul>
+            <li>- MD5</li>
+            <li>- SHA</li>
+        </ul>
+        <h2>SNMPv3 认证密码</h2>
+        <p>按照以下规则设置SNMPv3 认证密码。</p>
+        <ul>
+            <li>密码长度需要设定在8到12之间。</li>
+            <li>如果更改SNMPv3认证协议或SNMPv3加密协议/密码，为了安全需求必须再次设置密码。</li>
+        </ul>
+        <h2>SNMPv3 加密协议</h2>
+        <p>SNMPv3 可配置加密协议</p>
+        <ul>
+            <li>- AES</li>
+        </ul>
+        <h2>SNMPv3 加密密码</h2>
+        <p>按照以下规则设置SNMPv3 加密密码。</p>
+        <ul>
+            <li>密码长度需要设定在8到12之间。</li>
+            <li>如果更改SNMPv3认证协议/密码或SNMPv3加密协议，为了安全需求必须再次设置密码。</li>
+        </ul>
+        <a href='./ewsprivilege.html' target="_blank" rel="noopener noreferrer">点击这里获得每层网络的详细的优先级级别。</a>
+        <div class='helpactionhead'>操作</div>
+
+        <div class='actionsub'>修改</div>
+        <p>点击修改来保存修改并回到用户列表。</p>
+        <div class='actionsub'>取消</div>
+        <p>如果没有修改新用户，点击取消回到列表。</p>
+    </body>
+</html>

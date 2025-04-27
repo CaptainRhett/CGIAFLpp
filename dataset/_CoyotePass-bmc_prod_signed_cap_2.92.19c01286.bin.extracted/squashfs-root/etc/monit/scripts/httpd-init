@@ -1,0 +1,165 @@
+#!/bin/sh
+
+# Copyright 2016-2017 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+CONF=/nv/lighttpd.conf
+EXEC=lighttpd
+WEBPATH=/usr/httpd
+SERVERCMD="lighttpd -f $CONF"
+TMPPATH=/tmp/httpd
+PID_FILE=/var/run/lighttpd.pid
+LOG_TAG=httpd-init
+#CA file check for Client cert
+FLOCK_CLIENT_CERT_SCRIPT=/etc/flock_client_cert.sh
+CLIENTCERTIFICATE_CERTONLY_PATH=/nv/client_certificate/certonly
+CLIENTCERTIFICATE_P12ONLY_PATH=/tmp/P12only
+CA_FILE=/nv/client_certificate/ca.crt
+INTERMEDIATE_CERT=/nv/client_certificate/intermediate.crt
+SERVER_PEM=/nv/server.pem
+HTTP_BOOT_TIMES=/tmp/httpd_boot_times
+source /etc/monit/scripts/common-funcs
+
+# Use BASE_CFG_VERSION to track the version of the config files. The version is
+# stored in the config file. If the base version is different, then it needs to
+# be copied to /nv/.
+if [ -f /etc/redfish-release ]; then
+    # The Redfish-enabled version of lighttp config
+    BASE_CFG_VERSION=27c18286-d16e-482c-a148-72f9da7ae1ba
+else
+    BASE_CFG_VERSION=26ab8e42-3c21-45ed-b0d2-f7f74392a0e6
+fi
+
+start_webserver()
+{
+
+    # If the startup time exceeds 5 times, clear the SSL certificate, /usr/httpd/crt.sh will initialize it.
+    if [ -f $HTTP_BOOT_TIMES ]; then
+        output=$(cat $HTTP_BOOT_TIMES)
+        echo $output
+        if [ $output -ge 5 ]; then # boot times >= 5, then remove ssl certificates
+            rm $HTTP_BOOT_TIMES
+            rm /nv/CA/root/cacert.pem
+            rm /nv/server.pem
+            rm /nv/client_certificate/server.pem
+            rm /nv/client_certificate/server.crt
+            rm /nv/client_certificate/intermediate.crt
+            rm /nv/client_certificate/ca.crt
+            logger -t "$LOG_TAG" -p local0.info "tried to boot httpd $output times but failed, clear all ssl certificate and initialize httpd."
+            # Add a SEL by ipmi command.
+            # ST: 12 "System Event"
+            # S#: 07 "System Event Log"
+            cmdtool -n 20 30 24 ff ff 02 00 00 00 00 20 00 04 12 07 6f 0e ff ff 00 ff ff ff ff ff ff ff
+        else
+            echo $(($output+1)) > $HTTP_BOOT_TIMES # boot times +1
+        fi
+    else
+        echo "1" > $HTTP_BOOT_TIMES
+        logger -t "$LOG_TAG" -p local0.info "tried to boot httpd first time."
+    fi
+
+
+    # setup bmc's tls keys
+    /usr/httpd/crt.sh
+
+    ENABLED=$(sed -n 's/HTTPD=\([0|1]\).*$/\1/p' /nv/service.conf)
+    if [ $ENABLED -eq 0 ]; then
+        monit unmonitor httpd
+        logger -t $LOG_TAG -p local0.info "$EXEC is disabled in /nv/service.conf - unmonitored"
+        return 1
+    fi
+
+    if [ ! -f $PID_FILE ]; then
+        # if PID File is not present, assume first time start.
+        /usr/bin/boot_progress.sh MB_RUNTM_WEBSVR_START
+    fi
+    # Monit uses the pid file to track the process id.
+    # Allow non-root lighttpd to write to the file.
+    touch $PID_FILE
+    chgrp httpd $PID_FILE
+
+    if [ ! -f $CONF ]; then
+        /etc/init.d/httpd loaddflt
+        /etc/init.d/monit reload httpd
+        usleep 5000000
+    # If the base config file has been modified, reload it.
+    elif ! grep -q "BASE_CFG_VERSION=$BASE_CFG_VERSION" ${CONF}; then
+        /etc/init.d/httpd loaddflt
+        /etc/init.d/monit reload httpd
+        usleep 5000000
+    fi
+    rm -rf $TMPPATH; mkdir -p $TMPPATH
+    if [ ! -f /nv/server.pem ]; then sh $WEBPATH/crt.sh &&echo "load default ssl certificate ........."; fi
+    if [ -f $CA_FILE ] && [ -f $INTERMEDIATE_CERT ] && [ -f $SERVER_PEM ]; then
+        output=$(openssl verify -no_check_time -CAfile $SERVER_PEM $INTERMEDIATE_CERT 2>&1)
+        res=$?
+        if [ $res -ne 0 ] && [ -f $FLOCK_CLIENT_CERT_SCRIPT ]; then
+            #If verify CA file is failed, restore client cert
+            sh $FLOCK_CLIENT_CERT_SCRIPT restore $CLIENTCERTIFICATE_CERTONLY_PATH $CLIENTCERTIFICATE_P12ONLY_PATH
+            res=$?
+            if [ $res -eq 0 ]; then
+                logger -t "$LOG_TAG" -p local0.info "Restore Client cert according to: $output"
+            fi
+        fi
+    fi
+    chown httpd:httpd $TMPPATH /nv/server.pem
+    logger -t "$LOG_TAG" -p local0.info "Starting BMC Service $EXEC"
+    $SERVERCMD
+    rc=$?
+    if [ $rc -ne 0 ]; then
+        logger -t "$LOG_TAG" -p local0.info "Failed to start $EXEC; rc=$rc"
+    else
+        if [ $(ps | grep -c '[m]onitor-oemws-lock.sh') -eq 0 ]; then
+            /usr/bin/monitor-oemews-lock.sh &
+        fi
+    fi
+
+    cmdtool 20 C0 00 01 00 00
+    return 0
+}
+
+stop_webserver()
+{
+    logger -t "$LOG_TAG" -p local0.info "Shutting down BMC Service $EXEC"
+    killall -9 lighttpd;
+    if httpd_is_running; then
+        logger -t "$LOG_TAG" -p local0.info "Failed to stop $EXEC $(ps | grep -E '.*[l]ighttpd -f')"
+    fi
+    logger -t "$LOG_TAG" -p local0.info "Successful shutdown of BMC Service $EXEC"
+}
+
+case $1 in
+start)
+    if ! httpd_init_set_inprogress; then
+        logger -t $LOG_TAG -p local0.info "init script $0 cannot be run while another instance is running!"
+        exit 1;
+    elif httpd_is_running; then
+        logger -t $LOG_TAG -p local0.info "Not starting $EXEC; it is already running!"
+        exit 0
+    fi
+    start_webserver && echo "start Web server ............."
+    ;;
+stop)
+    stop_webserver && echo "Stop web server .............."
+    ;;
+status)
+    ps | grep -E '.*[l]ighttpd -f' || echo "stopped"
+    ;;
+restart)
+    stop_webserver
+    start_webserver
+    ;;
+*)
+    ;;
+esac

@@ -1,0 +1,96 @@
+#!/bin/sh
+# /usr/lib/sysdiag/CPU_dump - Collects CPU register readings.
+
+source /usr/lib/sysdiag/NORUN_common
+
+CPUDUMP_LOCATION="/nv/"
+CRASHDUMP_LOCATION="/nv/crashdump/output/"
+CPUDUMP_JSON_NAME="sysdebug_"
+CPUDUMP_JSON_TMP_NAME="sysdebug.json"
+CPUDUMP_NAME="CPUDump_"
+CPUDUMP_TMP_NAME="CPUDump.txt"
+BASIC_STAGING_LOCATION="$ZIPDIR_BASIC/sysdebug"
+ADV_STAGING_LOCATION="$ZIPDIR_ADVANCED/CPU_Dump"
+mkdir -p $ADV_STAGING_LOCATION
+mkdir -p $BASIC_STAGING_LOCATION
+
+STAGING_LOCATION="/tmp"
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="CPU Registers and PCI Configuration Space Dump"
+TEST_COMMENT="CPU Registers and PCI Configuration Space Dump."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+# Actual test starts here.
+# Get Sensor Readings
+echo "<span class='subtitle'>- CPU Registers Dump</span>"
+for i in $CPUDUMP_LOCATION/$CPUDUMP_NAME*.zip
+do
+   if [ -e $i ]
+   then
+      unzip -o $i -d $STAGING_LOCATION
+      cat $STAGING_LOCATION/$CPUDUMP_TMP_NAME
+   fi
+done
+
+# Print a message if no log was found
+if [ ! -e $STAGING_LOCATION/$CPUDUMP_TMP_NAME ]
+then
+    echo "No CPU Error Log Found"
+    echo
+fi
+
+# remove the temporary file
+rm -rf $STAGING_LOCATION/$CPUDUMP_TMP_NAME
+
+echo
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+# Unzip the CPU dump files into the advanced staging location with the zip name
+# for i in $CPUDUMP_LOCATION/$CPUDUMP_NAME*.zip
+# do
+#    if [ -e $i ]
+#    then
+#       unzip -o $i -d $STAGING_LOCATION
+#       cp $STAGING_LOCATION/$CPUDUMP_JSON_TMP_NAME "$ADV_STAGING_LOCATION/`basename $i .zip`.txt"
+#    fi
+# done
+
+# Unzip the JSON CPU dump files into the advanced and basic staging locations with the zip name
+# for i in $CPUDUMP_LOCATION/$CPUDUMP_JSON_NAME*.zip
+# do
+#    if [ -e $i ]
+#    then
+#       unzip -o $i -d $STAGING_LOCATION
+#       cp $STAGING_LOCATION/$CPUDUMP_JSON_TMP_NAME "$ADV_STAGING_LOCATION/`basename $i .zip`.json"
+#       cp $STAGING_LOCATION/$CPUDUMP_JSON_TMP_NAME "$BASIC_STAGING_LOCATION/`basename $i .zip`.json"
+#    fi
+# done
+
+if [ -e /tmp/crashdump.log ]
+then
+    cp /tmp/crashdump.log $BASIC_STAGING_LOCATION/
+    cp /tmp/crashdump.log $ADV_STAGING_LOCATION/
+else
+    echo "/tmp/crashdump.log not exists."
+fi
+
+cp $CRASHDUMP_LOCATION/*.json $BASIC_STAGING_LOCATION/
+cp $CRASHDUMP_LOCATION/*.json $ADV_STAGING_LOCATION/
+
+EndHtmlSections
+

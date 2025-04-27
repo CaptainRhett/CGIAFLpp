@@ -1,0 +1,40 @@
+<!-- ******************************************************************************
+*
+*                   INTEL CORPORATION PROPRIETARY INFORMATION
+*       This software is supplied under the terms of a license agreement or
+*       nondisclosure agreement with Intel Corporation and may not be copied
+*       or disclosed except in accordance with the terms of that agreement.
+*         Copyright (c) 2016-2023 Intel Corporation. All Rights Reserved.
+*
+*     Abstract:  sys_nvme_hlp.html
+*
+* Framework based on content by Insyde Software Corporation.
+*
+****************************************************************************** -->
+<html>
+    <head>
+        <title>System Information - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>NVMe Information - Help</div>
+            <p>This page displays status information for each Intel &reg; Corporation NVMe drive installed into a Hot Swap drive slot. Each group box displayed contains statistics for a single NVMe drive. The group box identifies the drive by Hot Swap Backplane (HSBP) number, and by drive slot number. Only five of the entries are able to change state at runtime:</p>
+
+            <p><b>NVMe Powered: </b>Indicates the current power on state of the NVMe drive. This value can only be presented when the HSBP is powered.</p>
+
+            <p><b>NVMe Functional: </b>Indicates the NVMe drive is reporting as operational.</p>
+
+            <p><b>NVMe Reset Required: </b>Indicates if the NVMe drive is reporting a condition requiring the drive to be reset.</p>
+
+            <p><b>PCIe Link Active: </b>Indicates the PCIe SERDES link is currently trained.</p>
+
+            <p><b>Drive Life Consumed: </b>Provides information about the rough amount of wear to which the NVMe drive has been subjected. This value is <b>NOT</b> an absolute health indicator. This value can exceed 100% and the drive may still be considered to be healthy.</p>
+
+    </body>
+</html>

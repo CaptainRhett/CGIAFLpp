@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+#
+#Runlevel : S = S48
+#Runlevel : 6 = K45
+#
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+LUAJIT="luajit"
+REDFISH_PATH="/usr/local/redfish/"
+ON_BOOT_NAME="run_settings.lua Boot"
+ON_SHUTDOWN_NAME="run_settings.lua Shutdown"
+
+# Options for start/stop the daemons
+case "$1" in
+  start)
+    cd $REDFISH_PATH;$LUAJIT $ON_BOOT_NAME
+    ;;
+  stop)
+    cd $REDFISH_PATH;$LUAJIT $ON_SHUTDOWN_NAME
+    ;;
+esac
+  
+exit 0

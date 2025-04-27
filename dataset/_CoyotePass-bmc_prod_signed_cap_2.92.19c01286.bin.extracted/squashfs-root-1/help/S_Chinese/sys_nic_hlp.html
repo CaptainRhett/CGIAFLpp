@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>网卡信息 — 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+        <div class='helpmainhead'>网卡信息 — 帮助</div>
+        <p>使用此页面来收集服务器上安装的网卡的信息。</p>
+        <h2>PCI类型代码</h2>
+        <p>设备的通用功能。</p>
+        <h2>插槽号</h2>
+        <p>连接到PCIe *端口的插槽的物理插槽号。</p>
+        <h2>供应商编号</h2>
+        <p>供应商识别号。</p>
+        <h2>设备编号</h2>
+        <p>设备识别号。</p>
+        <h2>当前速度(Mbps)</h2>
+        <p>当前的传输速度（以Mbps为单位）。示例：10 Gbps为10000； 40 Gbps为40000。</p>
+        <h2>端口索引</h2>
+        <p>系统中的端口索引。此值与IPMI规范在IPMI规范的“设备实例选择器”字段定义中针对“获取/设置系统引导选项” IPMI命令的值（引导选项参数结构，引导标志参数5数据5）相匹配。</p>
+        <h2>媒体状态</h2>
+        <p>媒体连接状态：
+        <ul>
+            <li>0 – 媒体未连接</li>
+            <li>1 – 媒体连接</li>
+            <li>FFh – 媒体状态未知</li>
+        </ul>
+        </p>
+        <h2>MAC地址</h2>
+        <p>设备的MAC地址。</p>
+        <h2>固件版本</h2>
+        <p>网卡的固件版本。</p>
+        <h2>设备类型</h2>
+        <p>设备物理连接类型.</p>
+        <h2>物理地址</h2>
+        <p>设备连接物理地址.</p>
+        <h2>其他NCSI信息定义</h2>
+        <p>对于其他NCSI信息定义, 请查看DMTF documentation DSP0222.</p>
+    </body>
+</html>

@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>Security Settings - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>Security Settings - Help</div>
+            <p>You can view and modify the security settings on this page.</p>
+            <h2>KCS Policy Control Mode</h2>
+                <p>The KCS Policy Control Mode allows an administrator to control access to the BMC over the Keyboard Controller Style (KCS) interface. The KCS interface is a communications channel used by the server host (UEFI, Operating System) to communicate with the server BMC. Although the KCS interface is protected by Ring 0 access, it is unauthenticated and considered insecure for some deployment models. KCS Policy Control Mode restrict commands defined by the Intelligent Platform Management Interface (IPMI) specification sent over the KCS interface after core BIOS functions have completed. Choices from:</p>
+                <ul>
+                    <li>KCS Policy Control Mode – Allow All</li>
+                        <p>This configuration setting is intended for normal IPMI compliant communications between the Host OS and the BMC. This mode should be used when provisioning the BMC configuration for deployment.</p>
+                    <li>KCS Policy Control Mode – Deny All</li>
+                        <p>This configuration setting disables the IPMI KCS command interfaces between the Host OS and the BMC. This is a non-compliant IPMI configuration that will impact the operation of the Server Management Software running on the Host OS. This only applies to the IPMI commands over the KCS interfaces, and does not apply to the authenticated network interfaces to the BMC.</p>
+                    <li>KCS Policy Control Mode – Restricted</li>
+                        <p>This configuration setting enables the use of an Access Control List by the BMC Firmware that allows applications executing on the host OS to have access to a limited set of IPMI commands using the KCS interfaces. This is a non-compliant IPMI configuration that may impact the operation of the Server Management Software running on the Host OS. For example, the IPMI commands that are used to provision the BMC configuration settings, or control the state of the Host OS, will be disallowed when the BMC KCS interface is in restricted mode. This only applies to the IPMI commands over the KCS interfaces, and does not apply to the authenticated network interfaces to the BMC.</p>
+                </ul>
+            <p>Configure how many user login failed attempts occur before a user is login blocked out and how long the user login blocked out will be expired and the user can re-login again.</p>
+            <h2>SSL Cipher Policy Control Mode</h2>
+                <p>The SSL Cipher Control Mode allows an administrator to get or set the system SSL cipher mode. Choices from:</p>
+                <ul>
+                    <li>SSL Cipher Policy Control Mode - Advanced</li>
+                        <p>This configuration setting is intended for "Advanced" cipher mode. When system starts for the first time, "Advanced" is the default mode.</p>
+                    <li>SSL Cipher Policy Control Mode - Broad Compatibility</li>
+                        <p>This configuration setting is intended for "Broad Compatibility" cipher mode.</p>
+                    <li>SSL Cipher Policy Control Mode - Widest Compatibility</li>
+                        <p>This configuration setting is intended for "Widest Compatibility" cipher mode.</p>
+                    <li>SSL Cipher Policy Control Mode - Legacy</li>
+                        <p>This configuration setting is intended for "Legacy" cipher mode</p>
+                </ul>
+            <h2>Login Attempt</h2>
+                <h2>Failed Login Attempts</h2>
+                    <p>Input the Failed Login Attempts times.
+                    Set the number of failed login attempts a user is allowed before being locked out. Zero means no lockout. Failed Login Attempts should be between 0 and 255. Default is 3 attempts.
+                    </p>
+
+                <h2>User Lockout Time (sec)</h2>
+                    <p>Set the time in seconds that the user is locked out before being allowed to login again. Zero means User Lockout Time is disabled. If a user was automatically disabled due to the Bad Password threshold, the user will remain disabled until re-enabled via the Set User Access command. User Lockout Time should be between 0 and 65535. Default is 60sec.</p>
+
+            <h2>Port Settings</h2>
+                <p>
+            <h2>HTTPS (Secure) Port</h2>
+                <p>Set the port used for https (default: 443) web sessions. Changing this setting will immediately terminate all current web sessions.</p>
+
+            <h2>Password Rules</h2>
+                <h2>Complexity</h2>
+                <p>The feature of Complex Password is to avoid setting less complicated password for security consideration.</p>
+                <p>The password validation is the different strict in the different mode.</p>
+                <ul>
+                    <li>Medium</li>
+                        <p>* Contains printable characters only</p>
+                        <p>* Password length should not be shorter than 8 characters</p>
+                        <p>* Could not contains user name or the user name in reverse order (case insensitive) (eg, username=Hello, Password=th12(oLleH)_78 is not allowed)</p>
+                        <p>* Have at least two new characters when compared with the previous password.</p>
+                        <p>* Meets following 4 criteria:</p>
+                        <p>1. Contains upper case</p>
+                        <p>2. Contains lower case</p>
+                        <p>3. Contains digit numbers</p>
+                        <p>4. Contain at least a space or symbols</p>
+                    <li>Low</li>
+                        <p>* Contains printable characters only</p>
+                        <p> * Password length should not be shorter than 6 characters</p>
+                        <p> * Meets following 3 criteria:</p>
+                        <p>1. Contains upper case (eg. A, G)</p>
+                        <p>2. Contains lower case (eg. a, g)</p>
+                        <p>3. Contains digit numbers (eg. 1, 6)</p>
+                        <p>4. Contains symbols (eg. $, &amp;)</p>
+                            <p>* Could not contains user name (case insensitive) (eg, username=Hello, Password=th12(heLLo)_78 is not allowed)</p>
+                    <li>High</i>
+                        <p>* Contains printable characters only</p>
+                        <p>* Password length should not be shorter than 8 characters</p>
+                        <p>* Meets following 4 criteria:</p>
+                        <p>1. Contains upper case</p>
+                        <p>2. Contains lower case</p>
+                        <p>3. Contains digit numbers</p>
+                        <p>4. Contains symbols</p>
+                            <p>* Could not contains user name or the user name in reverse order (case insensitive)</p>
+                            <p>* Could not contains continuous digits longer than or equal to 3 characters (eg. BMC(123)ste, BMC(654)sfc are not allowed)</p>
+                            <p>* Could not contains continuous alphabets longer than or equal to 3 characters (eg. (AbC)3478!, 57$(DeF)68k are not allowed))</p>
+                            <p>* Alphabets could not longer than 3 characters (eg. (Fher)145! are not allowed))</p>
+                            <p>* Digits could not longer than 3 characters (eg. Fgke(1245)#@, (4390)FGL$ are not allowed)</p>
+                            <p>* Contains no more than 3 same alphabets(case insensitive) (eg. Fkr4fcpF&amp;f (4 'f' or 'F'), Glg5gt2G! (4 'g' or 'G') are not allowed)</p>
+                </ul>
+                <h2>Password History</h2>
+                <p>The feature of password history is to avoid setting a password that is duplicate with one we used earlier for security consideration.</p>
+                <p>For example, when the history is set as 2, it means that the user cannot set a new password that had been used in the previous two passwords configured for the same account.</p>
+            <h2>Optional Network Services</h2>
+                <p>
+            <h2>SOL SSH</h2>
+                <p>Checking/Unchecking the checkbox to enable/disable the SOL SSH service.</p>
+            <h2>HTTPS</h2>
+                <p>Checking/Unchecking the checkbox to enable/disable the HTTPS service.</p>
+            <h2>HTTP</h2>
+                <p>Checking/Unchecking the checkbox to enable/disable the HTTP service.</p>
+            <h2>IPMI over LAN</h2>
+                <p>Checking/Unchecking the checkbox to enable/disable the RMCP/RMCP+ service.</p>
+            <h2>Remote Media</h2>
+                <p>Checking/Unchecking the checkbox to enable/disable the Virtual Media service.</p>
+            <h2>RMCP+ Cipher Suite3 Configuration for each LAN Channel</h2>
+                <p>Checking/Unchecking the checkbox to enable/disable the RMCP+ Cipher Suite3.</p>
+        <div class='helpactionhead'>Actions</div>
+            <div class='actionsub'>Save</div>
+                <p>Click 'Save' to save any changes made.</p>
+
+    </body>
+</html>

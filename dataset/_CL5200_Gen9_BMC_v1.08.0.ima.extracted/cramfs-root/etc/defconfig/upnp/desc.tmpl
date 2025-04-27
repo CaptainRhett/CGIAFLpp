@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:schemas-upnp-org:device:management:1</deviceType>
+    <friendlyName>%s</friendlyName>
+    <manufacturer>American Megatrends Inc</manufacturer>
+    <manufacturerURL>http://www.ami.com</manufacturerURL>
+    <modelDescription>AMI Service Processor Stack SPX running on AST2400 SoC on AST2400EVB</modelDescription>
+    <modelName>AMI SPX</modelName>
+    <modelNumber>1.0.0</modelNumber>
+    <modelURL>http://www.ami.com</modelURL>
+    <UDN>uuid:%s</UDN>
+    <presentationURL>http://%s</presentationURL>
+    <serviceList>
+      <service>
+        <serviceType>urn:dmtf-org:service:redfish-rest:1</serviceType>
+        <serviceId>uuid:%s::urn:dmtf-org:service:redfish-rest:1</serviceId>
+        <controlURL>/</controlURL>
+        <eventSubURL>/</eventSubURL>
+        <SCPDURL>/redfishSCPD.xml</SCPDURL>
+      </service>
+    </serviceList>
+</device>
+</root>

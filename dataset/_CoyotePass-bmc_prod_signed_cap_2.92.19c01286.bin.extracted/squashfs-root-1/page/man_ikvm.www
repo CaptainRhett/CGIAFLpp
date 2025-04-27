@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <META http-equiv="X-UA-Compatible" content="IE=11">
+    <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+    <title></title>
+    <link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/basic.css" type="text/css">
+    <script language="javascript" src="../js/utils.js"></script>
+    <script language="javascript" src="../js/inputvalidation.js"></script>
+    <script language="javascript" src="../../js/iframe_event.js"></script>
+    <script language="javascript" src="../js/deployJava.js"></script>
+    <script language="javascript" src="../js/man_ikvm.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body class="nodisplay">
+    <script language="javascript" src="../js/man_ikvm_jre.js"></script>
+    <table border="0" cellpadding="0" cellspacing="5" class="mtable">
+        <tr><td width="20px"><img src="../images/arrow_red.gif" border="0" class="redarrow"></td>
+            <td><div id="caption_div" class="mtitle"></div></td></tr>
+        <tr><td></td>
+            <td><div id="kcs_segment_state" class="Categorytext"></div></td></tr>
+        <tr><td></td>
+            <td><input type="button" class="btnStyle" id="launchikvm"></td></tr>
+        <tr><td colspan="2"></td></tr>
+        <tr>
+            <td></td>
+            <td>
+                <fieldset class="group">
+                    <legend id="kb_macros_legend" class="legendcaption"></legend>
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <label id="kb_macros_desc" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <table cellspacing="0" cellpadding="5" border="0" width="450">
+                                    <tr>
+                                        <th/>
+                                        <th>
+                                            <label id="key_filed_lbl" class="labelhead">
+                                            </label>
+                                        </th>
+                                        <th>
+                                            <label id="name_field_lbl" class="labelhead">
+                                            </label>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>#1</td>
+                                        <td><input type="text" id="_m0_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m0_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#2</td>
+                                        <td><input type="text" id="_m1_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m1_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#3</td>
+                                        <td><input type="text" id="_m2_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m2_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#4</td>
+                                        <td><input type="text" id="_m3_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m3_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#5</td>
+                                        <td><input type="text" id="_m4_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m4_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#6</td>
+                                        <td><input type="text" id="_m5_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m5_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#7</td>
+                                        <td><input type="text" id="_m6_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m6_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#8</td>
+                                        <td><input type="text" id="_m7_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m7_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#9</td>
+                                        <td><input type="text" id="_m8_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m8_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#10</td>
+                                        <td><input type="text" id="_m9_value" size=32 maxlength=64/></td>
+                                        <td><input type="text" id="_m9_name" size=12 maxlength=12/></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="button" class="btnStyle" id="savekeymacros">
+                            </td>
+                        </tr>
+                    </table>
+                 </fieldset>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

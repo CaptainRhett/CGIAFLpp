@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>NIC Information - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>NIC Information - Help</div>
+        <p>Use this page to collect system NIC information about the server.</p>
+        <h2>PCI Class Code</h2>
+        <p>The generic function of the device.</p>
+        <h2>Slot Number</h2>
+        <p>Physical Slot Number of the Slot Connect to the PCIe* port.</p>
+        <h2>Vendor ID</h2>
+        <p>Vendor Identification Number.</p>
+        <h2>Device ID</h2>
+        <p>Device Identification Number.</p>
+        <h2>Current Speed(Mbps)</h2>
+        <p>Current speed in Mbps (such as 10000 for 10 Gbps; 40000 for 40 Gbps).</p>
+        <h2>PortIdx</h2>
+        <p>Port Index in the system. This value matches the value exposed by BIOS in the IPMI specification’s Device Instance selector field definition for Get / Set System Boot Options IPMI command (Boot Options Parameter structure, Boot Flags parameter 5 data 5).</p>
+        <h2>Media State</h2>
+        <p>Media connection state:
+        <ul>
+            <li>0 - Media is not connected</li>
+            <li>1 - Media is connected</li>
+            <li>FFh - Media state is unknown</li>
+        </ul>
+        </p>
+        <h2>MAC Address</h2>
+        <p>Network MAC address.</p>
+        <h2>Firmware Version</h2>
+        <p>The version of the firmware installed on the NIC.</p>
+        <h2>Device Type</h2>
+        <p>Physical connection type of the device.</p>
+        <h2>Physical Address</h2>
+        <p>Physical address of the devices based on the device type.</p>
+        <h2>Other NCSI information definition</h2>
+        <p>For all NCSI Information, please refer to DMTF documentation number DSP0222.</p>
+    </body>
+</html>

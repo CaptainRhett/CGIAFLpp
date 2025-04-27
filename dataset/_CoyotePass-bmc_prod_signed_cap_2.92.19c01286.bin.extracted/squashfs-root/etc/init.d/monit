@@ -1,0 +1,400 @@
+#!/bin/sh
+
+# Copyright 2015 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+# Source common functions. (is_jtag_enabled)
+source /etc/monit/scripts/common-funcs
+source /etc/init.d/platform-common
+
+PID_FILE=/var/run/monit.pid
+MONIT_CFG=/etc/monitrc
+MONIT_D=/etc/monit/config/monit.d
+MONIT_TMPD=/tmp/monit.d
+MONIT_TS=$MONIT_TMPD/.timestamp
+HTTPD_CFG=/nv/lighttpd.conf
+KVM_CFG=/nv/kvm.inf
+DAEMON=/usr/bin/monit
+LOG_TAG=monit
+DFLT_APP_RESTARTS_TH=5
+DFLT_APP_RESTARTS_TH_PERIOD=10
+LOG_CFG=/nv/daemon-log.cfg
+
+get_logsz()
+{
+    TAG=$1
+    LOG_SZ=""
+    if [ -f $LOG_CFG ]; then
+        n=$(sed -n 's/'${TAG}'_LOG_SZ="*\(.*[KMG]B\)"*/\1/p' $LOG_CFG)
+        [ -n "$n" ] && LOG_SZ=$n
+    fi
+    echo $LOG_SZ
+}
+
+get_config()
+{
+    SERVICE_CONF=/nv/service.conf
+    PORT_CONF=/nv/port.conf
+    TMP_FILE=/tmp/monit-cfg.tmp
+    FAULT_MGMT_CFG=/nv/fault-mgmt.cfg
+
+    # Default port numbers in case not set in port.conf
+    HTTPS_Port=443
+    SOL_Port=66
+    KVM_Port=5900
+    USB_Floppy_Port=623
+    SNMP_Port=161
+
+    arg=$1
+    case "$arg" in
+      ipmid|httpd|sol|ikvm|usb|uima|uiso|snmpd|rngd|jtagsvr|rcmd|biosoob|upnpd|websocketd|dbus_system|rftaskd|rftelemetryd|raidsvc|pcie_vdm_handler|mctp_pcie_bo|protocol_handler|pldmd|smbus_tb_handler|mctp_smbus_bo)
+      services=$(echo $arg | tr '[:lower:]' '[:upper:]')
+      ;;
+      *)
+        # don't include JTAGSVR, it is not started during system init.
+        services="IPMID HTTPD SOL IKVM USB UIMA UISO SNMPD RNGD RCMD BIOSOOB UPNPD WEBSOCKETD DBUS_SYSTEM RFTASKD RFTELEMETRYD RAIDSVC PCIE_VDM_HANDLER MCTP_PCIE_BO PROTOCOL_HANDLER PLDMD SMBUS_TB_HANDLER MCTP_SMBUS_BO"
+        ;;
+        *)
+        services=$(echo $arg | tr '[:lower:]' '[:upper:]')
+        ;;
+    esac
+
+    # Override port values with the port.conf config file.
+    # This config file is full of spaces and parenthesis. This sed command gets
+    # it to something we can source.
+    sed -e 's/[ \/\(\)]/_/g' -e 's/__/_/'  $PORT_CONF > $TMP_FILE
+    source $TMP_FILE
+    rm $TMP_FILE
+
+    # If these services are disabled, delete them from monitrc
+    source $SERVICE_CONF
+
+    eval $(get_platform_config)
+
+    if [ $HAS_HOST_IFC -eq 1 ]; then
+        # Host interface exists, these services will be monitored regardless of
+        # whether they are in service.conf because disabling them only means
+        # they are disabled externaly. USB will start in an localhost only mode
+        # when USB=0 is set in service.conf.
+        if [ -z "$USB" -o "$USB" = "1" ] && advance_feature_available; then
+            # USB process does use an IPv6 socket in normal mode.
+            USB_HOST=ip6-localhost
+        else
+            # USB process does not use an IPv6 socket in localhost mode.
+            USB_HOST=localhost
+        fi
+        USB=1  # override to start anyway.
+        UIMA=1 # override to start anyway.
+        UISO=1 # override to start anyway.
+    else
+        # Host interface does not exist. Do not attempt to start or monitor.
+        USB=0
+        UIMA=0
+        UISO=0
+    fi
+
+    # Always include these services. They are not in services.conf file.
+    IPMID=1
+    RNGD=1
+    RCMD=1
+    DBUS_SYSTEM=1
+    BIOSOOB=1
+    # SFCB=1 # Not using SMASH or SFCB at this time
+
+    # If HTTP is disabled, don't start UPNPD
+    HTTP_Port=$(sed -n 's/^HTTP Port=\(.*\).*/\1/p' $PORT_CONF)
+    if [ 0 -eq $(grep -c "^server.port.*=.*$HTTP_Port" $HTTPD_CFG) ]; then
+        UPNPD=0
+        case "$services" in
+        *UPNPD*);;
+        *) services="$services UPNPD"
+           ;;
+        esac
+    fi
+
+    if [ $HAS_FEATURE_EWS -eq 0 ]; then
+        IKVM=0
+    fi
+
+    case "$services" in
+    *JTAGSVR*)
+        # include JTAGSVR only if supported and enabled
+        JTAGSVR=$(is_jtag_enabled)
+        ;;
+    *) ;;
+    esac
+
+    # include SNMPD only if installed.
+    SNMPD=0
+    [ -f /sbin/snmpd ] && SNMPD=1
+
+    # include ikvm websocket only if installed.
+    WEBSOCKETD=0
+    [ -f /usr/bin/websocket_srv ] && WEBSOCKETD=1
+
+    # include ikvm rftaskd only if installed.
+    RFTASKD=0
+    [ -f /usr/bin/rftaskd ] && RFTASKD=1
+
+    # include rftelemetryd only if installed.
+    RFTELEMETRYD=0
+    [ -f /usr/bin/rftelemetryd ] && RFTELEMETRYD=1
+
+    # include raidsvc only if installed.
+    RAIDSVC=0
+    [ -f /usr/bin/RAIDService ] && RAIDSVC=1
+
+    # include mctp related only if installed.
+    PCIE_VDM_HANDLER=0
+    [ -f /usr/bin/pcie_vdm_handler ] && PCIE_VDM_HANDLER=1
+
+    MCTP_PCIE_BO=0
+    [ -f /usr/bin/mctp_pcie_bo ] && MCTP_PCIE_BO=1
+
+    PROTOCOL_HANDLER=0
+    [ -f /usr/bin/protocol_handler ] && PROTOCOL_HANDLER=1
+
+    PLDMD=0
+    [ -f /usr/bin/pldmd ] && PLDMD=1
+
+    SMBUS_TB_HANDLER=0
+    [ -f /usr/bin/smbus_tb_handler ] && SMBUS_TB_HANDLER=1
+
+    MCTP_SMBUS_BO=0
+    [ -f /usr/bin/mctp_smbus_bo ] && MCTP_SMBUS_BO=1
+
+    case "$services" in
+    *IPMID*)
+        # Use configuration to determine next action if ipmid fails repeatedly.
+        if [ ! -f $FAULT_MGMT_CFG ]; then
+            APP_RESTARTS_TH=$DFLT_APP_RESTARTS_TH
+            APP_RESTARTS_TH_PERIOD=$DFLT_APP_RESTARTS_TH_PERIOD
+            printf "APP_RESTARTS_TH=%d\nAPP_RESTARTS_TH_PERIOD=%d\n" \
+                $APP_RESTARTS_TH $APP_RESTARTS_TH_PERIOD > $FAULT_MGMT_CFG
+        else
+            . $FAULT_MGMT_CFG
+            case "${APP_RESTARTS_TH}${APP_RESTARTS_TH_PERIOD}" in
+                ''|*[!0-9]*)
+                    logger -t $LOG_TAG -p local0.info "Invalid config $FAULT_MGMT_CFG, using defaults"
+                    APP_RESTARTS_TH=$DFLT_APP_RESTARTS_TH
+                    APP_RESTARTS_TH_PERIOD=$DFLT_APP_RESTARTS_TH_PERIOD
+                    ;;
+                *)
+                    ;;
+            esac
+
+        fi
+        ipmid_tag="__IF_IPMID_RESTART_COND__"
+        if [ $APP_RESTARTS_TH -eq 0 ]; then
+            ipmid_cond="# (DISABLED)"
+        else
+            cycles=$(($APP_RESTARTS_TH_PERIOD * 2))
+            if [ $APP_RESTARTS_TH -gt $cycles ]; then
+                logger -t $LOG_TAG -p local0.info "Invalid config $FAULT_MGMT_CFG, using defaults"
+                APP_RESTARTS_TH=$DFLT_APP_RESTARTS_TH
+                APP_RESTARTS_TH_PERIOD=$DFLT_APP_RESTARTS_TH_PERIOD
+                cycles=$(($APP_RESTARTS_TH_PERIOD * 2))
+            fi
+            ipmid_cond="if $APP_RESTARTS_TH restarts within $cycles cycles"
+        fi
+        ;;
+    *)  ;;
+    esac
+
+    case "$services" in
+    *HTTPD*)
+        # Apparently httpd writes directly to /nv/lighttpd.conf to change its port
+        # and the port config is ignored in this case. So, need to handle this as a
+        # special case as well
+        /etc/init.d/httpd checkconfformat
+        if [ ! -f $HTTPD_CFG ]; then
+            /etc/init.d/httpd loaddflt
+        fi
+        HTTPS_Port=$(sed -n 's/^HTTPS Port=\(.*\).*/\1/p' $PORT_CONF)
+        ;;
+    *)  ;;
+    esac
+
+    case "$services" in
+    *IKVM*)
+        if [ -f $KVM_CFG ]; then
+            source $KVM_CFG
+            if [ $KVM_CRYPT_EN -ne 0 -a -n "$KVM_Secure_Port" ]; then
+                KVM_Port=$KVM_Secure_Port
+            fi
+        fi
+        license_use
+        ret=$?
+        if [ $ret == 1 ]; then
+            if license_available; then
+                logger -t $LOG_TAG -p local0.info "SoftLicense activated!"
+            else
+                logger -t $LOG_TAG -p local0.info "SoftLicense not activated!"
+            fi
+            logger -t $LOG_TAG -p local0.info "IKVM is enabled!"
+        elif rmm_available; then
+            logger -t $LOG_TAG -p local0.info "RMM present!"
+        else
+            logger -t $LOG_TAG -p local0.info "RMM is absent. IKVM is disabled!"
+            IKVM=0
+        fi
+        ;;
+    *)  ;;
+    esac
+
+    case "$services" in
+    *USB*)
+        if [ -f $KVM_CFG ]; then
+            source $KVM_CFG
+            if [ $VM_CRYPT_EN -ne 0 -a -n "$USB_Floppy_Secure_Port" ]; then
+                USB_Floppy_Port=$USB_Floppy_Secure_Port
+            fi
+        fi
+        ;;
+    *)  ;;
+    esac
+
+    mkdir -p $MONIT_TMPD
+
+    HOSTSCR=""
+
+    for svc in $services; do
+        case $svc in
+        RNGD)  tag=;               val=;             conf=000-rngd.conf;;
+        IPMID) tag=$ipmid_tag;     val=$ipmid_cond;  conf=001-ipmid.conf;;
+        HTTPD) tag=__HTTPS_PORT__; val=$HTTPS_Port;  conf=010-httpd.conf;;
+        SOL)   tag=__SOL_PORT__;   val=$SOL_Port;    conf=055-sol.conf;;
+        IKVM)  tag=__KVM_PORT__;   val=$KVM_Port;    conf=060-ikvmserver.conf;;
+        USB)   tag=__USB_PORT__;   val=$USB_Floppy_Port; conf=070-usb.conf;
+               HOSTSCR="s/__HOSTNAME__/$USB_HOST/";;
+        UIMA)  tag=;               val=;             conf=071-uima.conf;;
+        UISO)  tag=;               val=;             conf=072-uiso.conf;;
+        UPNPD) tag=;               val=;             conf=078-upnpd.conf;;
+        SNMPD) tag=__SNMP_PORT__;  val=$SNMP_Port;   conf=100-snmpd.conf;;
+        JTAGSVR)tag=;              val=;             conf=090-jtagsvr.conf;;
+        WEBSOCKETD)tag=;           val=;             conf=065-websocket_srv.conf;;
+        DBUS_SYSTEM)tag=;          val=;             conf=000-dbus_system.conf;;
+        RCMD)  tag=;               val=;             conf=015-rcmd.conf;;
+        RFTASKD)  tag=;            val=;             conf=020-rftaskd.conf;;
+        RFTELEMETRYD)  tag=;       val=;             conf=025-rftelemetryd.conf;;
+        BIOSOOB)tag=;              val=;             conf=030-biosoob.conf;;
+        RAIDSVC)tag=;              val=;             conf=060-raidsvc.conf;;
+        PCIE_VDM_HANDLER)tag=;     val=;             conf=101-pcie_vdm_handler.conf;;
+        MCTP_PCIE_BO)tag=;         val=;             conf=102-mctp_pcie_bo.conf;;
+        PROTOCOL_HANDLER)tag=;     val=;             conf=103-protocol_handler.conf;;
+        SMBUS_TB_HANDLER)tag=;     val=;             conf=104-smbus_tb_handler.conf;;
+        MCTP_SMBUS_BO)tag=;        val=;             conf=105-mctp_smbus_bo.conf;;
+        PLDMD)tag=;                val=;             conf=106-pldmd.conf;;
+
+        *) logger -t $LOG_TAG -p local0.info "Unsupported monit service: $svc";;
+        esac
+
+        eval enabled=\$$svc;
+        if [ -n "$enabled" ]; then
+            if [ 0 -ne $enabled ]; then
+                LOGSZ=$(get_logsz $svc)
+                if [ -z "$LOGSZ" ]; then
+                    LOGSCR="" # No log size substitutions
+                else
+                    LOGSCR="s/[0-9]\+ KB/$LOGSZ/"
+                fi
+                if [ -z "$tag" -o -z "$val" ]; then
+                    PORTSCR="" # no port substitutions
+                else
+                    PORTSCR="s/$tag/$val/"
+                fi
+                # Sed with empty "-e" expressions will just be a copy.
+                sed -e "$PORTSCR" -e "$LOGSCR" -e "$HOSTSCR" $MONIT_D/$conf > $MONIT_TMPD/$conf
+            else
+                /bin/rm -f $MONIT_TMPD/$conf
+                logger -t $svc -p local0.info "$svc is disabled in configuration - unmonitored"
+            fi
+        fi
+    done
+
+    touch $MONIT_TS
+    return 0
+}
+
+reload()
+{
+    get_config $@
+    /sbin/start-stop-daemon -K -s HUP -p /var/run/monit.pid
+}
+
+start()
+{
+    if [ $(ps | grep -c '[m]onit -c') -eq 0 ]; then
+        get_config "all"
+        logger -t "$LOG_TAG" -p local0.info "Starting monit"
+        /sbin/start-stop-daemon -S -x $DAEMON -- -c $MONIT_CFG -p $PID_FILE && return 0
+        rc=$?
+        reason="Unable to execute $DAEMON; rc: $rc"
+    else
+        reason="monit is already running"
+    fi
+    logger -t "$LOG_TAG" -p local0.info "monit initialization failed; $reason"
+    return 1
+}
+
+stop()
+{
+    logger -t "$LOG_TAG" -p local0.info "Shutting down monit"
+    for signal in 15 9; do
+        /sbin/start-stop-daemon -K -s $signal -p $PID_FILE
+        sleep 2
+        pid=$(ps | grep '[m]onit -c' | awk '{print $1}')
+        if [ -n "$pid" ]; then
+            kill -$signal $pid
+            sleep 1
+        fi
+        if [ $(ps | grep -c '[m]onit -c') -eq 0 ]; then
+            return 0
+        fi
+    done
+    logger -t "$LOG_TAG" -p local0.info "Failed to stop monit: $(ps | grep '[m]onit -c'))"
+    return 1
+}
+
+case "$1" in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+status)
+    echo "Checking monit status: "
+    ps | grep '[m]onit -c' || echo "stopped"
+    ;;
+reload)
+    if [ x"$2"x = "xx" ]; then
+        arg="all"
+    else
+        shift
+        arg="$@"
+    fi
+    reload $arg
+    ;;
+restart)
+    stop
+    start
+    ;;
+*)
+    echo "Usage: $0 {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+exit $?
+

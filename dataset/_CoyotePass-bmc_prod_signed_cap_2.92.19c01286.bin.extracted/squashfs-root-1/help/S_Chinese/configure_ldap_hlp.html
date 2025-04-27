@@ -1,0 +1,54 @@
+<html>
+  <head>
+        <title>LDAP — 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+  </head>
+  <body>
+    <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+	<div class='helpmainhead'>LDAP — 帮助</div>
+		<p>选择或者不选"LDAP认证"选项来启用或禁用LDAP。</p>
+	  <h2>LDAP认证</h2>
+		<p>选择这个选项来启用LDAP认证，然后输入需要的信息来存取LDAP服务器。</p>
+	  <h2>通过SSL来对LDAP认证</h2>
+       <p>选中该复选框通过启用LDAP SSL身份认证。</p>
+	  <h2>端口</h2>
+		<p>指定LDAP端口。</p>
+	  <h2>IP地址</h2>
+		<p>LDAP服务器的IP地址。</p>
+			<ul>
+				<li>- IP地址是由4个数字用点隔开如“xxx.xxx.xxx.xxx”。</li>
+				<li>- “xxx”范围从0到255</li>
+				<li>- 第一个“xxx”不能是0</li>
+			</ul>
+	  <h2>绑定的密码</h2>
+		<p>为LDAP服务器认证密码,密码长度必须大于4个字符。
+		</p>
+	  <h2>绑定的DN</h2>
+		<p>LDAP服务器的专有名称，比如
+		   &quot;cn=Manager, dc=my-domain, dc=com&quot;.
+		</p>
+	  <h2>搜索基址</h2>
+		<p>LDAP的搜索基址，比如
+		   &quot;dc=my-domain, dc=com&quot;.
+		</p>
+
+    <div class='helpmainhead'>配置LDAP用户组 - 帮助</div>
+        <p> 配置LDAP搜索过滤器来关联BMC网络用户权限。例如：&quot;(&(cn=BMCAdminGroup)(memberUid=%s))&quot;.</p>
+      <h2>Admin 角色过滤</h2>
+        <p>LDAP对应于Admin权限的搜索过滤器。</p>
+      <h2>Operator 角色过滤</h2>
+        <p>LDAP对应于Operator权限的搜索过滤器。</p>
+      <h2>User 角色过滤</h2>
+        <p>LDAP对应于User权限的搜索过滤器。</p>
+
+	<div class='helpactionhead'>操作</div>
+
+	<div class='actionsub'>保存</div>
+		<p>保存当前设定。</p>
+  </body>
+</html>

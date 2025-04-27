@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+    <title>RAID</title>
+    <!-- common css -->
+    <link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/basic.css" type="text/css">
+    <link rel="stylesheet" href="../css/sys_raid.css" type="text/css">
+    <link rel="stylesheet" href="../css/grid/listgrid.css" type="text/css">
+    <link rel="stylesheet" href="../css/raid_patrolread.css">
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body>
+    <span class="LoadingStyle" id="loading"></span>
+    <div id="wholepage" class="hidden">
+        <div class="redarrowDiv">
+            <img src="../images/arrow_red.gif" border="0" class="redarrow">
+            <span id="caption_div" class="title"></span>
+        </div>
+            <!-- start of volumeStep -->
+            <div id="volumeStep" class="hidden">
+                <h1 id="volumeStep_caption"></h1>
+                <form id="volumeCreateForm" action="">
+                    <div id="stepTitle"></div>
+                    <div class="tab">
+                        <div>
+                            <label id="raidlevel_desc_lbl" class="panelSubtitle">
+                            </label>
+                            <div class="vspace"></div>
+                            <div id="RAID0" class="grid-raid-level-step1 required">
+                                <div><input type="radio" id="raid0_radio" class="hidden" name="raidlevel_options" value="0"></div>
+                                <div class="g-item"><label id="raid0_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid0_desc_lbl" class="hidden"></label></div>
+                            </div>
+                            <div id="RAID1" class="grid-raid-level-step1">
+                                <div><input type="radio" id="raid1_radio" class="hidden" name="raidlevel_options" value="1"></div>
+                                <div class="g-item"><label id="raid1_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid1_desc_lbl" class="hidden"></label></div>
+                            </div>
+                            <div id="RAID5" class="grid-raid-level-step1">
+                                <div><input type="radio" id="raid5_radio" class="hidden" name="raidlevel_options" value="5"></div>
+                                <div class="g-item"><label id="raid5_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid5_desc_lbl" class="hidden"></label></div>
+                            </div>
+                            <div id="RAID6" class="grid-raid-level-step1">
+                                <div><input type="radio" id="raid6_radio" class="hidden" name="raidlevel_options" value="6"></div>
+                                <div class="g-item"><label id="raid6_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid6_desc_lbl" class="hidden"></label></div>
+                            </div>
+                            <div id="RAID10" class="grid-raid-level-step1">
+                                <div><input type="radio" id="raid10_radio" class="hidden" name="raidlevel_options" value="10"></div>
+                                <div class="g-item"><label id="raid10_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid10_desc_lbl" class="hidden"></label></div>
+                            </div>
+                            <div id="RAID50" class="grid-raid-level-step1">
+                                <div><input type="radio" id="raid50_radio" class="hidden" name="raidlevel_options" value="50"></div>
+                                <div class="g-item"><label id="raid50_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid50_desc_lbl" class="hidden"></label></div>
+                            </div>
+                            <div id="RAID60" class="grid-raid-level-step1">
+                                <div><input type="radio" id="raid60_radio" class="hidden" name="raidlevel_options" value="60"></div>
+                                <div class="g-item"><label id="raid60_lbl" class="hidden"></label></div>
+                                <div class="g-item"><label id="raid60_desc_lbl" class="hidden"></label></div>
+                            </div>
+                        </div>
+                        <div class="vspace"></div>
+                        <div>
+                            <label id="disk_member_desc_lbl" class="panelSubtitle"></label>
+                            <div class="vspace"></div>
+                            <!-- <div id="raidfreedisk_table">
+                            </div> -->
+                            <div class="list_tbl" id="raidfreedisk_table_header"></div>
+                            <div class="list_tbl" id="raidfreedisk_table"></div>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <div>
+                            <label id="set_raid_config_lbl" class="panelSubtitle">
+                            </label>
+                            <div class="grid-raid-config-step2">
+                                <div class="g-item-2 labelColor"><label id="volume_name_lbl" for="name"></label></div>
+                                <div class="g-item-2"><input id="volume_name" name="name" type="text" class="textfield" maxlength="15"></div>
+                                <div class="g-item-2 labelColor"><label id="volume_size_lbl" for="size"></label></div>
+                                <div class="g-item-2"><input id="volume_disk_size" name="size" type="text" class="textfield" maxlength="12"></div>
+                                <div class="g-item-2 labelColor"><label id="stripesize_lbl"></label></div>
+                                <div class="g-item-2"><select id="stripesize_select" class="mango_selector_left required"></select></div>
+                                <div class="g-item-2 labelColor"><label id="diskcachepolicy_lbl"></label></div>
+                                <div class="g-item-2"><select id="diskcachepolicy_select" class="mango_selector_left required"></select></div>
+                                <div class="g-item-2 labelColor"><label id="accesspolicy_lbl"></label></div>
+                                <div class="g-item-2"><select id="accesspolicy_select" class="mango_selector_left required"></select></div>
+                                <div class="g-item-2 labelColor"><label id="initstate_lbl"></label></div>
+                                <div class="g-item-2"><select id="initstate_select" class="mango_selector_left required"></select></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <div>
+                            <label id="config_summary_lbl" class="panelSubtitle">
+                            </label>
+                            <div class="grid-raid-config-step3">
+                                <div class="g-item-2 labelColor"><label id="config_volume_disk_name_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_disk_name_lbl"></label></div>
+                                <div class="g-item-2 labelColor"><label id="config_volume_disk_size_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_disk_size_lbl"></label></div>
+                                <div class="g-item-2 labelColor"><label id="config_volume_stripsize_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_stripesize_lbl"></label></div>
+                                <div class="g-item-2 labelColor"><label id="config_volume_raidlevel_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_raidlevel_lbl"></label></div>
+                                <div class="g-item-2 labelColor"><label id="config_volume_accesspolicy_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_accesspolicy_lbl"></label></div>
+                                <div class="g-item-2 labelColor"><label id="config_volume_diskcachepolicy_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_diskcachepolicy_lbl"></label></div>
+                                <div class="g-item-2 labelColor"><label id="config_volume_initstate_caption_lbl"></label></div>
+                                <div class="g-item-2"><label id="config_volume_initstate_lbl"></label></div>
+                            </div>
+                        </div>
+                        <div>
+                            <label id="config_member_volume_disk_lbl" class="panelSubtitle"></label>
+                            <div class="list_tbl" id="raiddisk_table_summary_header"></div>
+                            <div class="list_tbl" id="raiddisk_table_summary"></div>
+                        </div>
+                    </div>
+                    <div class="overflow_auto">
+                        <div class="float_right">
+                            <button type="button" id="prevBtn" class="stepbutton">Previous</button>
+                            <button type="button" id="nextBtn" class="stepbutton">Next</button>
+                            <button type="button" id="cancelBtn" class="stepbutton">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="stepindicates">
+                        <span id="step1" class="step"></span>
+                        <span id="step2" class="step"></span>
+                        <span id="step3" class="step"></span>
+                    </div>
+            </form>
+        </div> <!-- end of volumeStep -->
+        <div id="sidemenu">
+        <nav>
+        <div class="menubutton"></div>
+            <div id="div-menu">
+                <ul class="float_menu">
+                    <div class="menu">
+                        <li><a id="create_volume" href="#"><span id="submenu_create_volume"></span></a></li>
+                        <li id="patrol_read_menu"><a href="#"><span id="submenu_patrol_read"></span></a>
+                            <div class="submenu">
+                            <dl><dt><a id="patrol_read_start" href="#"><span id="submenu_patrol_read_start"></span></a>
+                                    <a id="patrol_read_stop" href="#"><span id="submenu_patrol_read_stop"></span></a>
+                                </dt></dl>
+                            </div>
+                        </li>
+                        <li id="hotspare_menu"><a href="#"><span id="submenu_hotspare"></span></a>
+                            <div class="submenu">
+                            <dl id="hotspare_dl"><dt><a id="global_hotspare" href="#"><span id="submenu_hotspare_global"></span></a>
+                                    <a id="dedicated_hotspare" href="#"><span id="submenu_hotspare_dedicated"></span></a>
+                                    <a id="remove_hotspare" href="#"><span id="submenu_hotspare_remove"></span></a></dt>
+                            </dl>
+                            </div>
+                        </li>
+                        <li id="drive_locating_menu"><a href="#"><span id="submenu_pd_locating"></span></a>
+                            <div class="submenu">
+                            <dl id="drive_locating_dl"><dt><a id="drive_locating_start" href="#"><span id="submenu_pd_locating_start"></span></a>
+                                    <a id="drive_locating_stop" href="#"><span id="submenu_pd_locating_stop"></span></a>
+                                </dt></dl>
+                            </div>
+                        </li>
+                        <li id="foreignconfig_menu"><a href="#"><span id="submenu_fc"></span></a>
+                            <div class="submenu">
+                            <dl><dt><a id="controller_scanforeignconf" href="#"><span id="submenu_fc_scan"></span></a>
+                                    <a id="controller_importforeignconf" href="#"><span id="submenu_fc_import"></span></a>
+                                    <a id="controller_clearforeignconf" href="#"><span id="submenu_fc_clear"></span></a>
+                            </dt></dl>
+                            </div>
+                        </li>
+                        <li><a id="controller_savettylog" href="#"><span id="submenu_ttylog"></span></a></li>
+                        <li><a id="volume_property_set" href="#"><span id="submenu_prop_set"></span></a></li>
+                        <li id="volume_check_consistency_menu"><a href="#"><span id="submenu_check_consistency"></span></a>
+                            <dl><dt><a id="volume_check_consistency_start" href="#"><span id="submenu_check_consistency_start"></span></a>
+                                    <a id="volume_check_consistency_stop" href="#"><span id="submenu_check_consistency_stop"></span></a>
+                                </dt></dl>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+        </div> <!-- end of sidemenu-->
+        <!-- start of Dedicated HotSpare step -->
+        <div id="DedHotSpareStep" class="hidden">
+            <h1 id="DHS_Step_caption"></h1>
+            <form id="HotSpareForm" action="">
+                <div id="dhs_stepTitle"></div>
+                <div class="dhstab">
+                    <div>
+                        <label id="vd_dedicated_hotspare_select_desc" class="panelSubtitle"></label>
+                        <div class="list_tbl" id="vd_dedicated_hotspare_select_table_header"></div>
+                        <div class="list_tbl" id="vd_dedicated_hotspare_select_table"></div>
+                    </div>
+                </div>
+                <div class="dhstab">
+                    <div>
+                        <label id="vd_dedicated_hotspare_summary_desc1" class="panelSubtitle">
+                        </label>
+                    </div>
+                    <div>
+                        <label id="vd_dedicated_hotspare_summary_desc2" class="panelSubtitle">
+                        </label>
+                    </div>
+                    <div>
+                        <label id="vd_dedicated_hotspare_summary_desc3" class="panelSubtitle">
+                        </label>
+                    </div>
+                    <div class="list_tbl" id="ph_for_dedicated_hotspare_summary_table_header"></div>
+                    <div class="list_tbl" id="ph_for_dedicated_hotspare_summary_table"></div>
+                </div>
+                <div class="overflow_auto">
+                    <div class="float_right">
+                        <button type="button" id="dhs_prevBtn" class="stepbutton"></button>
+                        <button type="button" id="dhs_nextBtn" class="stepbutton"></button>
+                        <button type="button" id="dhs_cancelBtn" class="stepbutton"></button>
+                    </div>
+                </div>
+                <div class="stepindicates">
+                    <span id="dhs_step1" class="dhs_step"></span>
+                    <span id="dhs_step2" class="dhs_step"></span>
+                </div>
+            </form>
+        </div> <!-- end of Dedicated HotSpare step -->
+        <div class="errorinfo_div">
+        </div>
+        <main class="main_info_eventslog">
+            <div id="info_area">
+                <div>
+                    <select id="_selecter" class="btnStyle">
+                    </select>
+                </div>
+                <br>
+                <fieldset class="wide group">
+                    <!--<legend id="caption_legend" class="legendcaption"></legend>-->
+                    <div id="info_div">
+                    </div>
+                </fieldset>
+            </div>
+            <div id="eventslog_zone">
+                <div class="grid-col-2" id="eventlog-panel">
+                    <div class="item-a">
+                        <select id="events_selecter" class="btnStyle">
+                        </select>
+                    </div>
+                    <div id="event_page_div" class="item-b grid-self-right">
+                        <input type="button" class="btnStyle" id="selPageUp" />
+                        <input type="button" class="btnStyle" id="selPageDown" />
+                    </div>
+                </div>
+                    <div class="list_tbl" id="EventsTable_header"></div>
+                    <div class="list_tbl" id="EventsTable"></div>
+            </div>
+        </main>
+        <!-- patrol read progress for Controller/Physical Devices-->
+        <div id="patrolread_div">
+            <h1 id="background_task_title_div"></h1>
+            <main>
+                <div id="progress_indicator_div"></div>
+            </main>
+        </div>
+        <!-- Drives/Volumes table list for Controller-->
+        <!--<h1 id="resources_title_div"></h1>-->
+        <main id="resources_zone">
+            <h3 id="pdtablecap" class="drivevolumeTitleCenter"></h3>
+            <div class="list_tbl" id="drivesTable_header"></div>
+            <div class="list_tbl" id="drivesTable"></div>
+            <!--<h3 id="ldtablecap" class="drivevolumeTitleCenter"></h3>
+            <div class="list_tbl" id="volumesTable_header"></div>
+            <div class="list_tbl" id="volumesTable"></div>-->
+        </main>
+        <main id="volumes_table_zone">
+            <h3 id="ldtablecap" class="drivevolumeTitleCenter"></h3>
+            <div class="list_tbl" id="volumesTable_header"></div>
+            <div class="list_tbl" id="volumesTable"></div>
+        </main>
+    </div>
+    <!--common javascipt library -->
+    <script language="javascript" src="../js/generalTableController.js"></script>
+    <script language="javascript" src="../js/lang_include.js"></script>
+    <script language="javascript" src="../js/utils.js"></script>
+    <script language="javascript" src="../js/sys_raid.js"></script>
+    <script language="javascript" src="../js/sys_raid_controller.js"></script>
+    <script language="javascript" src="../js/sys_raid_drives.js"></script>
+    <script language="javascript" src="../js/sys_raid_volume.js"></script>
+    <script language="javascript" src="../js/sys_raid_events.js"></script>
+    <!--<script language="javascript" src="../../js/iframe_event.js"></script>-->
+    <!-- end of javascript functions -->
+</body>
+</html>

@@ -1,0 +1,47 @@
+#!/bin/sh
+
+PROG_NAME=jtag_socket_svr
+INIT=jtagsvr
+LOG_TAG="/etc/init.d/jtagsvr"
+JTAG_MONIT_CFG=/tmp/monit.d/090-jtagsvr.conf
+
+cmd=$1
+
+rc=1
+case $cmd in
+start|restart)
+    /etc/monit/scripts/jtagsvr-init $cmd
+    rc=$?
+    if [ $rc -eq 0 ]; then
+        # process is running, tell monit to monitor
+        if [ -f $JTAG_MONIT_CFG ]; then
+            /etc/init.d/monit reload $INIT
+            usleep 1500000 # give monit time to re-read and process config
+            monit monitor $PROG_NAME 2>/dev/null
+            if [ $? -eq 0 ]; then
+                logger -t "$LOG_TAG" -p local0.info "monit is monitoring $PROG_NAME"
+            fi
+        fi
+    fi
+    ;;
+stop)
+    if [ -f $JTAG_MONIT_CFG ]; then
+        monit unmonitor $PROG_NAME 2>/dev/null
+        if [ $? -eq 0 ]; then
+            logger -t "$LOG_TAG" -p local0.info "monit has stopped monitoring $PROG_NAME"
+        fi
+    fi
+    /etc/monit/scripts/jtagsvr-init $cmd
+    rc=$?
+    ;;
+status)
+    monit status $PROG_NAME
+    rc=$?
+    ;;
+*)
+    echo "Usage: $0 start|stop|restart|status"
+    rc=2
+    ;;
+esac
+
+exit $rc

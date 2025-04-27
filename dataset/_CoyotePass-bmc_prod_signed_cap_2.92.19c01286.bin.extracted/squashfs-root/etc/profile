@@ -1,0 +1,4 @@
+#alias ifconfig="hook ifconfig"
+#alias ip="hook ip"
+alias cmd="cmdtool --pad"
+alias hook=

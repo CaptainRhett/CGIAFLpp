@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no_cache">
+    <META NAME="Insyde Software" CONTENT="(c) 2014 - Insyde Software">
+    <title></title>
+    <link rel="stylesheet" href="../dflt-css/base.css" type="text/css">
+    <link rel="stylesheet" href="../css/basic.css" type="text/css">
+    <script language="javascript" src="../js/utils.js"></script>
+    <script language="javascript" src="../js/inputvalidation.js"></script>
+    <script language="javascript" src="../../js/iframe_event.js"></script>
+    <script language="javascript" src="../js/config_alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/dummy.css">
+</head>
+<body class="content_body">
+    <span class="LoadingStyle" id="loading"></span>
+   <table border="0" cellpadding="0" cellspacing="5" class="content_table">
+        <tr><td width="20px"><img src="../images/arrow_red.gif" border="0" class="redarrow"></td>
+            <td><div id="caption_div" class="mtitle"></div></td></tr>
+        <tr><td><br></td>
+            <td><div id="kcs_segment_state" class="Categorytext"></div></td></tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <table cellspacing="0" cellpadding="0" border="0" width="500">
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="checkbox" id="_checkbox_global_filtering_enable" name="PEFGlobalEnable" />
+                            <label id="event_filtering_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="checkbox" id="_checkbox_log_event_on_filtering_enable" name="PEFLogEventEnable" />
+                            <label id="log_event_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <fieldset class="fitcontent group" class="cfgAlertFs">
+                <legend id="trigger_alert_legeng" class="legendcaption">
+                </legend>
+
+                <table cellspacing="0" cellpadding="0" border="0" width="600">
+                    <tr>
+                        <td> <input type="checkbox" id="_check_temperature" value="1" />
+                            <label id="event_temperature_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_voltage_out_of_range" value="1" />
+                            <label id="event_out_of_range_lbl" class="labelhead"></label>
+                        </td>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_fan_failure" value="1" />
+                            <label id="fan_fail_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_chassis_instrusion" value="1" />
+                            <label id="chassis_instrusion_lbl" class="labelhead"></label>
+                        </td>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_psu_failure" value="1" />
+                            <label id="psu_fail_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_memeory_error" value="1" />
+                            <label id="memory_error_lbl" class="labelhead"></label>
+                        </td>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_bios_post_error" value="1" />
+                            <label id="post_error_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_frb_failure" value="1" />
+                            <label id="frb_fail_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_nm_exception" value="1" />
+                            <label id="nm_exception_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_watchdog_timer" value="1" />
+                            <label id="watchdog_timer_lbl" class="labelhead"></label>
+                        </td>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_system_restart" value="1" />
+                            <label id="system_restart_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_hdd_failure" value="1" />
+                            <label id="hdd_fail_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_power_unit_redundancy_fail" value="1" />
+                            <label id="redundancy_fail_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_fp_auto_temp_shutdown" value="1" />
+                            <label id="temp_shutdown_lbel" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_fan_redundancy_fail" value="1" />
+                            <label id="fan_redundancy_fail_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_power_unit_status" value="1" />
+                            <label id="unit_status_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_processor_therm_trip" value="1" />
+                            <label id="therm_trip_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_processor_dimm_therm_trip" value="1" />
+                            <label id="dimm_therm_trip_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    </tr><tr>
+                        <td> <input type="checkbox" id="_check_liq_leakage_detection" value="1" />
+                            <label id="liq_leakage_detection_lbl" class="labelhead"></label>
+                        </td><td> <input type="checkbox" id="_check_liq_leakage_shutdown" value="1" />
+                            <label id="liq_leakage_shutdown_lbl" class="labelhead"></label>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2"><br/></tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="btnTray">
+                                <input type="button" class="classicBtn" id="_checkAllBtn" />
+                                <input type="button" class="classicBtn" id="_clearAllBtn" />
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr><td colspan="3"><br/></td></tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <fieldset class="fitcontent group" class="cfgAlertFs">
+                    <legend id="alert_dest1_legend" class="legendcaption">
+                    </legend>
+                    <table cellspacing="0" cellpadding="5" border="0" width="450">
+                        <tr>
+                            <td class="cfg_alert_col">
+                                <input type="radio" name="alertRadioDest1" id="_alert_dest1_snmp"/>
+                                <label id="alert_snmp_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <label id="alert_snmp_ip_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <input type="text" id="_input_alert1_snmp_address" />
+                            </td>
+                        </tr><tr>
+                            <td class="cfg_alert_col">
+                                <input type="radio" name="alertRadioDest1" id="_alert_dest1_email"/>
+                                <label id="alert_email_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <label id="alert_mail_to_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <input type="text" id="_input_alert1_email_address" maxlength="63" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr><td colspan="3"><br/></td></tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <fieldset class="fitcontent group" class="cfgAlertFs">
+                    <legend id="alert_dest2_legend" class="legendcaption">
+                    </legend>
+
+                    <table cellspacing="0" cellpadding="5" border="0" width="450">
+                        <tr>
+                            <td class="cfg_alert_col">
+                                <input type="radio" name="alertRadioDest2" id="_alert_dest2_snmp" value="abs" />
+                                <label id="alert2_snmp_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <label id="alert2_snmp_ip_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <input type="text" id="_input_alert2_snmp_address" />
+                            </td>
+                        </tr><tr>
+                            <td class="cfg_alert_col">
+                                <input type="radio" name="alertRadioDest2" id="_alert_dest2_email" value="rel" />
+                                <label id="alert2_email_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <label id="alert2_mail_to_lbl" class="labelhead">
+                                </label>
+                            </td>
+                            <td>
+                                <input type="text" id="_input_alert2_email_address" maxlength="63" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="3">
+                <div class="btnTray">
+                    <input type="button" class="classicBtn" id="_saveBtn" />
+                    <input type="button" class="classicBtn" id="_sendTestAlertsBtn" />
+                </div>
+            </td>
+        </tr>
+        <tr class="snmp"><td colspan="3"><br/></td></tr>
+        <tr class="snmp">
+            <td></td>
+            <td colspan="3">
+                <fieldset class="fitcontent group">
+                    <legend id="_legend_snmp_server" class="legendcaption"></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="_check_enable_snmp_server"/>
+                                <label id="_label_enable_snmp_server" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="_check_enable_snmp_v1_v2c"/>
+                                <label id="_label_enable_snmp_v1_v2c" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_ro_comm_string" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="32" id="_input_ro_comm_str"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_rw_comm_string" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="32" id="_input_rw_comm_str"/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr class="snmp">
+            <td></td>
+            <td colspan="3">
+                <div class="btnTray">
+                    <input type="button" class="classicBtn" id="_saveSNMPBtn" />
+                </div>
+            </td>
+        </tr>
+        <tr class="snmp"><td colspan="3"><br/></td></tr>
+        <tr class="snmp">
+            <td></td>
+            <td colspan="3">
+                <fieldset class="fitcontent group">
+                    <legend id="_legend_snmp_trap" class="legendcaption"></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_version" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_version" id="_radio_snmp_trap_v1" value="0" />
+                                <label id="_label_snmp_trap_version_v1" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_version" id="_radio_snmp_trap_v2c" value="1" />
+                                <label id="_label_snmp_trap_version_v2c" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_version" id="_radio_snmp_trap_v3" value="3" />
+                                <label id="_label_snmp_trap_version_v3" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_comm_string" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="18" id="_input_snmp_trap_comm_str" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_network_channel" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <label id="_lanChannel" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_username" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="text" maxlength="10" id="_input_snmp_trap_username" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_auth_proto" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_auth_proto" id="_radio_snmp_trap_auth_proto_md5" value="1" />
+                                <label id="_label_snmp_trap_auth_proto_md5" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_auth_proto" id="_radio_snmp_trap_auth_proto_sha" value="2" />
+                                <label id="_label_snmp_trap_auth_proto_sha" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_auth_passphrase" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="password" maxlength="12" id="_input_snmp_trap_auth_passphrase" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_sec_level" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_sec_level" id="_radio_snmp_trap_sec_level_auth_no_priv" value="1" />
+                                <label id="_label_snmp_trap_sec_level_auth_no_priv" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_sec_level" id="_radio_snmp_trap_sec_level_auth_priv" value="3" />
+                                <label id="_label_snmp_trap_sec_level_auth_priv" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_priv_proto" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="radio" name="snmp_trap_priv_proto" id="_radio_snmp_trap_priv_proto_aes" value="1" />
+                                <label id="_label_snmp_trap_priv_proto_aes" class="labelhead"></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label id="_label_snmp_trap_priv_passphrase" class="labelhead"></label>
+                            </td>
+                            <td>
+                                <input type="password" maxlength="12" id="_input_snmp_trap_priv_passphrase" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr class="snmp">
+            <td></td>
+            <td colspan="3">
+                <div class="btnTray">
+                    <input type="button" class="classicBtn" id="_sendSNMPTrapBtn" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+#!/bin/sh
+# /usr/lib/sysdiag/SEL_dump - Collects BMC SEL events.
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="General System Event Log"
+TEST_COMMENT="System Event Log output and sensor list output."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Actual test starts here.
+
+# capture the processed SEL from ipmid
+SEL -a $ZIPDIR_ADVANCED/SEL >/dev/null 2>&1
+
+# dump the raw SEL from flash
+SELDEV=/dev/$(grep "\<sel\>" /proc/mtd | cut -d ':' -f 1)
+dd if=$SELDEV of=$ZIPDIR_ADVANCED/SEL.dat 2>/dev/null
+
+# Get Sensor Name list
+echo "<span class='subtitle'>- Sensor Name list</span>"
+/usr/bin/SEL -s
+echo
+
+# Get SEL in mixed format, skip first line as it is a comment
+echo "<span class='subtitle'>- System Event Log in both hexadecimal and text format</span>"
+tail -n +2 $ZIPDIR_ADVANCED/SEL.mix
+echo
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+echo "<span class='subtitle'>- <a href='SEL.hex'>System Event Log in hexadecimal format</a></span>"
+echo "<span class='subtitle'>- <a href='SEL.txt'>System Event Log in text format</a></span>"
+echo "<span class='subtitle'>- <a href='SEL.mix'>System Event Log in text format</a></span>"
+echo "<span class='subtitle'>- <a href='SEL.dat'>Raw contents of SEL</a></span>"
+
+EndHtmlSections

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Alert Email - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+      </head>
+      <body>
+          <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+          <div class='helpmainhead'>Alert Email - Help</div>
+              <p>Enter the configuration parameters for Alert Emails and click Save.</p>
+
+              <h2>SMTP Server IP</h2>
+                  <p>The IP address of the remote SMTP Mailserver that Alert email should be sent to.</p>
+                      <ul>
+                          <li>- IP Address is made of 4 numbers separated by dots as in "xxx.xxx.xxx.xxx".</li>
+                          <li>- 'xxx' ranges from 0 to 255.</li>
+                          <li>- First 'xxx' must not be 0.</li>
+                      </ul>
+
+              <h2>SMTP Server Port</h2>
+                  <p>The IP port number for which the remote SMTP Mailserver is listening.</p>
+                  <p>SMTP servers without encryption support and servers supporting STARTTLS generally listen on TCP Port 25. SMTP servers supporting SSL/TLS (SMTPS) generally listen on TCP port 465.</p>
+
+              <h2>Sender Email Address</h2>
+                  <p>The Sender address string to be put in the "From:" field of outgoing Alert emails. The string should be of the form user@host.domain.tld.</p>
+              <h2>SMTP Authentication Method</h2>
+                  <p>Use this option to select the SMTP authentication and encryption methods supported by the remote SMTP Mailserver. SMTP authentication without encryption is not supported.</p>
+                  <p>Options:</p>
+                      <ul>
+                          <li>- None - use this option if the remote SMTP Mailserver does not support authentication or does not support STARTTLS or SSL/TLS encryption methods.</li>
+                          <li>- Authentication after STARTTLS - Use this option if the remote SMTP Mailserver only supports STARTTLS encryption.</li>
+                          <li>- Authentication over TLS/SSL Session - Use this option if the remote SMTP Mailserver supports full SSL/TLS encrypted sessions (SMTPS).</li>
+                      </ul>
+              <h2>SMTP Authentication User</h2>
+                  <p>User email account on the remote SMTP mail server used for SMTP authentication. This option is not available if SMTP Authentication Method is set to None.</p>
+              <h2>SMTP Authentication Password</h2>
+                  <p>User email account password on the remote SMTP mail server used for SMTP authentication. This option is not available if SMTP Authentication Method is set to None.</p>
+
+          <div class='helpactionhead'>Actions</div>
+              <div class='actionsub'>Save</div>
+                  <p>Click the 'Save' button to save the new Alert Email configuration.</p>
+    </body>
+</html>

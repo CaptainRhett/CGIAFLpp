@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>Alerts - Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>close</a></div>
+
+        <div class='helpmainhead'>Alerts - Help</div>
+        <p>When one of the selected system events occurs, an alert is generated and sent to the configured destination(s).</p>
+
+        <h2>Globally Enable Platform Event Filtering</h2>
+        <p>Global control for enabling or disabling platform event filtering. When filtering is globally disabled through this setting, alerts will not be sent. This can be used to prevent sending alerts until you have fully specified your desired alerting policies.</p>
+        <h2>Log Event For Filter Action</h2>
+        <p>When a filter match is made, and an action is taken, an event is added to the system event log.</p>
+        <h2>Select the events that will trigger alerts</h2>
+        <p>Select one or more system events that will trigger an Alert. Clearing all events disables Alerts. These events correspond to the IPMI preconfigured Platform Event Filters.</p>
+        <h2>Alert Destinations</h2>
+        <p>Alert destinations can be one of two types:
+        <ul class='noTopBotMargin'>
+            <li>SNMP Trap (can be IPv4 or IPv6 Address)</li>
+            <li>Email (requires Alert Email to be configured)</li>
+        </ul>
+        </p>
+
+        <div class='helpactionhead'>Actions</div>
+        <div class='actionsub'>Check All</div>
+        <p>Check all events to generate Alerts.</p>
+        <div class='actionsub'>Clear All</div>
+        <p>Uncheck all events so no Alerts will be generated.</p>
+        <div class='actionsub'>Save</div>
+        <p>Click 'Save' to save any changes made.</p>
+        <div class='actionsub'>Send Test Alert</div>
+        <p>To test whether an alert will reach its destination, configure at least one destination.
+        Then click 'Send Test Alerts' to send a simple test alert to the destination(s).</p>
+
+        <h2>SNMP Server</h2>
+        <p>Provide SNMP Server option to set.</p>
+        <h2>Enable SNMP</h2>
+        <p>You could Enable/Disable SNMP.</p>
+        <h2>Enable SNMP V1 V2C</h2>
+        <p>You could Enable/Disable SNMP V1/V2C.</p>
+        <h2>Read-Only Community String</h2>
+        <p>SNMP Read-Only Community strings are used only by devices which support SNMPv1 and SNMPv2c protocol.</p>
+        <p>The maximum length is 32.</p>
+        <h2>Read-Write Community String</h2>
+        <p>SNMP Read-Write Community strings are used only by devices which support SNMPv1 and SNMPv2c protocol.</p>
+        <p>The maximum length is 32.</p>
+        <p>NOTE: SNMP Read-Only Community strings and Read-Write Community strings can't be the same value.</p>
+        <p>NOTE: Can set the configuration of SNMPv3 for each user in "Users" page.</p>
+        <div class='helpactionhead'>Actions</div>
+        <div class='actionsub'>Save</div>
+        <p>Click 'Save' to save any changes made on SNMP Server.</p>
+
+        <h2>SNMP Trap</h2>
+        <p>Provide v1/v2c/v3 protocol option to set.</p>
+        <h2>Community String</h2>
+        <p>SNMP Community strings are used only by devices which support SNMPv1 and SNMPv2c protocol.</p>
+        <p>SNMPv3 uses username/password authentication, along with an encryption key.</p>
+        <p>The maximum length is 18.</p>
+        <h2>LAN Channel</h2>
+        <p>SNMPv3 uses current acvite LAN Channel. It could be modified in "IPv4 Network/IPv6 Network" configuration webpage.</p>
+        <h2>User name</h2>
+        <p>The maximum length is 10.</p>
+        <h2>Authentication protocol</h2>
+        <p>The Authentication Protocol for SNMPv3 Trap.</p>
+        <ul>
+            <li>MD5</li>
+            <li>SHA</li>
+        </ul>
+        <h2>Authentication passphrase</h2>
+        <p>The passphrase's length needs to be set between 8 and 12.</p>
+        <h2>Security level</h2>
+        <p>The Security Level for SNMPv3 Trap.</p>
+        <ul>
+            <li>authNoPriv : Communication with authentication and without privacy.</li>
+            <li>authPriv : Communication with authentication and privacy.</li>
+        </ul>
+        <h2>Privacy protocol</h2>
+        <p>The Privacy Protocol for SNMPv3 Trap.</p>
+        <ul>
+            <li>AES</li>
+        </ul>
+        <h2>Privacy passphrase</h2>
+        <p>The passphrase's length needs to be set between 8 and 12.</p>
+        <div class='helpactionhead'>Actions</div>
+        <div class='actionsub'>Save</div>
+        <p>Click 'Save' to save any changes made on SNMP Trap.</p>
+    </body>
+</html>

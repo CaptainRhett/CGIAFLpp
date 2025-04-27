@@ -1,0 +1,63 @@
+#!/bin/sh
+
+NAME=mctp_pcie_bo
+DAEMON=/usr/bin/mctp_pcie_bo
+PID_FILE=/var/run/${NAME}.pid
+LOG_TAG=${NAME}-init
+PARMS=""
+
+start() {
+    if [ $(ps | grep -c "[m]ctp_pcie_bo$") -eq 0 ]; then
+        logger -t "$LOG_TAG" -p local0.info "Starting $NAME"
+        /sbin/start-stop-daemon -S -x $DAEMON && return 0
+        rc=$?
+        reason="Unable to execute $DAEMON; rc: $rc"
+    else
+        reason="$NAME is already running"
+    fi
+    logger -t "$LOG_TAG" -p local0.info "Failed to start $NAME: $reason"
+    return 1
+}
+
+stop() {
+    logger -t "$LOG_TAG" -p local0.info "Shutting down $NAME"
+    for signal in 15; do
+        /sbin/start-stop-daemon -K -s $signal -x $DAEMON
+        sleep 5
+        if [ $(ps | grep -c "[m]ctp_pcie_bo$") -ne 0 ]; then
+            killall -$signal $NAME
+            sleep 5
+        fi
+        if [ $(ps | grep -c "[m]ctp_pcie_bo$") -eq 0 ]; then
+            return 0
+        fi
+    done
+    logger -t "$LOG_TAG" -p local0.info "Failed to stop $NAME; $(ps | grep '[m]ctp_pcie_bo$')"
+    return 1
+}
+
+case "$1" in
+    start)
+    start
+    rc=$?
+    ;;
+    stop)
+    stop
+    rc=$?
+    ;;
+    status)
+    echo "Checking $NAME status: "
+    ps | grep "[m]ctp_pcie_bo$" || echo "stopped"
+    rc=$?
+    ;;
+    restart)
+    stop
+    start
+    rc=$?
+    ;;
+    *)
+    echo "Usage: mctp_pcie_bo {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+exit $rc

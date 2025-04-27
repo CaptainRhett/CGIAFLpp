@@ -1,0 +1,84 @@
+#! /bin/sh
+
+
+get_platform_config()
+{
+    local safe_mode=$(sed -n 's/.*safemode=\([[:alnum:]]*\).*$/\1/p' /proc/cmdline)
+    local fw_product_id=$(sed -n 's/.*fwproductid=\([[:alnum:]]*\).*$/\1/p' /proc/cmdline)
+    local has_host_ifc=1
+    local has_feature_ews=1
+    local is_reference_board=0
+    local has_nw_switch=0
+    local nw_switch_i2c_bus_num=-1
+    local nw_switch_eth_id=-1
+    local nw_switch_dedicate_port=-1
+    local xml_config_dir=/usr/share/ipmid/platform
+
+    # Note that reference boards must be added here or login won't work
+    case "${fw_product_id=}" in
+        "008d")
+            if [ "$safe_mode" = "jumper" ]; then
+                # This card is hardwired setting the Firmware Update/Safemode jumper.
+                # Override the jumper setting on this card.
+                safe_mode="off"
+            fi
+            xml_config=${xml_config_dir}/RemoteDebugAddinPCIeCard/config.xml
+            ;;
+        "008f")
+            xml_config=${xml_config_dir}/WhiteRiverGlacierJBOF/config.xml
+            ;;
+        "0091")
+            xml_config=${xml_config_dir}/WilsonCity/config.xml
+            ;;
+        "0094")
+            xml_config=${xml_config_dir}/DragonRock/config.xml
+            ;;
+        "0095")
+            xml_config=${xml_config_dir}/WalkerPass/config.xml
+            ;;
+        "0096")
+            xml_config=${xml_config_dir}/WhiteRiverGlacierJBOFR/config.xml
+            ;;
+        "0098")
+            xml_config=${xml_config_dir}/CoyotePass/config.xml
+            ;;
+        "0099")
+            xml_config=${xml_config_dir}/TennesseePass/config.xml
+            ;;
+        "00aa")
+            xml_config=${xml_config_dir}/AmericanPass/config.xml
+            ;;
+ *) xml_config=""
+            ;;
+    esac
+
+    # Determine if there is a host interface (usually the case).
+    if grep -qs 'u8DisableHostIfcs="1"' "$xml_config"; then
+        has_host_ifc=0
+    fi
+
+    if grep -qs 'u8DisableEWS="1"' "$xml_config"; then
+        has_feature_ews=0
+    fi
+
+    if grep -qs 'u8PlatformIsCRB="1"' "$xml_config"; then
+        is_reference_board=1
+    fi
+
+    if grep -qs 'u8HasNwSwitch="1"' "$xml_config"; then
+        has_nw_switch=1
+        nw_switch_i2c_bus_num=$(sed -n 's/.*u8NwSwitchI2CBusNum=\"\([[:digit:]]*\)\".*$/\1/p' "$xml_config")
+        nw_switch_eth_id=$(sed -n 's/.*u8NwSwitchEthId=\"\([[:digit:]]*\)\".*$/\1/p' "$xml_config")
+        nw_switch_dedicate_port=$(sed -n 's/.*u8NwSwitchDedicatePort=\"\([[:digit:]]*\)\".*$/\1/p' "$xml_config")
+    fi
+
+    echo "export SAFE_MODE=$safe_mode"
+    echo "export XML_CONFIG=$xml_config"
+    echo "export HAS_HOST_IFC=$has_host_ifc"
+    echo "export HAS_FEATURE_EWS=$has_feature_ews"
+    echo "export IS_REFERENCE_BOARD=$is_reference_board"
+    echo "export HAS_NW_SWITCH=$has_nw_switch"
+    echo "export NW_SWITCH_I2C_BUS_NUM=$nw_switch_i2c_bus_num"
+    echo "export NW_SWITCH_ETH_ID=$nw_switch_eth_id"
+    echo "export NW_SWITCH_BMC_PORT_ID=$nw_switch_dedicate_port"
+}

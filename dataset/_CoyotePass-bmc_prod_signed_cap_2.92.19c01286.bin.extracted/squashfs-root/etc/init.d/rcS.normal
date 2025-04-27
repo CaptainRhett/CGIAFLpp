@@ -1,0 +1,414 @@
+#! /bin/sh
+
+LOG_TAG=rcS.normal
+
+PATH=$PATH:/SMASH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
+export PATH
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib:/usr/lib:/usr/local/lib:/lib/sfcb
+export LD_LIBRARY_PATH
+
+source /etc/monit/scripts/common-funcs
+# create requried directories in /var
+mkdir -p /tmp/var/lock /tmp/var/run /tmp/var/log /tmp/var/tmp /tmp/var/cron/crontabs
+
+# create a restricted area for web firmware updates to land
+mkdir /tmp/web-fwupd
+mount -o rw,relatime,size=32M -t tmpfs tmpwebfw /tmp/web-fwupd
+
+mount -t debugfs none /sys/kernel/debug
+
+# create place for core dumps to land
+mkdir /tmp/crash
+# set up kernel to compress cores
+echo "|/usr/bin/compress-core %e %t %p" > /proc/sys/kernel/core_pattern
+echo 1 > /proc/sys/kernel/core_uses_pid
+
+# Start the watchdog daemon to keep the hw watchdog fed.
+/sbin/start-stop-daemon -S -x /sbin/watchdog -p /var/run/watchdog.pid -m \
+     --  -T 60 -t 5 /dev/watchdog
+
+# Start rngd early, monit will pick up watching later
+/sbin/start-stop-daemon -S -x /usr/sbin/rngd -p /var/run/rngd --
+
+/usr/bin/boot_progress.sh MB_RUNTM_LOADING_DRIVERS
+/sbin/insmod /bin/module/i2c-boardinfo.ko
+/sbin/insmod /bin/module/i2c-core.ko
+/sbin/insmod /bin/module/i2c-ast.ko
+/sbin/insmod /bin/module/i2c-dev.ko
+
+if [ -f /bin/module/mctp_drv.ko ]; then
+    /sbin/insmod /bin/module/mctp_drv.ko
+fi
+
+launch_nw_switch_driver() {
+    local NW_SWITCH_I2C_BUS_STATUS_FILE=/sys/devices/platform/ast-i2c.$NW_SWITCH_I2C_BUS_NUM/initialized
+    local max_retry=100
+    while [ "$(cat $NW_SWITCH_I2C_BUS_STATUS_FILE 2>/dev/null)" == "0" ]; do
+        max_retry=$((max_retry - 1))
+        [[ $max_retry -eq 0 ]] && break
+        sleep 1
+    done
+    if [ "$(cat $NW_SWITCH_I2C_BUS_STATUS_FILE 2>/dev/null)" == "0" ]; then
+        echo "timeout to launch nic driver, i2c bus is not initialized"
+    else
+        /sbin/insmod /bin/module/nic_drv.ko "nw_switch_eth_id=$NW_SWITCH_ETH_ID nw_switch_dedicate_port_id=$NW_SWITCH_BMC_PORT_ID"
+        echo "insmod nic.ko done, after retry for $((100-max_retry)) seconds"
+    fi
+}
+
+enable_gadget_drv=0
+
+logger -t "$LOG_TAG" -p local0.info "Installing Kernel modules"
+# Check if drivers are loaded
+# Load if not
+if [ $HAS_HOST_IFC -eq 1 ]; then
+    if [ -f /etc/enable_gadget_drv ]; then
+        enable_gadget_drv=1
+    fi
+    max_retry=50
+    if [ $enable_gadget_drv -eq 1 ]; then
+        USB_READY_FILE=/sys/module/ast_vhub/parameters/vhub_ready
+    else
+        USB_READY_FILE=/sys/module/ikvm_vmass/parameters/vhub_ready
+    fi
+    if [ $enable_gadget_drv -eq 1 ]; then
+        /sbin/insmod /bin/module/configfs.ko
+        /sbin/insmod /bin/module/usb-common.ko
+        /sbin/insmod /bin/module/udc-core.ko
+        /sbin/insmod /bin/module/libcomposite.ko
+        /sbin/insmod /bin/module/ast_vhub.ko
+    else
+        if [ -f /bin/module/ikvm_vmass.ko ]; then
+            /sbin/insmod /bin/module/ikvm_vmass.ko
+        fi
+    fi
+    logger -t "$LOG_TAG" -p local0.info "waiting for udc_vhub_ready"
+
+    # wait for the driver to respond that the vhub is ready
+    while [ "$(cat $USB_READY_FILE 2>/dev/null)" == "0" ]; do
+        max_retry=$((max_retry - 1))
+        [[ $max_retry -eq 0 ]] && break
+        sleep .1
+    done
+    if [ "$(cat $USB_READY_FILE 2>/dev/null)" == "0" ]; then
+        logger -t "$LOG_TAG" -p local0.info "timeout waiting for udc_vhub_ready"
+    else
+        logger -t "$LOG_TAG" -p local0.info "udc_vhub_ready"
+    fi
+
+    if [ $enable_gadget_drv -eq 1 ]; then
+        if [ -f /bin/module/usb_f_hid.ko ]; then
+            /sbin/insmod /bin/module/usb_f_hid.ko
+            /sbin/insmod /bin/module/g_hid.ko
+        fi
+        sleep 2
+        if [ -f /bin/module/f_vmass.ko ]; then
+            /sbin/insmod /bin/module/f_vmass.ko
+            /sbin/insmod /bin/module/vmass.ko
+        fi
+    else
+        if [ -f /bin/module/usb_hid.ko ]; then
+            /sbin/insmod /bin/module/usb_hid.ko
+        fi
+    fi
+
+    /sbin/insmod /bin/module/video_drv.ko
+
+    /sbin/insmod /bin/module/peci_drv.ko
+fi
+/sbin/insmod /bin/module/gpio_drv.ko
+/sbin/insmod /bin/module/pinmux_drv.ko
+/sbin/insmod /bin/module/adc_drv.ko
+/sbin/insmod /bin/module/pwm_drv.ko
+/sbin/insmod /bin/module/sram_drv.ko
+
+/usr/bin/boot_progress.sh MB_RUNTM_MOUNT_MTDS
+for fs in nv web pnv; do
+    blkdev=`getmtd -b $fs`
+    if [ 0 -eq $(grep -cE "$blkdev.*$fs" /proc/mounts) ]; then
+        if [ "$fs" = "web" ]; then
+            mnt_args=""
+        else
+            mnt_args="-t jffs2"
+        fi
+        mount $mnt_args $blkdev /$fs
+        if [ $? -ne 0 -a \( $fs = "nv" -o $fs = "pnv" \) ];then
+            logger -t "$LOG_TAG" -p local0.info "format $fs partition......"
+            chrdev=`getmtd -c $fs`
+            flash_eraseall $chrdev
+            mount $mnt_args $blkdev /$fs
+        fi
+    fi
+done
+
+# Get restore option from bootflags in kernel command line.
+bootflags="0x$(sed 's/^.*bootflags=\([0-9a-f]*\).*$/\1/' /proc/cmdline)"
+let "restore_op = $bootflags & 0x7"
+
+# Using the Aspeed unique id as a key, compute an HMAC hash.
+ASPEED_UUID_HASH=/pnv/ast_hmac
+HASH_CONST="The Aspeed Unique Identifier is at 0x1e6e2150"
+key=$(ast_id)
+computed_hmac=$(echo -n $HASH_CONST | openssl dgst -sha256 -mac HMAC -macopt "hexkey:$key" | sed 's/^.* //')
+
+# If the HMAC differs from a saved copy from a previous boot, this indicates
+# that this image was run previously on another BMC and copied to this board.
+# In this case restore defaults to prevent values we assume to be unique from
+# being propagated to copies.
+saved_hmac=$(cat $ASPEED_UUID_HASH 2>/dev/null)
+if [ "$saved_hmac" != "$computed_hmac" ]; then
+    # Save the hash to compare in future boots.
+    echo -n "$computed_hmac" > $ASPEED_UUID_HASH
+    if [ -n "$saved_hmac" ]; then
+        # saved_hmac has non-null value and doesn't match
+        logger -t "$LOG_TAG" -p local0.info "Discovered copied firmware image! Force restore defaults."
+
+        if [[ $restore_op -lt 2 ]]; then
+            # Set option to remove all files from /nv
+            restore_op=2
+        fi
+
+        # /pnv does not get removed on restore defaults. These files must go.
+        rm -f /pnv/device-guid
+        rm -f /pnv/master-mac
+    elif ! has_custom_https_cert; then
+        # Using a self-signed certificate and saved_hmac is null indicating it
+        # has not been computed in earlier boots and this is the first boot
+        # since this check has been added. In this case we force regen of cert.
+        logger -t "$LOG_TAG" -p local0.info "Forcing regeneration of self-signed certificate"
+        rm -rf /nv/CA /nv/server.pem
+    fi
+fi
+
+# Restore defaults if set in bootflags or if a copied image
+if [[ $restore_op != 0 ]]; then
+    /bin/restore-defaults $restore_op
+fi
+
+# make sure PAM config files have expected users
+exp_users='^\(oem\|admin\|operator\|user\|callback\|asdbg\):'
+exp_count=6
+pwcount=$(grep -c "$exp_users" /nv/passwd 2>/dev/null || echo 0)
+gcount=$(grep -c "$exp_users" /nv/group 2>/dev/null || echo 0)
+shcount=$(grep -c "$exp_users" /nv/shadow 2>/dev/null || echo 0)
+if [ "$pwcount" != "$exp_count" ] || [ "$gcount" != "$exp_count" ] || \
+        [ "$shcount" != "$exp_count" ]; then
+    logger -t "$LOG_TAG" -p local0.info "missing expected unix accounts; restoring now"
+    cp /usr/local/rootadd /nv/passwd
+    cp /usr/local/groupadd /nv/group
+    cp /usr/local/pwdadd /nv/shadow
+fi
+[ -f /nv/gshadow ] || touch /nv/gshadow
+chmod 640 /nv/shadow /nv/gshadow
+
+# change owner of web firmware update folder
+chown -R httpd: /tmp/web-fwupd
+
+# give non-root read access to files in /nv but prevent
+# removing or replacing files owned by root
+chmod 1775 /nv /pnv
+
+# cp syslog-ng config file and run syslog-ng
+[ -s /nv/syslog-ng.conf ] || cp -f /etc/syslog-ng.conf /nv/
+syslog-ng -f /nv/syslog-ng.conf
+
+# create place to save all SDR related files like SDR auto-config
+mkdir -p /nv/sdr
+
+# create place to save JSON for TelemetryService in redfish
+mkdir -p /nv/TelemetryService
+mkdir -p /nv/TelemetryService/c_mrd
+mkdir -p /nv/TelemetryService/mrd
+mkdir -p /nv/TelemetryService/mr
+mkdir -p /nv/TelemetryService/md
+mkdir -p /nv/TelemetryService/trigger
+
+#copy service.conf for optional services
+[ -s /nv/TelemetryService/c_mrd/PowerMetric ] || cp -f /etc/telemetry/PowerMetric /nv/TelemetryService/c_mrd
+
+[ -s /nv/TelemetryService/c_mrd/ProcessorMetric ] || cp -f /etc/telemetry/ProcessorMetric /nv/TelemetryService/c_mrd
+
+[ -s /nv/TelemetryService/c_mrd/ComputerMetric ] || cp -f /etc/telemetry/ComputerMetric /nv/TelemetryService/c_mrd
+
+[ -s /nv/TelemetryService/c_mrd/MemoryMetric ] || cp -f /etc/telemetry/MemoryMetric /nv/TelemetryService/c_mrd
+
+chown -R httpd:httpd /nv/TelemetryService
+
+# create redfish task message store
+mkdir -p /tmp/redfish/task
+chown -R httpd: /tmp/redfish
+
+# network bring-up
+# disable IPv6 DAD by default
+echo 0 >/proc/sys/net/ipv6/conf/default/accept_dad
+# disable IPv6 by default
+echo 1 >/proc/sys/net/ipv6/conf/default/disable_ipv6
+BONDING_ARGS="mode=1 fail_over_mac=1 miimon=100 downdelay=500 updelay=200"
+/sbin/insmod /bin/module/bonding.ko $BONDING_ARGS
+
+if [ $HAS_NW_SWITCH -eq 1 -a $NW_SWITCH_ETH_ID -ge 0 -a $NW_SWITCH_I2C_BUS_NUM -ge 0 ]; then
+    echo "nic_drv.ko is inserted with nw_switch_eth_id $NW_SWITCH_ETH_ID"
+    launch_nw_switch_driver &
+else
+    /sbin/insmod /bin/module/nic_drv.ko
+fi
+
+[ -f /nv/resolv.conf ] || touch /nv/resolv.conf
+
+chgrp nvwrite /nv /pnv
+
+#DDNS env [start]
+if [ -d "/usr/local/etc/ddns/tmp" ]; then
+    mkdir -p /nv/ddns
+    DDNSTMP=/usr/local/etc/ddns/tmp
+    [ -f /nv/ddns/DDNS_CONFIG ] || cp $DDNSTMP/DDNS_CONFIG /nv/ddns/
+    [ -f /nv/ddns/ddns.key ] || cp $DDNSTMP/ddns.key /nv/ddns/
+    [ -f /nv/ddns/ddns.private ] || cp $DDNSTMP/ddns.private /nv/ddns/
+fi
+[ -f /nv/bmc_hostname ] || echo "localhost" > /nv/bmc_hostname
+[ -f /nv/hostname_for_dhcp ] || touch /nv/hostname_for_dhcp
+#DDNS env [end]
+
+#UPNP START
+if [ -f /etc/IPMIdevicedesc_sample.xml ]; then
+    [ -f /nv/IPMIdevicedesc_sample.xml ] || cp /etc/IPMIdevicedesc_sample.xml /nv/
+fi
+
+#copy  enSSL.config for LDAP and AD
+[ -f /nv/enSSL.config ] || cp /etc/defaults/enSSL.config /nv/
+
+ifconfig lo up
+
+# Start dbus-daemon for dbus system bus
+# When monit starts, it will find it running and begin monitoring it.
+#/usr/bin/dbus-daemon --system
+export DBUS_SYSTEM_BUS_ADDRESS=$(/usr/bin/dbus-daemon --system --print-address)
+
+# Since ipmid start time is important, start it without monit.
+# When monit starts, it will find it running and begin monitoring it.
+/etc/monit/scripts/ipmid-init start
+
+# Load customization
+if [ $HAS_FEATURE_EWS -eq 1 ]; then
+    /etc/init.d/load-custom-web init
+fi
+
+#SNMP config
+SNMPNV=/nv/snmp/share/snmp
+SNMPDEFAULTCONF=/etc/snmpDefault.conf
+if [ -f $SNMPDEFAULTCONF ]; then
+    if [ ! -d $SNMPNV ]; then
+        mkdir -p $SNMPNV
+    fi
+    if [ ! -f $SNMPNV/snmpd.conf ]; then
+        logger -t "$LOG_TAG" -s -p user.info "snmpd.conf not exist, use default one..."
+        cp $SNMPDEFAULTCONF $SNMPNV/snmpd.conf
+    fi
+fi
+
+#_________________________________ TEMPORARY ________________________________
+#
+# This could be removed after we are sure all instances have been updated
+# atleast once with this code. But it is also not going to do any harm if left.
+#
+DROPBEAR=/nv/dropbear
+if [ -f $DROPBEAR/dropbear_dss_host_key ]; then
+    if [ $(grep "ssh-rsa" $DROPBEAR/* | wc -l) -gt 1 ]; then
+        # Earlier version created all keys as RSA. Remove these bad files.
+        logger -t "$LOG_TAG" -p local0.info "Removing invalid SSH Keys..."
+        rm -rf $DROPBEAR
+    fi
+fi
+#_______________________________ END TEMPORARY ______________________________
+# check SSH host keys
+ssh-check-keys &
+
+#copy port.conf for network services port get/set
+[ -s /nv/port.conf ] || cp -f /etc/port.conf /nv/
+
+#copy kvm.inf for kvm default setting
+[ -s /nv/kvm.inf ] || cp -f /etc/kvm.inf /nv/
+
+#copy MouseMode for mouse mode default setting
+[ -s /nv/MouseMode ] || cp -f /etc/MouseMode /nv/
+
+#copy service.conf for optional services
+[ -s /nv/service.conf ] || cp -f /etc/service.conf /nv/
+
+#copy mctp_config.xml for MCTP settings
+[ -s /nv/mctp_config.xml ] || cp -f /etc/mctp_config.xml /nv/
+
+# Generate key pair for Web ISO if there is no key.
+VMPrivatePem=/nv/CA/VM/vm-private.pem
+VMPublicPem=/nv/vm-public.pem
+if [ ! -f $VMPrivatePem ]; then
+    mkdir -p /nv/CA/VM/
+    openssl genrsa -out $VMPrivatePem 2048
+fi
+
+if [ ! -f $VMPublicPem ]; then
+    openssl rsa -in $VMPrivatePem -outform PEM -RSAPublicKey_out -out $VMPublicPem
+    chmod +r $VMPrivatePem
+fi
+
+#link mctp_config.xml for MCTP settings
+fwproductid=`sed 's/^.*fwproductid=\([0-9a-f]*\).*$/\1/' /proc/cmdline`
+fwproductid=$(echo "$fwproductid" | tr '[:upper:]' '[:lower:]')
+config_name=mctp_config_${fwproductid}.xml
+if [ -f "/etc/${config_name}" ]; then
+    ln -sf /etc/${config_name} /nv/mctp_config.xml
+else
+    ln -sf /etc/mctp_config.xml /nv/mctp_config.xml
+fi
+
+# Copy storelibconf.ini for RAIDService
+if [ -s /etc/storelibconf.ini ]; then
+    [ -s /nv/storelibconf.ini ] || cp -f /etc/storelibconf.ini /nv/storelibconf.ini
+fi
+
+# Copy slir3_bmc_conf.ini for RAIDService
+if [ -s /etc/slir3_bmc_conf.ini ]; then
+    [ -s /nv/slir3_bmc_conf.ini ] || cp -f /etc/slir3_bmc_conf.ini /nv/slir3_bmc_conf.ini
+fi
+
+# Copy slit_bmc_conf.ini for RAIDService
+if [ -s /etc/slit_bmc_conf.ini ]; then
+    [ -s /nv/slit_bmc_conf.ini ] || cp -f /etc/slit_bmc_conf.ini /nv/slit_bmc_conf.ini
+fi
+
+# StorageSystem.xml for RAIDService
+if [ -s /etc/StorageSystem.xml ]; then
+    cp -f /etc/StorageSystem.xml /nv/StorageSystem.xml
+fi
+
+# Start monit which will in turn start other services
+/etc/init.d/monit start
+
+# Start crond
+/usr/sbin/crond
+
+#NTP env [start]
+if [ -f /etc/ntp.conf ]; then
+    #Create a file when sync NTP in boot process
+    if [ ! -f /tmp/FIRST_SYNC_NTP ]; then
+        touch /tmp/FIRST_SYNC_NTP
+    fi
+
+    /bin/sleep 10 && /bin/ntp.sh sync &
+    /bin/ntp.sh start
+fi
+#NTP env [end]
+
+touch /tmp/datetime_sem_tmp
+
+# Remove possible /nv/redfish mockup directory.
+[ -e /nv/redfish ] && rm -rf /nv/redfish
+
+#append schedule config into crontab
+if [ -x /usr/bin/sche_run.sh ]; then
+    /usr/bin/sche_run.sh append
+fi
+
+# Remove execute bit and write for other from files in /nv
+find /nv -perm /113 -type f -exec chmod 0640 '{}' \;

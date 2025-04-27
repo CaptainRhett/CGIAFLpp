@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>BIOS/ME固件更新 - 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+        </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+        <div class='helpmainhead'>BIOS/ME固件更新 - 帮助</div>
+            <p>在本页上传需要带外更新的固件(BIOS/ME/FD)。</p>
+
+            <h2>BIOS/ME固件更新</h2>
+                <p>当前固件的版本信息将在页面中显示。可以使用文件选择和上传按钮来完成固件上传。在上传之前还需要选择当前上传的固件类型。
+                上传完成之后，固件将会临时保存BMC内部。
+                当下一次服务器重启的时候，BIOS会把当前固件挂载为虚拟USB设备，并且读取固件内容对BIOS或者ME进行升级。
+                </p>
+
+            <h2>BIOS版本</h2>
+                <p>显示当前BIOS的版本</p>
+            <h2>ME固件版本号</h2>
+                <p>显示ME固件版本信息</p>
+            <h2>PCH PFM 当前版本号</h2>
+                <p>显示PCH PFM当前版本信息</p>
+            <h2>PCH PFM 還原版本号</h2>
+                <p>显示PCH PFM還原版本信息</p>
+
+            <!--    <p class="warning">  -->
+            <p>
+            <img src='../../images/warning.png'>
+            <b>NOTE:</b>
+            当KCS模式为全部拒绝时，BIOS OOB固件更新不可用，请将KCS模式更改为受限或全部允许。
+            </p>
+
+        <div class='helpactionhead'>操作</div>
+            <div class='actionsub'>选择档案</div>
+                <p>选择要上传的固件</p>
+            <div class='actionsub'>后备</div>
+                <p>启用该选项后，当前BIOS的后备区将会被一同更新。</p>
+            <div class='actionsub'>立即重置</div>
+                <p>启用该选项后，当固件更新完成时，系统将立即重置。</p>
+            <div class='actionsub'>密码</div>
+                <p>当BIOS选项中“Enforce Password Mode”被启用后，密码输入框将会出现。 此时，用户必须在上传固件之前输入密码。</p>
+            <div class='actionsub'>上传</div>
+                <p>上传固件文件</p>
+    </body>
+</html>

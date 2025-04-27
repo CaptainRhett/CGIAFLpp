@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <title>网络ISO - 帮助</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css' />
+    <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/help.js"></script>
+</head>
+
+<body>
+    <div class='closeX'><a id='closeHelp' href='#' class='closeBtn'>关闭</a></div>
+    <div class='helpmainhead'>网络ISO - 帮助</div>
+    <p id="p1">此页面允许您使用SMB或者NFS协议的网络ISO, IMA, IMG文件，它允许您通过Windows共享或Linux Samba或Linux NFS共享光盘文件。此映像将作为USB设备模拟到主机。</p>
+    <h2 id="h1">设备</h2>
+    <p id="p2">显示虚拟机状态。</p>
+    <h2 id="h2">共享图像信息</h2>
+    <p id="p11">共享型态:Samba (CIFS)或 NFS</p>
+    <p id="p3">共享主机:[共享主机IP地址]</p>
+    <p id="p4">图像路径:[带路径的图像名称]</p>
+    <p id="p5">用户:[用户名](SMB需要)</p>
+    <p id="p6">密码:[用户密码](SMB需要)</p>
+    <div class='helpactionhead'>动作</div>
+    <div id="div1" class='actionsub'>刷新状态</div>
+    <p id="p7">单击以获取所有虚拟机状态。</p>
+    <div  id="div2" class='actionsub'>保存</div>
+    <p id="p8">单击\"保存\"按钮以保存共享图像信息。</p>
+    <div id="div3" class='actionsub'>挂载</div>
+    <p id="p9">单击\"挂载\"按钮以挂载共享映像。</p>
+    <div id="div4" class='actionsub'>卸载</div>
+    <p id="p10">如果已安装设备，您可以单击\"卸载\"按钮以卸载</p>
+</body>
+<!-- <script>
+var gSysLang = parent.lang;
+$(function() {
+    $('#close').text(gSysLang.getStr("COMMON_CLOSE"));
+    $('title').text(gSysLang.getStr("VM_CDROM"));
+    $('.helpmainhead').text(gSysLang.getStr("VM_CDROM"));
+    $('.helpactionhead').text(gSysLang.getStr("COMMON_ACTIONS"));
+    $('#p1').text(gSysLang.getStr("VM_CDROM_P1"));
+    $('#p2').text(gSysLang.getStr("VM_CDROM_P2"));
+    $('#p3').text(gSysLang.getStr("VM_CDROM_P3"));
+    $('#p4').text(gSysLang.getStr("VM_CDROM_P4"));
+    $('#p5').text(gSysLang.getStr("VM_CDROM_P5"));
+    $('#p6').text(gSysLang.getStr("VM_CDROM_P6"));
+    $('#p7').text(gSysLang.getStr("VM_CDROM_P7"));
+    $('#p8').text(gSysLang.getStr("VM_CDROM_P8"));
+    $('#p9').text(gSysLang.getStr("VM_CDROM_P9"));
+    $('#p10').text(gSysLang.getStr("VM_CDROM_P10"));
+    $('#h1').text(gSysLang.getStr("VM_CDROM_H1"));
+    $('#h2').text(gSysLang.getStr("VM_CDROM_H2"));
+    $('#div1').text(gSysLang.getStr("VM_CDROM_DIV1"));
+    $('#div2').text(gSysLang.getStr("VM_CDROM_DIV2"));
+    $('#div3').text(gSysLang.getStr("VM_CDROM_DIV3"));
+    $('#div4').text(gSysLang.getStr("VM_CDROM_DIV4"));
+});
+</script> -->
+</html>

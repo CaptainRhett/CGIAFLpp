@@ -1,0 +1,104 @@
+#!/bin/sh
+
+# Copyright 2016-2017 Intel Corporation.
+# The source code, information and material ("Material") contained herein is
+# owned by Intel Corporation or its suppliers or licensors, and title to such
+# Material remains with Intel Corporation or its suppliers or licensors. The
+# Material contains proprietary information of Intel or its suppliers and
+# licensors. The Material is protected by worldwide copyright laws and treaty
+# provisions. No part of the Material may be used, copied, reproduced,
+# modified, published, uploaded, posted, transmitted, distributed or disclosed
+# in any way without Intel's prior express written permission. No license under
+# any patent, copyright or other intellectual property rights in the Material
+# is granted to or conferred upon you, either expressly, by implication,
+# inducement, estoppel or otherwise. Any license under such intellectual
+# property rights must be express and approved by Intel in writing.
+
+NAME=sol
+PORTNUM=`cat /nv/port.conf | grep SOL | cut -d= -f2`
+EXEC=/usr/sbin/dropbear
+PID_FILE=/var/run/sol.pid
+PARMS="-p $PORTNUM -I 600 -S /usr/bin/sol -P $PID_FILE -w"
+LOG_TAG="${NAME}-init"
+LOGEXEC=/etc/monit/scripts/log-exec.sh
+SOL_LOG=/var/log/${NAME}.log
+LOG_CFG=/nv/daemon-log.cfg
+SOL_LOG_EN=0
+
+if [ -f $LOG_CFG ]; then
+    SOL_LOG_EN=$(grep -c "^SOL_LOG_EN=1" $LOG_CFG)
+fi
+
+is_running() {
+    ps | grep -cE '.*[d]ropbear.*\-S /usr/bin/sol|-[s]ol'
+}
+
+start_sol() {
+    ssh-check-keys
+
+    ENABLED=$(sed -n 's/SOL=\([0|1]\).*$/\1/p' /nv/service.conf)
+    if [ $ENABLED -eq 0 ]; then
+        monit unmonitor sol
+        logger -t $LOG_TAG -p local0.info "SOL is disabled in /nv/service.conf - unmonitoring $EXEC"
+        return 1
+    fi
+
+    if [ $(is_running) -eq 0 ]; then
+        logger -t "$LOG_TAG" -p local0.info "Starting BMC Service SOL"
+        if [ $SOL_LOG_EN -eq 1 ]; then
+            /sbin/start-stop-daemon -S -p $PID_FILE -x $LOGEXEC -- -l $SOL_LOG -e $EXEC -- $PARMS && return 0
+        else
+            /sbin/start-stop-daemon -S -p $PID_FILE -x $EXEC -- $PARMS && return 0
+        fi
+        rc=$?
+        reason="Unable to execute SOL ($EXEC); rc: $rc"
+    else
+        reason="SOL ($EXEC) is already running"
+    fi
+    logger -t "$LOG_TAG" -p local0.info "Failed to start SOL daemon; $reason"
+    return 1
+}
+
+stop_sol() {
+    if [ $(is_running) -eq 0 ]; then
+        echo "SOL Already stopped"
+    else
+        logger -t "$LOG_TAG" -p local0.info "Shutting down BMC Service SOL"
+        for signal in 15 9; do
+            /sbin/start-stop-daemon -K -s $signal -p $PID_FILE
+            killall -signal sol > /dev/null 2>&1     
+            sleep 1
+            if [ $(is_running) -ne 0 ]; then
+                for pid in $(ps | grep -E '.*[d]ropbear.*\-S /usr/bin/sol|-[s]ol' | awk '{print $1}'); do
+                    kill -$signal $pid
+                done
+                sleep 1
+            fi
+            if [ $(is_running) -eq 0 ]; then
+                logger -t "$LOG_TAG" -p local0.info "Successful shutdown of BMC Service $NAME"
+                return 0
+            fi
+        done
+        logger -t "$LOG_TAG" -p local0.info "Failed to stop SOL: $(ps | grep -E '.*[d]ropbear.*\-S /usr/bin/sol|-[s]ol')"
+    fi
+    return 1
+}
+
+case $1 in 
+start)
+    start_sol
+    ;;
+status)
+    echo "Checking SOL status: "
+    ps | grep -E '.*[d]ropbear.*\-S /usr/bin/sol|-[s]ol' || echo "stopped"
+    ;;
+stop)
+    stop_sol
+    ;;
+restart)
+    stop_sol
+    start_sol
+    ;;
+*)
+    ;;
+esac

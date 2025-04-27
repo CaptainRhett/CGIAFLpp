@@ -1589,7 +1589,9 @@ int main(int argc, char **argv_orig, char **envp) {
           ? SIGKILL
           : SIGTERM);
 
-  setup_signal_handlers();
+  /* 注册信号处理函数*/
+  setup_signal_handlers(); 
+
   check_asan_opts(afl);
 
   afl->power_name = power_names[afl->schedule];
@@ -2063,7 +2065,7 @@ int main(int argc, char **argv_orig, char **envp) {
 
   atexit(at_exit);
 
-  setup_dirs_fds(afl);
+  setup_dirs_fds(afl); // 准备输出文件夹
 
   #ifdef HAVE_AFFINITY
   bind_to_free_cpu(afl);
@@ -2264,6 +2266,7 @@ int main(int argc, char **argv_orig, char **envp) {
 
   }
 
+  // 检查目标文件：检查目标文件是否存在，是否可执行
   check_binary(afl, argv[optind]);
 
   u64 prev_target_hash = 0;
@@ -2367,7 +2370,7 @@ int main(int argc, char **argv_orig, char **envp) {
 
   }
 
-  read_testcases(afl, NULL);
+  read_testcases(afl, NULL); //  将输入文件夹下的测试用例扫描到队列中
 
   pivot_inputs(afl);
 

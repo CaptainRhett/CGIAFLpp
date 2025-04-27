@@ -1,0 +1,178 @@
+#!/bin/sh
+# secure-boot
+# logs the certificates, boot partition pointer and certificate
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="Secure boot information"
+TEST_COMMENT="Contains information about the secure boot process"
+
+collect_fwproductid() {
+	case $1 in
+		header)
+			echo "FW Product ID"
+			;;
+		body)
+			dd if=/dev/mtd0 bs=4k count=1 skip=63 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_bbu() {
+	case $1 in
+		header)
+			echo "Rubix BBU Signed Image Headers"
+			;;
+		body)
+			echo "BBU - A"
+            # image A indiv signed header at 0x7e000
+			dd if=/dev/mtd0 bs=4k count=1 skip=126 2>/dev/null | safehexdump
+			echo
+            # image B indiv signed header at 0x127e000
+			echo "BBU - B"
+			dd if=/dev/mtd0 bs=4k count=1 skip=4734 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_cert_ipmi() {
+	case $1 in
+		header)
+			echo "Public key certificate"
+			;;
+		body)
+			echo "BMC root certificate"
+            cmdtool --offset --columns 16 --pad 20 20 25 0 0 0 0 10 | \
+                sed 's/^\([a-f0-9]\+\):/\1/i' | \
+                hexdump -R | dd bs=1 skip=1 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_certs_raw() {
+	case $1 in
+		header)
+			echo "Public key certificate sectors"
+			;;
+		body)
+			echo "BMC root certificates"
+			dd if=/dev/mtd0 bs=4k count=3 skip=60 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_bootptr() {
+# Ideally to find the bootptr, we would have to parse the manifest
+# and find the correct offset. ash is not the best tool for that,
+# so we use a fixed offset because it is a rare condition that would
+# cause the bootptr to move.
+	case $1 in
+		header)
+			echo "Boot PTR sector"
+			;;
+		body)
+			echo "Boot PTR sector"
+			dd if=/dev/mtd0 bs=4k count=3 skip=4256 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_bootlog() {
+# Ideally to find the bootlog, we would have to parse the manifest
+# and find the correct offset. ash is not the best tool for that,
+# so we use a fixed offset because it is a rare condition that would
+# cause the bootlog to move.
+	case $1 in
+		header)
+			echo "Boot log sector"
+			;;
+		body)
+			echo "Boot log sector"
+			dd if=/dev/mtd0 bs=4k count=3 skip=4257 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_manifest() {
+    local dev=''
+	case $1 in
+		header)
+			echo "$2 Signed Image Manifest"
+			;;
+		body)
+            case "$2" in
+                Active) 
+                    case /proc/cmdline in
+                        *activeimg=1*) dev=prifwimage ;;
+                        *)             dev=secfwimage ;;
+                    esac
+                    ;;
+                Backup)
+                    case /proc/cmdline in
+                        *activeimg=2*) dev=prifwimage ;;
+                        *)             dev=secfwimage ;;
+                    esac
+                    ;;
+            esac
+            dev=$(grep "$dev" /proc/mtd | cut -d : -f 1)
+            offset=$(grep "$dev" /proc/mtd | cut -d ' ' -f 2)
+            offset=$(echo "0x$offset 0x1000 / 1 - p" | dc)
+
+			dd if=/dev/$dev bs=4k count=1 skip=offset 2>/dev/null | safehexdump
+			;;
+	esac
+}
+
+collect_active_manifest() {
+    collect_manifest $1 Active
+}
+
+collect_backup_manifest() {
+    collect_manifest $1 Backup
+}
+
+collect_secure_boot_info() {
+	# escape out of <pre> tag so we can add our own sub header with links to each dump
+	echo "</pre>"
+	for A in $COLLECTION; do
+		F="collect_$A"
+		H="$(collect_$A header)"
+		echo "<a href='#secure_$F'>$H</a><br />"
+	done
+	for A in $COLLECTION; do
+		F="collect_$A"
+		H="$(collect_$A header)"
+		echo "<h4><a name='secure_$F'>$H</a></h4>"
+		echo "<pre>"
+		collect_$A body
+		echo "</pre>"
+	done
+	# get back to expected <pre> state
+	echo "<pre>"
+}
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+COLLECTION="fwproductid cert_ipmi"
+collect_secure_boot_info
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+# Actual test starts here.
+
+COLLECTION="cert_ipmi certs_raw bbu bootptr bootlog active_manifest backup_manifest"
+collect_secure_boot_info
+
+EndHtmlSections

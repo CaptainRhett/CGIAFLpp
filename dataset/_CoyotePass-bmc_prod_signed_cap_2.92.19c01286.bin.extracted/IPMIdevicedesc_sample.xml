@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:schemas-upnp-org:device:management:1</deviceType>
+    <friendlyName>Isnyde_%s</friendlyName>
+    <manufacturer>Insyde Software Corp.</manufacturer>
+    <manufacturerURL>http://www.insyde.com</manufacturerURL>
+    <modelDescription>IPMI Console</modelDescription>
+    <modelName>IPMI Console</modelName>
+    <modelNumber>1.0</modelNumber>
+    <modelURL>http://www.insyde.com</modelURL>
+    <serialNumber></serialNumber>
+    <UDN>uuid:Upnp-IPMI-1_0-%s</UDN>
+    <UPC></UPC>
+    <serviceList>
+    </serviceList>
+   <presentationURL>/</presentationURL>
+</device>
+</root>

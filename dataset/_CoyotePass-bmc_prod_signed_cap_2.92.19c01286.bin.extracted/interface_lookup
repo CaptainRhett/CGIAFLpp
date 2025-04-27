@@ -1,0 +1,47 @@
+#!/bin/sh
+# /usr/lib/sysdiag/interface_lookup - Script to collect networking information from the BMC.
+
+source /usr/lib/sysdiag/NORUN_common
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="BMC Network Interfaces"
+TEST_COMMENT="Networking information from the baseboard management controller. Includes ifconfig and netstat output."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# Add some HTML comments to indicate the test's public name. 
+# These will be removed in post-processing.
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+# Actual test starts here.
+echo "<span class='subtitle'>- Network Interfaces</span>"
+ifconfig -a
+echo
+echo "<span class='subtitle'>- Network Routes</span>"
+netstat -r -n
+echo
+echo "<span class='subtitle'>- Network Connections</span>"
+netstat -ln
+echo
+echo "<span class='subtitle'>- Arp Table: arp -a</span>"
+arp -a
+echo
+# somewhat redundant info, but in a different format
+echo "<span class='subtitle'>- ip address show</span>"
+ip addr show
+echo
+echo "<span class='subtitle'>- ip route show</span>"
+ip route show
+echo
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+EndHtmlSections

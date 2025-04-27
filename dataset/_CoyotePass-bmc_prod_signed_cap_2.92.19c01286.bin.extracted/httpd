@@ -1,0 +1,185 @@
+#!/bin/sh
+NAME=httpd
+CONF=/nv/lighttpd.conf
+CONF_PORT=/nv/port.conf
+SEDCMD="sed -i"
+WEBPATH=/usr/httpd
+DEFCONF=$WEBPATH/lighttpd.conf
+HTTPS_DEFPORT="443"
+PORTCONF="/nv/port.conf"
+LOG_TAG=init.d-httpd
+SSL_CIPHER_FILE=/nv/ssl_cipher.conf
+DEFAULT_SSL_CIPHER_POLICY="A"
+
+source /etc/init.d/platform-common
+source /etc/monit/scripts/common-funcs
+
+load_dflt()
+{
+    eval $(get_platform_config)
+
+    if [ $HAS_FEATURE_EWS -eq 0 ]; then
+        sed 's/#ONLY_ALLOW_REDFISH#//' $DEFCONF > $CONF
+    else
+        cp $DEFCONF $CONF
+    fi
+    $SEDCMD "s/^HTTPS Port=.*/HTTPS Port=$HTTPS_DEFPORT/g" $PORTCONF;
+    echo -n $DEFAULT_SSL_CIPHER_POLICY > $SSL_CIPHER_FILE
+    logger -t $LOG_TAG -p local0.info  "load default web configuration file.......";
+}
+
+changecipher()
+{
+    if [ -n "$1" ]; then
+    logger -t $LOG_TAG -p local0.info  "Change SSL Cipher Policy to type: $1 .............."
+    case $1 in
+    A)
+        policy="TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256"
+       ;;
+    B)
+        policy="TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256"
+       ;;
+    C)
+        policy="TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA"
+       ;;
+    D)
+        policy="TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA"
+       ;;
+    *)
+       return 128
+       ;;
+    esac
+    $SEDCMD "s/^ssl.cipher-list *=.*/ssl.cipher-list  = \""$policy"\"/g" $CONF;
+    fi
+    return 0
+}
+
+changeport()
+{
+    if [ -n "$1" ]; then
+    logger -t $LOG_TAG -p local0.info  "New web HTTP port:$1 .............."
+    #IPv4 port
+    $SEDCMD "s/^server.port *=.*/server.port = $1/g" $CONF;
+    #IPv6 port
+    $SEDCMD "s/^\$SERVER\[\"socket\"\] == \"\[::\]:[[:digit:]]*\" { *}$/\$SERVER\[\"socket\"\] == \"\[::\]:$1\" { }/g" $CONF;
+    fi
+    if [ -n "$2" ]; then
+    logger -t $LOG_TAG -p local0.info  "New web HTTPS port:$2 .............."
+    #IPv4 SSL port
+    $SEDCMD "s/^\$SERVER\[\"socket\"\] == \":[[:digit:]]*\" {$/\$SERVER\[\"socket\"\] == \":$2\" \{/g" $CONF;
+    #IPv6 SSL port
+    $SEDCMD "s/^\$SERVER\[\"socket\"\] == \"\[::\]:[[:digit:]]*\" {$/\$SERVER\[\"socket\"\] == \"\[::\]:$2\" \{/g" $CONF;
+    fi
+    return 0
+}
+
+check_conf_format()
+{
+    CHECK_BREAKAGELOG=`grep "server.breakagelog" $CONF`
+    FOUND=${#CHECK_BREAKAGELOG}
+    if [ $FOUND -lt 18 ]; then
+        rm -f $CONF
+    fi
+}
+
+check_started()
+{
+    rc=1
+    tries=$1
+    while [ $tries -gt 0 ]; do
+        let tries--;
+
+        if httpd_is_running; then
+            logger -t $LOG_TAG -p local0.info  "$NAME has started."
+            rc=0
+            break;
+        elif httpd_init_is_inprogress; then
+            logger -t $LOG_TAG -p local0.info "$NAME start is pending."
+            rc=0
+            break;
+        fi
+        logger -t $LOG_TAG -p local0.info  "$NAME: has not started!"
+        sleep 5
+    done
+    return $rc
+}
+
+cmd=$1
+do_reload=$2
+CONFIG="/tmp/monit.d/010-httpd.conf"
+rc=1
+case $cmd in 
+start|restart)
+    if [ ! -f $CONFIG ] || [ -n "$do_reload" ]; then
+        /etc/init.d/monit reload $NAME
+        usleep 5000000
+    fi
+    monitored=$(monit status $NAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit $cmd $NAME
+        rc=$?
+    fi
+    # To handle the case where monit may not be running,
+    # start without monit if not running after 15 seconds.
+    check_started 3 || /etc/monit/scripts/$NAME-init start
+    rc=$?
+    ;;
+stop)
+    monitored=$(monit status $NAME 2>/dev/null | grep -c Process)
+    if [ $monitored -ne 0 ]; then
+        monit stop $NAME
+        rc=$?
+    fi
+    if [ $rc -ne 0 -o httpd_is_running ]; then
+        /etc/monit/scripts/$NAME-init $cmd
+        rc=$?
+    fi
+    ;;
+loaddflt)
+    load_dflt
+    ;;
+chgcipher)
+    changecipher $2 || logger -t $LOG_TAG -p local0.info "change cipher fail"
+    rc=$?
+    ;;
+status)
+    monit $cmd $NAME || /etc/monit/scripts/$NAME-init $cmd
+    rc=$?
+    ;;
+chgport)
+    changeport $2  $3 || logger -t $LOG_TAG -p local0.info  "change port fail"
+    rc=$?
+    ;;
+closehttp)
+    load_dflt
+    logger -t $LOG_TAG -p local0.info  "web HTTP port disabled .............."
+    #IPv4 port
+    HTTPS=$(sed -n 's/^HTTPS Port=\(.*\).*/\1/p' $CONF_PORT)
+    $SEDCMD "s/^server.port *=.*/server.port = $HTTPS/g" $CONF;
+    $SEDCMD "/\$SERVER\[\"socket\"\] == \":[0-9]*\"/,/}/{s/^\(\$SERVER\[\"socket\"\] == \":[0-9]*\"\)/#\1/;s/}/#}/}" $CONF;
+    return 0
+    ;;
+openhttp)
+    load_dflt
+    logger -t $LOG_TAG -p local0.info  "web HTTP port enabled .............."
+    #IPv4 port
+    HTTP=$(sed -n 's/^HTTP Port=\(.*\).*/\1/p' $CONF_PORT)
+    $SEDCMD "s/^server.port *=.*/server.port = $HTTP/g" $CONF;
+    $SEDCMD "/#\$SERVER\[\"socket\"\] == \":[0-9]*\"/,/#}/{s/^#\(\$SERVER\[\"socket\"\] == \":[0-9]*\"\)/\1/;s/#}/}/}" $CONF;
+    return 0
+    ;;
+forcehttps)
+    if [[ "$2" == 0 ]]; then
+        echo "Disable force https is not supported!"
+        rc=255
+    else
+        rc=0
+    fi
+    ;;
+checkconfformat)
+    check_conf_format
+    ;;
+*)
+    ;;
+esac
+exit $rc

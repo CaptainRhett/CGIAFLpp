@@ -1,0 +1,139 @@
+# OpenSSL configuration file used for generating certificate requests.
+
+oid_section		= new_oids
+
+# Use a configuration file that has only X.509v3 extensions in its main [= default] section.
+[ new_oids ]
+
+# The default CA section
+[ ca ]
+default_ca	= CA_default
+
+# Definition of the default CA section
+[ CA_default ]
+dir           = /nv/client_certificate/CA            # Where everything is kept
+certs         = $dir/certs             # Where the issued certs are kept
+crl_dir       = $dir/crl               # Where the issued crl are kept
+database      = $dir/index.txt         # Database index file
+
+new_certs_dir = $dir/newcerts          # Default place for new certs
+
+certificate   = $dir/cacert.pem        # The CA certificate
+serial        = $dir/serial            # The current serial number
+crlnumber     = $dir/crlnumber         # The current crl number
+
+crl           = $dir/crl.pem           # The current crl (cert list)
+private_key   = $dir/private/cakey.pem # The private key
+RANDFILE      = $dir/.rand             # Private random number file
+
+x509_extensions = usr_cert             # The extentions to add to the cert
+
+name_opt      = ca_default
+cert_opt      = ca_default
+
+default_days     = 3652                # valid 10 years + 2 days to certify root CA
+default_crl_days = 30                  # valid ~30 days for certificate revoke list
+default_md       = sha256              # which hash method to use, e.g. SHA1 or MD5
+preserve         = no                  # keep passed DN ordering
+
+# A few difference way of specifying how similar the request should look
+# For the CA type, the listed attributes must be the same, and the optional
+# and supplied fields are just that
+policy = policy_match
+
+# For the CA policy
+[ policy_match ]
+countryName            = match
+stateOrProvinceName    = match
+organizationName       = match
+organizationalUnitName = optional
+commonName             = optional
+emailAddress           = optional
+
+# For the 'anything' policy. At this point in time, you must list all acceptable
+# 'object' types.
+[ policy_anything ]
+countryName            = optional
+stateOrProvinceName    = optional
+localityName           = optional
+organizationName       = optional
+organizationalUnitName = optional
+#commonName            = supplied
+commonName             = optional
+emailAddress           = optional
+
+[ req ]
+default_bits       = 2048
+default_keyfile    = privkey.pem
+distinguished_name = ca_dn
+attributes         = ca_attr
+x509_extensions    = cert_type					# The extentions to add to the self signed cert
+prompt             = no
+encrypt_key        = yes
+string_mask        = nombstr
+
+[ ca_dn ]
+countryName            = US
+stateOrProvinceName    = OR
+localityName           = Hillsboro
+0.organizationName     = Intel Corporation
+organizationalUnitName = BMC Software Team
+commonName             = Intel
+emailAddress           = bmc.engineer@intel.com
+userId                 = root
+
+[ intermediate_dn ]
+countryName            = US
+stateOrProvinceName    = OR
+localityName           = Hillsboro
+0.organizationName     = Intel Corporation
+organizationalUnitName = BMC Software Team
+commonName             = Intermediate
+emailAddress           = bmc.engineer@intel.com
+
+[ ca_attr ]
+
+[ v3_intermediate_ca ]
+# Extensions for a typical intermediate CA (`man x509v3_config`).
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:true, pathlen:0
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+[ usr_cert ]
+basicConstraints = CA:FALSE
+nsCertType = client, email
+nsComment = "OpenSSL Generated Client Certificate"
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, emailProtection
+
+[ cert_type ]
+basicConstraints=CA:TRUE
+nsCertType=server
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ v3_req ]
+basicConstraints=CA:FALSE
+keyUsage=nonRepudiation, digitalSignature, keyEncipherment
+
+[ v3_ca ]
+basicConstraints=CA:TRUE
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ crl_ext ]
+# CRL extensions.
+# Only issuerAltName and authorityKeyIdentifier make any sense in a CRL.
+# issuerAltName=issuer:copy
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ proxy_cert_ext ]
+basicConstraints=CA:FALSE
+nsComment="Certificate issued by http://bmc.insyde.com/ssl/ proxy server"
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer:always
+proxyCertInfo=critical,language:id-ppl-anyLanguage,pathlen:3,policy:foo
+

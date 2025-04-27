@@ -1,0 +1,42 @@
+#!/bin/sh
+# /usr/lib/sysdiag/ipmid_log: Collect existing ipmid.log files, and join them into a single file chronologically.
+
+source /usr/lib/sysdiag/NORUN_common
+
+LOG_LOCATION="/var/log"
+LOG_NAME="ipmid.log"
+
+# This is the user-visible name and comment. This will show up in the final product.
+TEST_NAME="ipmid Log"
+TEST_COMMENT="ipmid output for the baseboard management controller."
+
+MakeHtmlHeaders
+# Starting here, all stdout is copied to basic AND advanced log files
+exec > $OUTPUT_BASIC
+# PUT YOUR BASIC LOGGING HERE
+MakeHtmlAnchors
+
+# starting here, all stdout is logged only to the advanced log file
+cat $OUTPUT_BASIC > $OUTPUT_ADVANCED
+exec >> $OUTPUT_ADVANCED
+# PUT YOUR ADVANCED LOGGING HERE
+
+echo "<!-- TEST_NAME=$TEST_NAME -->"
+echo "<!-- TEST_COMMENT=$TEST_COMMENT -->"
+
+# Actual test starts here.
+mkdir -p "$ZIPDIR_ADVANCED/logs/current"
+
+LOGS="$(ls -Sr $LOG_LOCATION/$LOG_NAME*)"
+
+echo
+echo "<span>$LOG_NAME (last 100 lines) (<a href='logs/current/$LOG_NAME'>full log</a>)</span>"
+for L in $LOGS; do
+	[ -e $L ] || continue
+	case $L in
+		*.gz) zcat $L;;
+		*) cat $L
+	esac
+done | tee $ZIPDIR_ADVANCED/logs/current/$LOG_NAME | tail -n 100
+
+EndHtmlSections

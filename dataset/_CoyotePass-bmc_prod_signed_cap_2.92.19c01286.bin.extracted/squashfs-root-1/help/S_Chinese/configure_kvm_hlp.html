@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>KVM & Media设定 — 帮助</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+    <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/iframe_event.js"></script>
+    <script type="text/javascript" src="../../js/help.js"></script>
+  </head>
+  <body>
+    <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+    <div class='helpmainhead'>KVM & Media设定 — 帮助</div>
+        <p>使用此页面在重定向会话过程中，允许更改KVM加密的类型和端口以及Media加密的端口。</p>
+    <h2>KVM加密</h2>
+    <p>在重定向会话时，选择一种受支持的加密技术进行加密。</p>
+
+       <!--  <h2>U盘模拟模式</h2>
+            <p>两种模拟模式：</p>
+            <ul><li>软盘—模拟的USB Key将会在远程机器中作为软盘驱动被识别。</li></ul>
+            <ul><li>硬盘--- 模拟的USB Key将会在远程机器中作为硬盘或者可移除驱动被识别。</li></ul> -->
+
+    <h2>默认端口</h2>
+        <p>这部分允许设置的端口被KVM和远程媒体使用。(仅安全端口)。 不要改变这些值,除非你知道新的端口未使用。</p>
+    <div class='helpactionhead'>操作</div>
+    <div class='actionsub'>保存</div>
+        <p>点击保存来使用选好的模式。</p>
+
+    <div class='helpmainhead'>鼠标模式设定 — 帮助</div>
+        <p>从本地窗口远程控制台重定向处理鼠标模拟屏幕在下列方法之一:</p>
+            <ul>
+                <li>完全模式(Windows, Ubuntu, RHEL 6.x, SLES 12等等)</li>
+                <li>相对模式（其他的Linux OS）</li>
+                <li>单鼠标模式</li>
+            </ul>
+    <h2>完全模式</h2>
+        <p>选择完全模式来把本地鼠标的绝对位置发送到服务器。 支持首选方法
+        为Windows操作系统和新版本的Linux（Ubuntu，RHEL，SLES）使用这种模式。</p>
+    <h2>相对模式</h2>
+        <p>选择相对模式来把本地鼠标的计算的相对位置位移发送到服务器。为旧的Linux版本如Red Hat(RHEL)5. x使用这种模式。
+        为达到最佳效果,服务器和客户端操作系统的鼠标加速度/阈值设置应该匹配。或者，在JViewer中用鼠标校准选项。</p>
+    <h2>单鼠标模式</h2>
+        <p>选择单鼠标模式从本地鼠标的中心位置来计算位移发送到服务器。在这个模式下，Ctrl+6被用来在主机和客户机之间切换鼠标光标。使用这种模式在特殊环境，如SLES 11 Linux OS的安装。</p>
+
+    <div class='helpactionhead'>操作</div>
+
+    <div class='actionsub'>保存</div>
+        <p>点击保存来保存任何修改。</p>
+
+    <!-- <div class='helpmainhead'>Keyboard Macros - Help</div>
+        <p>Use this page to configure keyboard macro buttons for the Remote Console.</p>
+    <h2>Key Sequence</h2>
+        <p>
+            Sequence of key events to playback when the macro button is pushed.
+            <ul>
+                <li>'+' between keys indicates the keys should be held down together</li>
+            </ul>
+        </p>
+        <p>
+            Examples:
+            <ul>
+                <li>Ctrl+Alt+Del
+            </ul>
+        </p>
+    <h2>Button Name</h2>
+        <p>
+            The optional short name to appear on the button of the Remote Console.
+            If blank the key sequence string will be used as the name.
+        </p>
+    <h2>Keys</h2>
+        <p>
+            Key names are either a printable character such as "a", "5", "@", etc.
+            or else one of the non-printable keys in the table below.
+            Names in parentheses are aliases for the same key. Numeric keypad keys are prefixed with "NP_".
+        </p>
+        <p>
+            Note that key sequences are sent to the target as scancodes that get interpreted by the target OS,
+            so they will be affected by modifiers such as Numlock as well as the OS keyboard language setting.
+        </p>
+        <table border="1">
+            <tr><td><p>Shift (LShift)</p></td><td><p>RShift</p></td><td><p>Ctrl (LCtrl)</p></td><td><p>RCtrl</p></td></tr>
+            <tr><td><p>Alt (LAlt)</p></td><td><p>RAlt (AltGr)</p></td><td><p>Win (LWin)</p></td><td><p>RWin</p></td></tr>
+            <tr><td><p>Enter</p></td><td><p>Esc</p></td><td><p>F1 - F12</p></td><td><p></p></td></tr>
+            <tr><td><p>Bksp</p></td><td><p>Tab</p></td><td><p>CapsLk</p></td><td><p>Space</p></td></tr>
+            <tr><td><p>Ins</p></td><td><p>Del</p></td><td><p>Home</p></td><td><p>End</p></td></tr>
+            <tr><td><p>PgUp</p></td><td><p>PgDn</p></td><td><p>Context (Menu)</p></td><td><p></p></td></tr>
+            <tr><td><p>Up</p></td><td><p>Left</p></td><td><p>Down</p></td><td><p>Right</p></td></tr>
+            <tr><td><p>NumLk</p></td><td><p>NP_Div</p></td><td><p>NP_Mult</p></td><td><p>NP_Minus</p></td></tr>
+            <tr><td><p>NP_Plus</p></td><td><p>NP_0 - NP_9</p></td><td><p>NP_Dec</p></td><td><p>NP_Enter</p></td></tr>
+            <tr><td><p>PrtSc (SysRq)</p></td><td><p>ScrLk</p></td><td><p>Pause (Break)</p></td><td><p></p></td></tr>
+        </table> -->
+  </body>
+</html>

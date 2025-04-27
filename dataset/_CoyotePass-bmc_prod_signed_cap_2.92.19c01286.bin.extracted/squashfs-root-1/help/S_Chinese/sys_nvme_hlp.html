@@ -1,0 +1,41 @@
+<!-- ******************************************************************************
+*
+*                   INTEL CORPORATION PROPRIETARY INFORMATION
+*       This software is supplied under the terms of a license agreement or
+*       nondisclosure agreement with Intel Corporation and may not be copied
+*       or disclosed except in accordance with the terms of that agreement.
+*         Copyright (c) 2016-2023 Intel Corporation. All Rights Reserved.
+*
+*     Abstract:  sys_nvme_hlp.html
+*
+* Framework based on content by Insyde Software Corporation.
+*
+****************************************************************************** -->
+<html>
+  <head>
+ 	<title>NVMe信息 — 帮助</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+	<script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+  	<script type="text/javascript" src="../../js/iframe_event.js"></script>
+    <script type="text/javascript" src="../../js/help.js"></script>
+  </head>
+  <body>
+    <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+
+	<div class='helpmainhead'>NVMe信息 — 帮助</div>
+	<p>本页显示每个英特尔®公司的NVMe驱动安装到一个热插拔驱动器插槽的状态信息。
+每个组框显示中包含一个单一的NVMe驱动统计。
+每个组框通过热插拔背板（HSBP) 编号和驱动槽编号识别驱动器。
+只有五个条目能够在运行时改变状态：</p>
+        <p><b>NVMe 通电: </b>
+		显示了在NVMe驱动状态下的电流功率。只有HSBP通电情况下才能呈现这个值。</p>
+        <p><b>NVMe 功能: </b>表示NVMe驱动报告为可操作的。</p>
+        <p><b>NVMe 复位要求: </b>表示NVMe驱动是否报告一个条件要求驱动重启。</p>
+        <p><b>PCIe 链接激活: </b>表示PCIe 串并转换器链接正在被训练。</p>
+        <p><b>驱动寿命消耗: </b>提供该NVMe驱动承受的的大致损耗信息，
+		该值 <b>不</b>是一个绝对的健康指标。
+		这个值可能超过100%，而驱动器仍然被认为是健康的。</p>
+
+  </body>
+</html>

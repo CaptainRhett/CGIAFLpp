@@ -1,0 +1,54 @@
+#!/bin/sh
+# /etc/init.d/mctpstack: start MCTP
+#
+# chkconfig: 2345 10 90
+#Runlevel : S = S34
+#Runlevel : 6 = K37
+#Runlevel : 7 = K37
+#Runlevel : 8 = K37
+# Restart the service on warm reboot
+#Runlevel : 9 = K37
+#Runlevel : 9 = S34
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+MCTP_NAME="MCTPMain"
+PATHFUL_MCTPINIT="/usr/local/bin/MCTPMain"
+MCTP_EXIT_SIG="HUP"
+
+
+
+test -f /usr/local/bin/MCTPMain || exit 0
+
+
+# Options for start/restart the daemons
+#
+
+
+#
+
+
+case "$1" in
+  start)
+    echo -n "Starting MCTP Stack: MCTPMain "
+    start-stop-daemon --start --quiet --exec $PATHFUL_MCTPINIT -n $MCTP_NAME
+    echo "."
+    ;;
+  stop)
+    echo -n "Stopping MCTP Stack: MCTPMain"
+    start-stop-daemon --stop --quiet --exec $PATHFUL_MCTPINIT -n $MCTP_NAME --signal $MCTP_EXIT_SIG
+    echo "."
+    ;;
+  restart)
+	echo -n "Restarting MCTP Stack: MCTPMain"
+	start-stop-daemon --stop --quiet --exec $PATHFUL_MCTPINIT -n $MCTP_NAME --signal $MCTP_EXIT_SIG
+    	sleep 2
+    	start-stop-daemon --start --quiet --exec $PATHFUL_MCTPINIT -n $MCTP_NAME
+    	echo "."
+    	echo -n
+    	;;
+   *)
+    echo "Usage: /etc/init.d/mctpstack {start|stop|restart}"
+    exit 1
+esac
+
+exit 0

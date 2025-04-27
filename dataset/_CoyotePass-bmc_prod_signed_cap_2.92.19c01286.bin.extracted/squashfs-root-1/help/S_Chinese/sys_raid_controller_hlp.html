@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>控制器 - 帮助</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='../../css/help/help_styles.css' rel='stylesheet' type='text/css'/>
+        <script type="text/javascript" src="../../js/flot/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/iframe_event.js"></script>
+        <script type="text/javascript" src="../../js/help.js"></script>
+    </head>
+    <body>
+        <div class='closeX'><a id="closeHelp" href='#' class='closeBtn'>关</a></div>
+            <div class="helpmainhead">控制器 - 帮助</div>
+            <p id="desc">使用此页面查看控制器信息/实际硬盘/逻辑磁盘阵列/以及提供的功能。</p>
+            <h2 id="info">控制器信息</h2>
+            <p id="info_desc">显示存储控制器的属性。</p>
+            <p id="bbu_info_desc">如果连接了电池备份单元，则将显示电池备份单元相关信息：</p>
+            <ul>
+                <li id="bbupresent">电池备份单元-在位状态: 电池备份单元是否已连接。</li>
+                <li id="bbuname">电池备份单元-名称: 名称。</li>
+                <li id="bbutype">电池备份单元-类型: 类型。</li>
+                <li id="bbustatus">电池备份单元-状态: 状态。</li>
+                <li id="bbutemper">电池备份单元-摄氏温度: 温度（摄氏度）。</li>
+                <li id="bbuvoltage">电池备份单元-电压毫伏: 电压毫伏。</li>
+                <li id="bbuamps">电池备份单元-当前毫安: 当前毫安。</li>
+                <li id="bbuserial">电池备份单元-序号: 序列号。</li>
+                <li id="bbubattery">电池备份单元-剩余电量百分比: 剩余电池百分比。</li>
+            </ul>
+
+            <h2 id="resources">资源</h2><h2>
+            <p id="resources_desc">显示物理/逻辑硬盘驱动器列表。</p>
+            <ul>
+                <p id="resourcesPD"><b>物理设备</b>: 显示有关连接到控制卡的物理硬盘的信息。 单击执行按钮以查看更多相关信息。</p>
+                <p id="resourcesLD"><b>逻辑设备</b>: 显示有关创建的磁盘阵列组的信息。並可透過Go按扭去看更多訊息及按Del按刪除該邏輯設備。</p>
+            </ul>
+            </h2><h2 id="createvolume">创建磁盘阵列。</h2>
+            <p id="createvolume_desc">逐步创建磁盘阵列。</p>
+            <img src="../../images/warning.png">
+            <br>
+            <ul>
+                <p id="createvolume_step1_desc1" class="redNotice">在<b>步骤1"可用的Raid资源"</b>对话框，关于RAID 10/RAID 50/RAID 60的说明如下:</p>
+                <p id="createvolume_step1_desc2" class="redNotice">RAID 10/RAID 50/RAID 60所描述是该RAID级别的原理，与创建RAID 10/RAID 50/RAID 60的操作步骤是两个不同的概念。</p>
+                <p id="createvolume_step1_desc3" class="redNotice">（例如，我们提供创建RAID 10的步骤是：步骤1-&gt;选择RAID 10，步骤2-&gt;选择至少4个硬盘驱动器，步骤3-&gt;开始构建；而不是先做2组RAID 0后，再将2组RAID 0建成1组RAID 1。）</p>
+            </ul>
+
+            <div class="helpactionhead">操作</div>
+
+            <div id="volumeAction" class="actionsub">创建磁盘阵列</div>
+            <p id="volume_desc">按<b>创建磁盘阵列</b>菜单，将弹出一个对话框，引导您完成创建磁盘阵列的三个步骤。 您可以随时按<b>取消<!-- b-->离开。 如果当前没有可用于创建的物理硬盘，则将显示警报信息对话框。</b></p>
+            <ul>
+                <p id="volume_step1"><b>步驟1</b>：設置RAID級別並選擇可用的驅動器磁盤。</p>
+                <p id="volume_step2"><b>步驟2</b>：設置參數卷磁盤名稱/大小/磁帶大小/磁盤高速緩存策略/訪問策略/初始狀態。</p>
+                <p id="volume_step3"><b>步骤3</b>：确认要创建的磁盘阵列的参数值。 如果要修改，请按<b>上一步</b>按钮修改参数。</p>
+            </ul>
+
+            <div id="pd_go" class="actionsub">Go-物理设备</div>
+            <p id="pd_go_desc">单击<b>Go</b>按钮，网页将切换到”物理设备“页面，显示硬盘驱动器的完整信息。</p><div id="ld_go" class="actionsub">Go-逻辑设备</div>
+            <p id="ld_go_desc">“单击<b>Go</b>按钮，网页将切换到“逻辑设备”页面，显示此RAID驱动器的完整信息。</p><div id="ld_del" class="actionsub">Del-逻辑设备</div>
+            <p id="ld_del_desc">单击<b>Del</b>按钮，将删除此RAID驱动器。</p>
+    </body>
+</html>
