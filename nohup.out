@@ -1,0 +1,2880 @@
+=== Testing METHOD: GET | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[3446499 : 3446501 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3446499 : 3446499 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3446499 : 3446499 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=a857d6e43b96e30000xqWnO8BPq9ZY; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[3464079 : 3464081 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3464079 : 3464079 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3464079 : 3464079 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[3481639 : 3481641 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3481639 : 3481639 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3481639 : 3481639 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[3498785 : 3498788 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3498785 : 3498785 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3498785 : 3498785 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[3515967 : 3515969 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3515967 : 3515967 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3515967 : 3515967 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[3533023 : 3533027 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3533023 : 3533023 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3533023 : 3533023 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[3550985 : 3550988 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3550985 : 3550985 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3550985 : 3550985 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Active Web sessions Termination Initiated.
+[3550985 : 3550985 CRITICAL][racsessioninfo.c:203]Unable to open lock file for racsessioninfo /var/infolock
+[3550985 : 3550985 CRITICAL][racsessioninfo.c:823]Unable to acquire lock racsession info database
+
+[3550985 : 3550985 CRITICAL][racsessioninfo.c:883]error with get all records!!!
+
+[3550985 : 3550985 CRITICAL][racsessioninfo.c:1050]Error getting session record for unregistering
+
+[3550985 : 3550985 WARNING][rest.c:1079]Error while unregistering WEB session with session manager
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[3568027 : 3568029 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3568027 : 3568027 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3568027 : 3568027 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=ce8076e521719b0000J7u6m6P2gpzB; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[3585155 : 3585165 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3585155 : 3585155 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3585155 : 3585155 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=69ce36e542b4830000QSQmxnd1JCJs; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[3602334 : 3602336 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3602334 : 3602334 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3602334 : 3602334 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=c8cab6e562f79e0000inkDQhxyxZHg; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[3619466 : 3619468 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3619466 : 3619466 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3619466 : 3619466 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=eeb176e5833a8a0000Kiq7iaMeI62q; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[3636550 : 3636556 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3636550 : 3636550 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3636550 : 3636550 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=0055a6e5a57d460000tr9aPDznyMyr; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[3654236 : 3654238 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3654236 : 3654236 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3654236 : 3654236 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Content-Type: application/json
+
+{ "@odata.context": "\/redfish\/v1\/$metadata#odata.odata", "@odata.id": "\/redfish\/v1\/odata", "@odata.type": "#odata.v4_0_4.odata", "Id": "odata", "Name": "odata", "value": [ { "name": "Service", "kind": "Singleton", "url": "\/redfish\/v1" }, { "name": "Systems", "kind": "Singleton", "url": "\/redfish\/v1\/Systems" }, { "name": "Chassis", "kind": "Singleton", "url": "\/redfish\/v1\/Chassis" }, { "name": "Managers", "kind": "Singleton", "url": "\/redfish\/v1\/Managers" }, { "name": "Tasks", "kind": "Singleton", "url": "\/redfish\/v1\/TaskService" }, { "name": "AccountService", "kind": "Singleton", "url": "\/redfish\/v1\/AccountService" }, { "name": "SessionService", "kind": "Singleton", "url": "\/redfish\/v1\/SessionService" }, { "name": "EventService", "kind": "Singleton", "url": "\/redfish\/v1\/EventService" }, { "name": "JsonSchemas", "kind": "Singleton", "url": "\/redfish\/v1\/JSONSchemas" }, { "name": "Registries", "kind": "Singleton", "url": "\/redfish\/v1\/Registries" }, { "name": "Sessions", "kind": "Singleton", "url": "\/redfish\/v1\/SessionService\/Sessions" } ] }
+=== Testing METHOD: GET | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[3671144 : 3671146 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3671144 : 3671144 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3671144 : 3671144 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=e5bc56e5e604680000YWYosQYOwuRZ; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[3688259 : 3688261 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3688259 : 3688259 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3688259 : 3688259 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=903ed6e60747430000s2O8GPSva2Hs; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[3705367 : 3705369 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3705367 : 3705367 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3705367 : 3705367 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=bd2726e6288a170000XNhf2TKPre9w; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[3722406 : 3722408 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3722406 : 3722406 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3722406 : 3722406 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[3740220 : 3740222 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3740220 : 3740220 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3740220 : 3740220 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[3757185 : 3757187 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3757185 : 3757185 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3757185 : 3757185 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=33baf6e68b54810000Rq8JZwMftsy2; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[3774094 : 3774104 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3774094 : 3774094 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3774094 : 3774094 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=c78dd6e6ab968e0000eU7ft5sPmyyi; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[3791307 : 3791309 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3791307 : 3791307 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3791307 : 3791307 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[3808233 : 3808235 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3808233 : 3808233 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3808233 : 3808233 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=c9cab6e6ec1be90000DUeX7ObWWtp6; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[3825284 : 3825286 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3825284 : 3825284 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3825284 : 3825284 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 411 Length Required 
+Content-Type: application/json
+
+{ "cc": 5, "error": "Invalid Content Length received" }
+=== Testing METHOD: POST | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[3843021 : 3843023 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3843021 : 3843021 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3843021 : 3843021 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=567e16e72ea3cd0000pGoLkqvq2Xpu; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[3860082 : 3860084 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3860082 : 3860082 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3860082 : 3860082 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=aedbc6e74ee6720000Wv06z9LDj5Ni; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[3876987 : 3876989 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3876987 : 3876987 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3876987 : 3876987 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=37b226e76f287b0000EFzvnP1fsda2; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[3893893 : 3893895 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3893893 : 3893893 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3893893 : 3893893 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=f0de86e78f6a850000xwL8QZLEwRfJ; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[3910955 : 3910957 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3910955 : 3910955 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3910955 : 3910955 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[3928132 : 3928136 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3928132 : 3928132 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3928132 : 3928132 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[3945775 : 3945777 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3945775 : 3945775 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3945775 : 3945775 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[3962815 : 3962817 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3962815 : 3962815 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3962815 : 3962815 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[3979715 : 3979717 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3979715 : 3979715 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3979715 : 3979715 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[3996629 : 3996631 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[3996629 : 3996629 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[3996629 : 3996629 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[4013536 : 4013538 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4013536 : 4013536 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4013536 : 4013536 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[4030437 : 4030439 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4030437 : 4030437 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4030437 : 4030437 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[4047336 : 4047338 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4047336 : 4047336 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4047336 : 4047336 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[4064241 : 4064243 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4064241 : 4064241 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4064241 : 4064241 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[4081140 : 4081142 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4081140 : 4081140 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4081140 : 4081140 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[4098206 : 4098208 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4098206 : 4098206 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4098206 : 4098206 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[4115107 : 4115109 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4115107 : 4115107 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4115107 : 4115107 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[4133079 : 4133081 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4133079 : 4133079 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4133079 : 4133079 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[4149986 : 4149988 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4149986 : 4149986 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4149986 : 4149986 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[4166891 : 4166893 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4166891 : 4166891 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4166891 : 4166891 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[4183791 : 4183793 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[4183791 : 4183791 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[4183791 : 4183791 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[7586 : 7588 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[7586 : 7586 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[7586 : 7586 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[24494 : 24496 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[24494 : 24494 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[24494 : 24494 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[41393 : 41395 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[41393 : 41393 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[41393 : 41393 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[58293 : 58295 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[58293 : 58293 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[58293 : 58293 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=c3a1b6ea40e3b50000jR2gxtWKDC3f; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[75192 : 75194 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[75192 : 75192 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[75192 : 75192 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[92094 : 92096 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[92094 : 92094 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[92094 : 92094 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=ec8656ea8167be0000AkYcEojLHIMo; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[108995 : 108997 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[108995 : 108995 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[108995 : 108995 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[127415 : 127417 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[127415 : 127415 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[127415 : 127415 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[144323 : 144325 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[144323 : 144323 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[144323 : 144323 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[161224 : 161226 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[161224 : 161224 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[161224 : 161224 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[178124 : 178126 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[178124 : 178124 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[178124 : 178124 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[195193 : 195195 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[195193 : 195193 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[195193 : 195193 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[212093 : 212095 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[212093 : 212093 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[212093 : 212093 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=8fbbc6eb673c7d0000YUGxuCMGUTGm; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[228992 : 228994 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[228992 : 228992 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[228992 : 228992 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=12a296eb8a7e800000VJSFhfgDvVOu; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[245892 : 245894 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[245892 : 245892 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[245892 : 245892 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[262791 : 262793 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[262791 : 262791 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[262791 : 262791 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[279859 : 279861 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[279859 : 279859 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[279859 : 279859 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=114d86ebec453300002TqvCRrqAaKi; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: DELETE | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[296759 : 296761 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[296759 : 296759 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[296759 : 296759 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[313658 : 313660 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[313658 : 313658 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[313658 : 313658 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[330558 : 330560 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[330558 : 330558 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[330558 : 330558 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[347457 : 347459 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[347457 : 347457 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[347457 : 347457 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[364357 : 364359 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[364357 : 364357 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[364357 : 364357 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[381259 : 381261 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[381259 : 381259 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[381259 : 381259 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[398161 : 398163 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[398161 : 398161 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[398161 : 398161 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[415063 : 415065 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[415063 : 415063 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[415063 : 415063 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[431969 : 431971 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[431969 : 431969 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[431969 : 431969 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[448876 : 448879 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[448876 : 448876 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[448876 : 448876 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[465780 : 465782 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[465780 : 465780 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[465780 : 465780 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[482680 : 482682 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[482680 : 482680 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[482680 : 482680 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[499579 : 499581 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[499579 : 499579 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[499579 : 499579 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[516479 : 516481 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[516479 : 516479 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[516479 : 516479 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Active Web sessions Termination Initiated.
+[516479 : 516479 CRITICAL][racsessioninfo.c:203]Unable to open lock file for racsessioninfo /var/infolock
+[516479 : 516479 CRITICAL][racsessioninfo.c:823]Unable to acquire lock racsession info database
+
+[516479 : 516479 CRITICAL][racsessioninfo.c:883]error with get all records!!!
+
+[516479 : 516479 CRITICAL][racsessioninfo.c:1050]Error getting session record for unregistering
+
+[516479 : 516479 WARNING][rest.c:1079]Error while unregistering WEB session with session manager
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[533412 : 533414 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[533412 : 533412 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[533412 : 533412 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[551525 : 551527 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[551525 : 551525 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[551525 : 551525 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[568728 : 568730 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[568728 : 568728 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[568728 : 568728 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[585633 : 585635 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[585633 : 585633 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[585633 : 585633 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=3f63e6ee3befa10000mLPcnpYbdku2; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: DELETE | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[602537 : 602539 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+[602537 : 602537 CRITICAL][rest.c:1128]Terminate racsession with racid:0 key: (null)
+[602537 : 602537 CRITICAL][rest.c:1132]Destroying web session with racid:0 key: (null)
+Set-Cookie: QSESSIONID=296e36ee5c31a90000D5EH9WfExkHn; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[619622 : 619624 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+viewer count is emptyError occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=285d16ee7d74660000CJ9lm4YptP1s; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[637070 : 637072 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[654521 : 654523 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[671969 : 671971 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[689416 : 689418 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[707017 : 707019 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[725363 : 725365 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[742815 : 742817 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=19f0d6ef70559f00003zwuGNnOKewW; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[760868 : 760870 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=9104a6ef929c240000pg2lQGpC47aC; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[778322 : 778324 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=5b1a96efb5e05200004mSucDHUbmqp; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[795771 : 795773 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[813218 : 813220 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=528966effa68a20000MltOGZnZdx4k; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[830667 : 830669 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[848115 : 848117 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=615226f041f0f30000s68LyuHtvBhh; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[865562 : 865564 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=86c9b6f063351a0000tIm13hbtk5YT; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[883350 : 883352 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=e52066f0867a960000633dYV87xOvY; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[900803 : 900805 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[918253 : 918255 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[935701 : 935703 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+viewer count is emptyError occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=805676f0ef471500000vEGGUcGtkCj; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[953150 : 953152 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=1cf856f1128b3e000055sJeFkPElXe; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[970598 : 970600 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[988045 : 988047 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=c29426f156138d00002zLMGN0uARH6; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[1005502 : 1005504 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 411 Length Required 
+Content-Type: application/json
+
+{ "cc": 5, "error": "Invalid Content Length received" }
+=== Testing METHOD: POST | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[1022950 : 1022952 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=366626f19b9be60000cnIaV15Us9ho; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[1040401 : 1040403 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=c82c06f1bde0110000kdkYsl4eW3UQ; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[1057849 : 1057851 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=380276f1e124390000S0fVQ6g7saQu; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[1075306 : 1075308 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[1092754 : 1092756 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[1110204 : 1110206 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[1127653 : 1127655 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[1145102 : 1145104 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[1162550 : 1162552 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[1179999 : 1180001 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[1197453 : 1197455 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[1214901 : 1214903 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[1232353 : 1232355 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[1249801 : 1249803 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[1267250 : 1267252 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[1284699 : 1284706 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[1302155 : 1302157 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[1319606 : 1319608 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[1337057 : 1337059 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[1354507 : 1354509 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[1371955 : 1371957 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[1389407 : 1389409 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[1406858 : 1406860 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[1424307 : 1424309 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[1441757 : 1441759 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=a00906f4d6ffdd0000ciek8vlQQh3D; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[1459205 : 1459207 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[1476656 : 1476658 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=11bd96f51c88300000slPZzobWGYrY; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[1494107 : 1494109 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[1511556 : 1511558 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[1529005 : 1529007 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[1546456 : 1546459 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[1563907 : 1563909 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+=================================================================
+[0;91m==1563907==ERROR: QEMU-AddressSanitizer: attempting free on address which was not malloc()-ed: 0x004f15f0 in thread T1563909[0m
+    #0 0x3f8b8fe0 in syscall (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcdfe0)
+    #1 0x3ffc5178 in __libqasan_free /home/wuhuang/fuzz/CGIAFLpp/qemu_mode/libqasan/malloc.c:258
+    #2 0x3ffc4236 in free /home/wuhuang/fuzz/CGIAFLpp/qemu_mode/libqasan/hooks.c:199
+    #3 0x3f8b8c54 in __vsyslog_chk (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcdc54)
+    #4 0x3f8cab50 in pthread_exit (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfb50)
+    #5 0x3f8be060 in __send (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xd3060)
+    #6 0x3f8cabe8 in pthread_exit (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfbe8)
+    #7 0x3f8be044 in __send (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xd3044)
+    #8 0x3f8b8d2c in __vsyslog_chk (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcdd2c)
+    #9 0x3f8cab50 in pthread_exit (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfb50)
+    #10 0x3f8bdd70 in connect (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xd2d70)
+    #11 0x3f8cabe8 in pthread_exit (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfbe8)
+    #12 0x3f8bdd54 in connect (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xd2d54)
+    #13 0x3f8b874c in closelog (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcd74c)
+    #14 0x3f800b1c in __errno_location (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x15b1c)
+    #15 0x3f8b8734 in closelog (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcd734)
+
+[0;92m0x004f15f0 is located 0 bytes inside of 132-byte region [0x004f15f0,0x004f1674)[0m
+[0;95mallocated by thread T1563909 here:[0m
+    #0 0x3f8b8fe0 in syscall (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcdfe0)
+    #1 0x3ffc4fe8 in __libqasan_malloc /home/wuhuang/fuzz/CGIAFLpp/qemu_mode/libqasan/malloc.c:206
+    #2 0x3f85d528 in __libc_malloc (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x72528)
+    #3 0x3ffc4f78 in __libqasan_malloc /home/wuhuang/fuzz/CGIAFLpp/qemu_mode/libqasan/malloc.c:193
+    #4 0x3ffc522c in __libqasan_realloc /home/wuhuang/fuzz/CGIAFLpp/qemu_mode/libqasan/malloc.c:286
+    #5 0x3ffc4146 in realloc /home/wuhuang/fuzz/CGIAFLpp/qemu_mode/libqasan/hooks.c:122
+    #6 0x3f84bc70 in open_memstream (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x60c70)
+    #7 0x3f8b8b04 in __vsyslog_chk (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcdb04)
+    #8 0x3f800b1c in __errno_location (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x15b1c)
+    #9 0x3f827de4 in _IO_vfprintf (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x3cde4)
+    #10 0x3f8b8e0c in __vsyslog_chk (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcde0c)
+    #11 0x3fc33460 in __pthread_cleanup_pop_restore (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libpthread-2.13.so+0xe460)
+    #12 0x3f85606c in _IO_un_link (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x6b06c)
+    #13 0x3fc333d0 in __pthread_cleanup_push_defer (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libpthread-2.13.so+0xe3d0)
+    #14 0x3f846740 in fclose (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x5b740)
+    #15 0x3f87ac10 in tzset (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x8fc10)
+
+SUMMARY: QEMU-AddressSanitizer: bad-free  in syscall (/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF8480M5_BMC_1.19.53_Standard_20230508.extracted/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xcdfe0)
+==1563907==ABORTING
+./run_test.sh: line 60: 1563907 Aborted                 (core dumped) QEMU_LD_PREFIX="$CRAMFS_ROOTa" CGI_MLEAK=1 AFL_USE_QASAN=1 QASAN_MAX_CALL_STACK=16 "$AFL_TRACE" "${COMMON_ARGS[@]}" -E "REQUEST_METHOD=$method" -E "PATH_INFO=$path" "$TARGETa"
+
+=== Testing METHOD: PUT | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[1563984 : 1563986 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[1581432 : 1581434 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=01de06f5ec21780000zMXotFgUtmJO; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[1598882 : 1598884 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[1616331 : 1616333 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[1633780 : 1633782 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[1651232 : 1651234 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=cc71b6f67632200000A3ML3iUuByyP; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: DELETE | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[1668682 : 1668684 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[1686138 : 1686140 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[1703588 : 1703590 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[1721037 : 1721039 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[1738486 : 1738488 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[1755935 : 1755937 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[1773384 : 1773386 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[1790837 : 1790839 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[1808288 : 1808290 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[1825736 : 1825738 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[1843184 : 1843186 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[1860634 : 1860636 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[1878082 : 1878084 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[1895529 : 1895531 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[1912978 : 1912980 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[1930426 : 1930428 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[1947880 : 1947882 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[1965327 : 1965329 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=255e36f8e6fd0f00000CzINSKBfwfh; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: DELETE | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[1982775 : 1982778 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+Error occured hardware/chips/at24c64.c:46:read_24_eeprom():i2c_writeread_on_bus(bus, slave, (uint8_t*)&read_off, r_data, 2, r_count) ret 0xffffffff
+wxl-test====lib path: cbb ===
+wxl-test====lib path: cbb ===
+Set-Cookie: QSESSIONID=1b4c76f90841370000L3pCg1TvKX22; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[2000232 : 2000234 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=223c46f92b85680000dwA4H88Yagyc; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[2016942 : 2016944 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[2033652 : 2033654 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[2050360 : 2050362 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[2067068 : 2067070 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[2083775 : 2083777 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[2100483 : 2100485 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[2117195 : 2117197 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=763006fa114e4b0000trTILZVsY9ms; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[2133903 : 2133905 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=9d9736fa318f8f0000Q3ph2O9dgFF2; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[2150611 : 2150613 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=cf56f6fa52d0d30000Y5IMDSXNjyEu; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[2167319 : 2167321 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[2184029 : 2184031 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=257a26fa94535d0000xkMvILj3Yj54; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[2200737 : 2200739 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[2217446 : 2217448 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=cdfc86fad5d5e60000fUvPxlF7fAoT; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[2234153 : 2234155 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=e5fe96faf617290000E9KRQiGmPKNE; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[2251024 : 2251026 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=03f0a6fb1859100000ZQDNosJrEd5b; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[2267731 : 2267733 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[2284439 : 2284441 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: GET | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[2301157 : 2301159 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=5c6d86fb7a1ce50000f7HyxjsPefb2; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: GET | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[2317865 : 2317867 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=a363c6fb9a5e290000sDwHcBkThp8Y; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[2334575 : 2334577 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[2351284 : 2351286 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=34e826fbdce0b400009IBx5G7jgvmb; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[2367992 : 2367994 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 411 Length Required 
+Content-Type: application/json
+
+{ "cc": 5, "error": "Invalid Content Length received" }
+=== Testing METHOD: POST | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[2386215 : 2386217 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=f0e1e6fc1d69270000vY4PF9MDXglW; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[2403224 : 2403226 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=853ce6fc3eab98000025WpquuqYb8G; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[2419934 : 2419936 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=383b36fc5fecde0000P9LkTuF7a5Cv; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[2436642 : 2436644 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=37d436fc802e220000Sklude0kVT2m; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: POST | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[2453542 : 2453544 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[2470249 : 2470251 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[2486958 : 2486960 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[2503666 : 2503668 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[2520383 : 2520385 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[2538577 : 2538579 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[2555360 : 2555362 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[2572068 : 2572070 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[2588776 : 2588778 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[2605489 : 2605491 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[2622201 : 2622203 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[2638908 : 2638910 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: POST | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[2655615 : 2655617 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[2672323 : 2672325 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[2689034 : 2689036 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[2705741 : 2705743 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[2722451 : 2722453 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[2739159 : 2739161 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[2755868 : 2755870 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[2772575 : 2772577 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[2789282 : 2789284 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=cd2026ff2e8fa20000smYL16NliWgj; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[2805989 : 2805991 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[2822697 : 2822699 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=5c0b96ff6f12290000c2PYuzZabFva; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[2839405 : 2839407 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[2856115 : 2856117 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[2872825 : 2872827 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[2889532 : 2889534 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[2906240 : 2906242 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[2922955 : 2922957 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[2939663 : 2939665 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=3998a70053db0f0000UAA0S7XXYJSt; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: PUT | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[2956400 : 2956402 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[2973107 : 2973109 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: PUT | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[2989817 : 2989819 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/audit ===
+using ASAN_GIOVESE
+InputFile: -E
+[3006525 : 3006527 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=6241e700d6e03d0000RkKo31DE2AP2; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: DELETE | PATH_INFO: /settings/getblacklogfileexist ===
+using ASAN_GIOVESE
+InputFile: -E
+[3023237 : 3023239 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /maintenance/firmware ===
+using ASAN_GIOVESE
+InputFile: -E
+[3039948 : 3039950 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/exportauditlog ===
+using ASAN_GIOVESE
+InputFile: -E
+[3056656 : 3056658 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /raid/getctrlldinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[3073367 : 3073369 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /set/dns/registration ===
+using ASAN_GIOVESE
+InputFile: -E
+[3090078 : 3090080 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/Managers/Oem/ExportConfFile ===
+using ASAN_GIOVESE
+InputFile: -E
+[3106786 : 3106788 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /settings/log ===
+using ASAN_GIOVESE
+InputFile: -E
+[3123494 : 3123496 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /getusergroup ===
+using ASAN_GIOVESE
+InputFile: -E
+[3140205 : 3140207 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /maintenance/preserve ===
+using ASAN_GIOVESE
+InputFile: -E
+[3156912 : 3156914 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /status/adapter_fru_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[3173622 : 3173624 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /raid/ctrlinfo ===
+using ASAN_GIOVESE
+InputFile: -E
+[3190331 : 3190333 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/odata ===
+using ASAN_GIOVESE
+InputFile: -E
+[3207038 : 3207040 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /getpolicy ===
+using ASAN_GIOVESE
+InputFile: -E
+[3223746 : 3223748 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /v1/SessionService ===
+using ASAN_GIOVESE
+InputFile: -E
+[3240457 : 3240459 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /agent/hd_info ===
+using ASAN_GIOVESE
+InputFile: -E
+[3257165 : 3257167 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /ae/run ===
+using ASAN_GIOVESE
+InputFile: -E
+[3273872 : 3273874 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /exportbmcdata ===
+using ASAN_GIOVESE
+InputFile: -E
+[3290579 : 3290581 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Status: 404 Not Found 
+Content-Type: application/json
+
+{ "error": "Invalid API Call", "code": 1010 }
+=== Testing METHOD: DELETE | PATH_INFO: /logs/system ===
+using ASAN_GIOVESE
+InputFile: -E
+[3307288 : 3307290 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=bee737032277180000CyJiX9K24Hmm; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+=== Testing METHOD: DELETE | PATH_INFO: /history/record ===
+using ASAN_GIOVESE
+InputFile: -E
+[3324013 : 3324015 INFO][Info]: InspurWebMonitorTask Is Created Sucessfully!
+
+Set-Cookie: QSESSIONID=8059b70343b86d0000EvQukzl3cVjS; path=/
+Status: 401 Unauthorized 
+Content-Type: application/json
+
+{ "cc": 7, "error": "Invalid Authentication" }
+QEMU-AddressSanitizer:DEADLYSIGNAL
+=================================================================
+[0;91m==3431083==ERROR: QEMU-AddressSanitizer: TERM on unknown address 0x003302db (pc 0x3f900d44 bp 0x3f55dbb4 sp 0x3f55dba8 T3431085)[0m
+QEMU-AddressSanitizer:DEADLYSIGNAL
+=================================================================
+[0;91m==3436437==ERROR: QEMU-AddressSanitizer: TERM on unknown address 0x003302db (pc 0x3f900d44 bp 0x3f55dbb4 sp 0x3f55dba8 T3436439)[0m
+    #0 0x3f900d44 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd44)
+    #0 0x3f900d44 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd44)
+    #1 0x3f943be8 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfbe8)
+    #1 0x3f943be8 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfbe8)
+    #2 0x3f900d34 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd34)
+    #2 0x3f900d34 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd34)
+    #3 0x3f900afc in sleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cafc)
+    #3 0x3f900afc in sleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cafc)
+    #4 0x00029ca0 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21ca0)
+    #4 0x00029ca0 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21ca0)
+    #5 0x3f925d98 in __xstat (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xc1d98)
+    #5 0x3f925d98 in __xstat (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xc1d98)
+    #6 0x00029c88 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21c88)
+    #6 0x00029c88 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21c88)
+    #7 0x3f943b50 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfb50)
+    #7 0x3f943b50 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfb50)
+    #8 0x3f900d50 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd50)
+    #8 0x3f900d50 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd50)
+    #9 0x3f943be8 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfbe8)
+    #9 0x3f943be8 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfbe8)
+    #10 0x3f900d34 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd34)
+    #10 0x3f900d34 in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd34)
+    #11 0x3f900afc in sleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cafc)
+    #11 0x3f900afc in sleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cafc)
+    #12 0x00029ca0 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21ca0)
+    #12 0x00029ca0 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21ca0)
+    #13 0x3f925d98 in __xstat (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xc1d98)
+    #13 0x3f925d98 in __xstat (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xc1d98)
+    #14 0x00029c88 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21c88)
+    #14 0x00029c88 in Decode64_Safe (/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice+0x21c88)
+    #15 0x3f943b50 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfb50)
+
+QEMU-AddressSanitizer can not provide additional info.
+    #15 0x3f943b50 in pthread_exit (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0xdfb50)
+
+QEMU-AddressSanitizer can not provide additional info.
+SUMMARY: QEMU-AddressSanitizer:  in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd44)
+==3431083==ABORTING
+SUMMARY: QEMU-AddressSanitizer:  in nanosleep (/home/wuhuang/fuzz/qasan/cramfs-root/lib/arm-linux-gnueabi/libc-2.13.so+0x9cd44)
+==3436437==ABORTING

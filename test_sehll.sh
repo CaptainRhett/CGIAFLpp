@@ -1,0 +1,1 @@
+AFL_USE_QASAN=1 QEMU_LD_PREFIX=/home/wuhuang/fuzz/qasan/cramfs-root AFL_DEBUG=1 CGI_MLEAK=1 CGI_DEBUG=1 DEBUG=1 QASAN_MAX_CALL_STACK=16 afl-qemu-trace -E DEBUG=1 -E PATH_INFO=1111aa /home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_spx_restservice

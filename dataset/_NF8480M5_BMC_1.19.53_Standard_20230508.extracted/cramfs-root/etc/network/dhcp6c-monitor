@@ -1,0 +1,16 @@
+#!/bin/sh
+Deylaytime=30
+echo "Interface has gone down and start to monitor dhcp6c, timeout is: $Deylaytime"
+
+sleep $Deylaytime
+
+if [ -f  "/var/run/dhcp6c-monitor-status" ]
+then
+    rm -rf /var/run/dhcp6c-monitor-status > /dev/null
+    dhcp6.script
+    echo "dhcp6c-monitor-status timeout, Need Restart dhcp6c..."
+else
+    echo "dhcp6c-monitor-status not exist, No Need to Restart dhcp6c."
+fi
+
+exit 0

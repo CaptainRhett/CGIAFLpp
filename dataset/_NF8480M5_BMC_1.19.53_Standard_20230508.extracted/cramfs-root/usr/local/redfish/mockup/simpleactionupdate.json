@@ -1,0 +1,41 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#ActionInfo.ActionInfo",
+    "@odata.type": "#Action.v1_0_2.Action",
+    "@odata.id": "/v1/UpdateService/SimpleUpdateActioInfo",
+    "Parameters": [
+        {
+            "Name": "ImageURI",
+            "Required": true,
+            "DataType": "String"
+        },
+        {
+            "Name": "TransferProtocal",
+            "Required": true,
+            "DataType": "String",
+            "AllowableValues": [
+                        "HTTPS",
+                        "HTTP"
+            ]
+        },
+        {
+            "Name": "FlashItem",
+            "Required": true,
+            "DataType": "String",
+            "AllowableValues": [
+                        "BMC",
+                        "BIOS",
+                        "MainBoard CPLD",
+                        "HPM"
+            ]
+        },
+        {
+            "Name": "PreserveBIOSConf",
+            "Required": "When you need to upgrade the bios and keep the BIOS configuration file option is assigned a value of 1, otherwise assigned a valued of 0",
+            "DataType": "Int",
+            "AllowableValues": [
+                         1,
+                         0
+            ]
+        }
+    ]
+}

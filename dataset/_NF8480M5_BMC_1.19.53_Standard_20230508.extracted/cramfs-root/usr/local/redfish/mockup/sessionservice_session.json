@@ -1,0 +1,11 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#Session.Session",
+    "@odata.id": "/redfish/v1/SessionService/Sessions/89abd1ef7686e27c",
+    "@odata.type": "#Session.v1_0_2.Session",
+    "Id": "89abd1ef7686e27c",
+     "Name": "User Session",
+    "Oem": {
+        "UserAccount": "root",
+        "UserIP": "192.168.40.123"
+    }
+}

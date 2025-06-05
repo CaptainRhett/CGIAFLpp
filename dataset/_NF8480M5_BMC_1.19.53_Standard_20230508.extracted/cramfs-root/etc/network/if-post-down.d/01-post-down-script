@@ -1,0 +1,4 @@
+#!/bin/sh
+echo "Interface $IFACE has gone down"
+/etc/network/dhcp6c-monitor &
+exit 0

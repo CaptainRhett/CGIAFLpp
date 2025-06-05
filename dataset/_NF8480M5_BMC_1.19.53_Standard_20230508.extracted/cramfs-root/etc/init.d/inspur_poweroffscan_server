@@ -1,0 +1,67 @@
+#!/bin/sh
+# /etc/init.d/inspur_poweroffscan_server: start inspur poweroffscan server
+#
+# chkconfig: 2345 10 90
+#Runlevel : S = S33
+#Runlevel : 6 = K27
+#Runlevel : 7 = K27
+#Runlevel : 8 = K27
+# Restart the service on warm reboot
+#Runlevel : 9 = K88
+#Runlevel : 9 = S33
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+
+INSPUR_APP="/usr/local/bin/inspur_poweroffprocess_app"
+
+#INSPUR_START_SERVER="${INSPUR_APP}  --inspur-server &"
+INSPUR_STOP_SERVER="killall inspur_poweroffprocess_app"
+
+test -f ${INSPUR_APP} || exit 0
+
+
+# Options for start/restart the daemons
+#
+
+
+#
+
+
+case "$1" in
+  start)
+      echo -n "Starting inspur poweroffscan server "
+      ${INSPUR_APP} &
+#    start-stop-daemon --start --quiet --exec $PATHFUL_IPMIINIT
+    echo "."
+    ;;
+  stop)
+    echo -n "Stopping inspur poweroffscan server"
+	${INSPUR_STOP_SERVER}
+	rm -rf /var/poweroffscanpipe
+#    start-stop-daemon --stop --quiet --exec $PATHFUL_IPMIINIT
+    echo "."
+    ;;
+    reload)
+	echo -n "Reloading inspur poweroffscan server:"
+	echo "dont know what to do with reload right now"
+#	start-stop-daemon --stop --quiet --exec $PATHFUL_IPMIINIT --signal 1
+	echo "."
+	;;
+    force-reload)
+#	$0 reload
+	;;
+    restart)
+	echo -n "Restarting inspur poweroffscan server:"
+
+	${INSPUR_STOP_SERVER}
+    ${INSPUR_APP} &
+#	start-stop-daemon --stop --quiet --oknodo --exec $PATHFUL_IPMIINIT
+#	start-stop-daemon --start --quiet --exec $PATHFUL_IPMIINIT
+	echo "."
+	;;
+   *)
+    echo "Usage: /etc/init.d/inspur_poweroffscan_server {start|stop|reload|restart|force-reload}"
+    exit 1
+esac
+
+exit 0

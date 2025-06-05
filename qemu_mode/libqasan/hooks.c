@@ -27,6 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "map_macro.h"
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <execinfo.h>
 
 char *(*__lq_libc_fgets)(char *, int, FILE *);
 int (*__lq_libc_atoi)(const char *);
@@ -91,8 +92,9 @@ size_t malloc_usable_size(void *ptr) {
 void *malloc(size_t size) {
 
   void *rtv = __builtin_return_address(0);
+  uintptr_t addr = (uintptr_t)rtv;
 
-  QASAN_DEBUG("%14p: malloc(%zu)\n", rtv, size);
+  // printf("__builtin_return_address :%14p: malloc(%zu)\n", rtv, size);
   void *r = __libqasan_malloc(size);
   QASAN_DEBUG("\t\t = %p\n", r);
 

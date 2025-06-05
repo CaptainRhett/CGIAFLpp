@@ -1,0 +1,5 @@
+程序运行时间: 0.045380 秒
+[INFO]checking memory leak...
+[INFO]NO MEMORY LEAK DETECTED[INFO]
+========NOLEAK malloc info========
+========NOLEAK malloc info========

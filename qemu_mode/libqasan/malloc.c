@@ -167,6 +167,8 @@ size_t __libqasan_malloc_usable_size(void *ptr) {
 }
 
 void *__libqasan_malloc(size_t size) {
+  // void *caller = __builtin_return_address(0);
+  //   fprintf(stderr, "[QASAN] malloc called by: %p\n", caller);
 
   if (!__libqasan_malloc_initialized) {
 

@@ -1,0 +1,19 @@
+{
+	"@odata.context":"/redfish/v1/$metadata#LogEntry.LogEntry",
+	"@odata.id": "/redfish/v1/Systems/1/LogServices/Log1/Entries/1270",
+	 "@odata.type": "#LogEntry.v1_0_2.LogEntry",
+	"Id": 0,
+	"Name": "Log Entry 1270",
+	"Description": "System Event Log",
+	"Severity": "OK",
+	"Created": "2017-05-09T04:54:32+00:00",
+	"EventTimestamp": "2017-05-09T04:54:32+00:00",
+	"EntryType": "Event",
+	"EventId": "0x06000015",
+	"EventType": "Alert",
+	"Message": "RAID card1 BBU is present.",
+	"MessageId": "iBMCEvents.2.0.RAIDBBUInstallInfo",
+	"MessageArgs": [
+		"1"
+	]
+}

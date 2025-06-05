@@ -95,6 +95,10 @@ void *__libqasan_memrchr(const void *s, int c, size_t n) {
 }
 
 size_t __libqasan_strlen(const char *s) {
+  if (!s) {
+    QASAN_DEBUG("Warning: __libqasan_strlen called with NULL\n");
+    return 0;  // 或者根据你想要的语义，abort()
+  }
 
   const char *i = s;
   while (*(i++))
@@ -216,23 +220,27 @@ int __libqasan_bcmp(const void *mem1, const void *mem2, size_t len) {
 
 }
 
-char *__libqasan_strstr(const char *haystack, const char *needle) {
+char* __libqasan_strstr(const char *haystack, const char *needle) {
+  size_t needle_len;
 
-  do {
+  if (!haystack || !needle) return NULL;
+  needle_len = __libqasan_strlen(needle);
+  if (needle_len == 0) return (char *)haystack;
 
-    const char *n = needle;
-    const char *h = haystack;
+  while (*haystack != '\0') {
+    // 判断haystack剩余长度是否足够
+    if (__libqasan_strlen(haystack) < needle_len) break;
 
-    while (*n && *h && *n == *h)
-      n++, h++;
+    if (*haystack == *needle) {
+      if (__libqasan_memcmp(haystack, needle, needle_len) == 0)
+        return (char *)haystack;
+    }
+    ++haystack;
+  }
 
-    if (!*n) return (char *)haystack;
-
-  } while (*(haystack++));
-
-  return 0;
-
+  return NULL;
 }
+
 
 char *__libqasan_strcasestr(const char *haystack, const char *needle) {
 
