@@ -11,6 +11,7 @@ CRAMFS_ROOTb="/home/wuhuang/fuzz/CGIAFLpp/dataset/_NF5270M5_BMC_4.9.4_Standard_2
 
 TARGETc="/home/wuhuang/fuzz/CGIAFLpp/dataset/inspur_SA5121M5_spx_restservice"
 CRAMFS_ROOTc="/home/wuhuang/fuzz/qasan/cramfs-root"
+
 AFL_TRACE="/home/wuhuang/fuzz/CGIAFLpp/afl-qemu-trace"
 
 # 所有要测试的 PATH_INFO
